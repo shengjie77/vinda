@@ -1,7 +1,21 @@
-use std::net::ToSocketAddrs;
+mod utils;
 
-// pub mod canvas;
+use wasm_bindgen::prelude::*;
 
-pub fn say_hello() -> String {
-	"Hello".to_string()
+// When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
+// allocator.
+#[cfg(feature = "wee_alloc")]
+#[global_allocator]
+static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+
+#[wasm_bindgen]
+extern "C" {
+    fn alert(s: &str);
+}
+
+#[wasm_bindgen]
+pub fn greet() {
+    unsafe {
+        alert("Hello, vinda-core!123");
+    }
 }

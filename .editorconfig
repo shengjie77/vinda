@@ -1,3 +1,3 @@
-[*.{js,ts,html,json,rs}]
+[*.{js,ts,html,json,rs,toml}]
 indent_style = tab
-indent_size = 4
+indent_size = 2
