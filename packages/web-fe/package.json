@@ -1,0 +1,40 @@
+{
+	"name": "qpainter",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "ShengJie",
+	"license": "MIT",
+	"scripts": {
+		"dev": "parcel ./app/index.html",
+		"build": "parcel build ./app/index.html",
+		"testbed": "parcel ./app/testbed.html --port 8081",
+		"test": "jest --passWithNoTests",
+		"test-watch": "jest --watch"
+	},
+	"devDependencies": {
+		"@pixi/math": "^5.3.7",
+		"@types/faker": "^5.1.5",
+		"@types/jest": "^26.0.9",
+		"@types/jest-image-snapshot": "^4.1.3",
+		"@types/lodash": "^4.14.167",
+		"@types/puppeteer": "^5.4.2",
+		"faker": "^5.1.0",
+		"jest": "^26.2.2",
+		"jest-canvas-mock": "^2.3.0",
+		"jest-environment-jsdom-fifteen": "^1.0.2",
+		"jest-image-snapshot": "^4.3.0",
+		"jest-puppeteer": "^4.4.0",
+		"parcel": "^1.12.4",
+		"pixi.js": "^5.3.7",
+		"puppeteer": "^5.5.0",
+		"ts-jest": "^26.1.4",
+		"typescript": "^4.1.3"
+	},
+	"alias": {
+		"src": "./src"
+	},
+	"dependencies": {
+		"eventemitter3": "^4.0.7",
+		"lodash": "^4.17.20"
+	}
+}
