@@ -1,36 +1,87 @@
-import { Page } from 'src/core';
-import { MouseEventSource, MouseEventType } from 'src/system/event';
 
 main();
 
 function main() {
-	const canvas = document.getElementById('canvas') as HTMLCanvasElement
+	createContainer();
+
+	addTestBtns([
+		{
+			text: 'Line',
+			onClick: () => {
+				console.log('line');
+			},
+		},
+		{
+			text: 'Rect',
+			onClick: () => {
+				console.log('rect');
+			},
+		},
+	])
+}
+
+function createContainer() {
+	removeBodyMargin();
+
+	const container = document.createElement('div');
+	container.id = 'rootContainer';
+	container.style.height = '100vh';
+	document.body.appendChild(container);
+
+	createCanvas(container);
+}
+
+function removeBodyMargin() {
+	document.body.style.margin = '0';
+}
+
+function createCanvas(parent: HTMLElement) {
+	const canvas = document.createElement('canvas');
+	parent.appendChild(canvas);
+
 	fillScreen(canvas);
-
-	canvas.onclick = ev => console.log(ev.clientX, ev.clientY);
-
-	const page = new Page(canvas);
-	page.addLine({
-		x1: 50,
-		y1: 50,
-		x2: 100,
-		y2: 100,
-	})
-
-	page.addRect({
-		left: 200,
-		top: 200,
-		right: 300,
-		bottom: 400,
-	})
-
-	const source = new MouseEventSource(canvas);
-	source.on(MouseEventType.LeftClick, () => console.log('left click'))
 }
 
 function fillScreen(canvas: HTMLCanvasElement) {
-	canvas.style.height = '100vh';
-	const ratio = window.devicePixelRatio;
-	canvas.width = canvas.clientWidth * ratio;
-	canvas.height = canvas.clientHeight * ratio;
+	resizeCanvas();
+
+	window.onresize = () => resizeCanvas();
+
+	function resizeCanvas() {
+		const width = canvas.parentElement!.clientWidth;
+		const height = canvas.parentElement!.clientHeight;
+
+		const ratio = window.devicePixelRatio;
+		canvas.style.width = `${width}px`;
+		canvas.style.height = `${height}px`;
+
+		canvas.width = width * ratio;
+		canvas.height = height * ratio;
+	}
+}
+
+interface TestButton {
+	text: string;
+	onClick: () => void;
+}
+
+function addTestBtns(btns: TestButton[]) {
+	let x = 20;
+	const y = 20;
+	const btnWidth = 100;
+	const btnHeight = 40;
+	const spacing = 20;
+	btns.forEach((btn) => {
+		const el = document.createElement('button');
+		el.style.position = 'absolute';
+		el.style.left = `${x}px`;
+		el.style.top = `${y}px`;
+		el.style.width = `${btnWidth}px`;
+		el.style.height = `${btnHeight}px`;
+		x += (spacing + btnWidth);
+		el.textContent = btn.text;
+		el.onclick = btn.onClick;
+
+		document.body.appendChild(el);
+	})
 }
