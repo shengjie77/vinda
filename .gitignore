@@ -1,5 +1,7 @@
 /target
 Cargo.lock
 
+# js project ignore
 node_modules
 dist
+.cache
