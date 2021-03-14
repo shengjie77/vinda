@@ -1,5 +1,5 @@
 // import { greet } from 'vinda-core';
-import { greet } from 'vinda-core/vinda_core_bg.wasm';
+// import { greet } from 'vinda-core/vinda_core_bg.wasm';
 
 main();
 
@@ -11,7 +11,7 @@ function main() {
 			text: 'Line',
 			onClick: () => {
 				console.log('line');
-				greet();
+				// greet();
 			},
 		},
 		{

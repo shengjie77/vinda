@@ -32,9 +32,9 @@ function fillScreen(canvas: HTMLCanvasElement) {
 // canvas.height = canvas.clientHeight;
 // fillScreen(canvas);
 
-const ctx = canvas.getContext('2d')!;
+// const ctx = canvas.getContext('2d')!;
 
-const painter = new CanvasPainter(ctx);
+// const painter = new CanvasPainter(ctx);
 
 // draw line
 const line = Line.create({
