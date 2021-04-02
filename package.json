@@ -1,0 +1,21 @@
+{
+ "name": "vinda",
+ "version": "1.0.0",
+ "main": "index.js",
+ "repository": "https://github.com/shengjie77/vinda.git",
+ "author": "ShengJie <shengjie0202@outlook.com>",
+ "license": "MIT",
+ "scripts": {
+  "dev-app": "parcel ./src/app/app.html"
+ },
+ "dependencies": {
+  "src": "^1.1.2",
+  "typescript": "^4.2.3"
+ },
+ "devDependencies": {
+  "parcel-bundler": "^1.12.5"
+ },
+ "alias": {
+  "src": "./src"
+ }
+}
