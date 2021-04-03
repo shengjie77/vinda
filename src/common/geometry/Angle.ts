@@ -1,4 +1,4 @@
-import { Cloneable, Equalable } from 'src/common/types';
+import { isEqual, Cloneable, Equalable } from 'src/common';
 
 /**
  * 正值代表从 x 轴正向向 y 轴正向旋转,
@@ -67,11 +67,6 @@ function degreeToRadian(angle: number) {
 function radianToDegree(radian: number) {
 	const degree = (radian / Math.PI) * 180;
 	return degree;
-}
-
-function isEqual(v1: number, v2: number): boolean {
-	const precision = 0.000001;
-	return Math.abs(v1 - v2) < precision;
 }
 
 function normalizeRadian(radian: number) {
