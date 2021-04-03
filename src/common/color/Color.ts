@@ -1,6 +1,6 @@
 import { isEqual, Cloneable, Equalable } from 'src/common';
 
-import { convertValueRange, IntegerRange, FloatRange } from './ValueRange';
+import { convertValueRange, IntegerRange, FloatRange } from './ValueRange1';
 
 export class Color implements Cloneable, Equalable {
 
