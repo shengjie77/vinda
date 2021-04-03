@@ -6,3 +6,4 @@ export * from './Rect';
 export * from './Polygon';
 export * from './PathFillRule';
 export * from './Line';
+export * from './Path';
