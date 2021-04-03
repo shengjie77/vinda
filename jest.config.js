@@ -2,9 +2,11 @@
 // https://jestjs.io/docs/en/configuration.html
 
 const tsPreset = require('ts-jest/jest-preset');
+const puppeteerPreset = require('jest-puppeteer/jest-preset.json');
 
 module.exports = {
 	...tsPreset,
+	// ...puppeteerPreset,
 	// All imported modules in your tests should be mocked automatically
 	// automock: false,
 
@@ -125,17 +127,21 @@ module.exports = {
 	// runner: "jest-runner",
 
 	// The paths to modules that run some code to configure or set up the testing environment before each test
-	setupFiles: [],
+	setupFiles: [
+		'<rootDir>/jest.setup.ts',
+	],
 
 	// A list of paths to modules that run some code to configure or set up the testing framework before each test
-	setupFilesAfterEnv: [],
+	setupFilesAfterEnv: [
+		'<rootDir>/jest-matcher.ts',
+	],
 
 	// A list of paths to snapshot serializer modules Jest should use for snapshot testing
 	// snapshotSerializers: [],
 
 	// The test environment that will be used for testing
 	// 因为用了 jest-puppeteer，所以要移除 testEnvironment 选项
-	// testEnvironment: 'jest-environment-jsdom-fifteen',
+	testEnvironment: 'jest-environment-jsdom-fifteen',
 
 	// Options that will be passed to the testEnvironment
 	// testEnvironmentOptions: {},

@@ -1,6 +1,6 @@
-import { Pen, Brush } from 'src/painter';
-import { Cloneable } from 'src/types';
-import { Transform } from 'src/math';
+import { Pen, Brush } from 'src/core/painter';
+import { Cloneable } from 'src/common';
+import { Transform } from 'src/common/geometry';
 
 export class PainterState implements Cloneable {
 

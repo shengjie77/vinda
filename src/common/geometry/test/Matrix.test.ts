@@ -1,8 +1,10 @@
-import { random } from 'faker';
+import { datatype } from 'faker';
 import * as PIXI from '@pixi/math';
 
 import { Matrix, Angle } from 'src/common';
 import { fromPIXIMatrix, toPIXIMatrix } from './helper';
+
+const { number } = datatype;
 
 describe('Matrix', () => {
 
@@ -40,8 +42,8 @@ describe('Matrix', () => {
 	describe('fromTranslate', () => {
 
 		test('Should be a translate matrix', () => {
-			const tx = random.number();
-			const ty = random.number();
+			const tx = number();
+			const ty = number();
 			const t = Matrix.fromTranslate(tx, ty);
 
 			expect(t.a).toBe(1);
@@ -83,12 +85,12 @@ describe('Matrix', () => {
 function createRandomTransform() {
 	const t = new Matrix();
 
-	t.a = random.number();
-	t.d = random.number();
-	t.c = random.number();
-	t.b = random.number();
-	t.tx = random.number();
-	t.ty = random.number();
+	t.a = number();
+	t.d = number();
+	t.c = number();
+	t.b = number();
+	t.tx = number();
+	t.ty = number();
 
 	return t;
 }

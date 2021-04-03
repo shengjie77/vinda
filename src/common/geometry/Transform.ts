@@ -1,4 +1,5 @@
-import { Vector, Angle, Matrix, Cloneable, Equalable } from 'src/common';
+import { Matrix, Cloneable, Equalable } from 'src/common';
+import { Vector, Angle } from 'src/common/geometry';
 
 /**
  * Transform order: scale -> rotate -> translate

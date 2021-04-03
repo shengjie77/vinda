@@ -1,5 +1,5 @@
 import * as PIXI from '@pixi/math';
-import { random } from 'faker';
+import { datatype } from 'faker';
 
 import { Transform } from 'src/common';
 import { fromPIXIMatrix } from './helper';
@@ -9,11 +9,11 @@ describe('Transform', () => {
 	describe('toMatrix', () => {
 
 		test('Should get a correct matrix', () => {
-			const tx = random.number();
-			const ty = random.number();
-			const sx = random.number();
-			const sy = random.number();
-			const rad = random.number();
+			const tx = datatype.number();
+			const ty = datatype.number();
+			const sx = datatype.number();
+			const sy = datatype.number();
+			const rad = datatype.number();
 
 			const t = new Transform();
 			t.translate(tx, ty);

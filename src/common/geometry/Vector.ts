@@ -2,8 +2,8 @@ import { isEqual, Matrix, Angle } from 'src/common';
 
 export class Vector {
 
-	public static from(x: number, y: number) {
-		return new Vector(x, y);
+	public static from(pt: VectorLike) {
+		return new Vector(pt.x, pt.y);
 	}
 
 	public x: number;
@@ -40,4 +40,9 @@ export class Vector {
 			&& isEqual(this.y, v.y)
 	}
 
+}
+
+interface VectorLike {
+	x: number;
+	y: number;
 }

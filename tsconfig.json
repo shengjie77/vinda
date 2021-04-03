@@ -1,6 +1,7 @@
 {
 	"include": [
 		"src",
+		"./global.d.ts",
 	],
 	"compilerOptions": {
 		"target": "ESNext",
