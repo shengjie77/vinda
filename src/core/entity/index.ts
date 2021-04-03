@@ -6,3 +6,4 @@ export * from './RectEntity';
 export * from './PathEntity';
 export * from './PolygonEntity';
 export * from './EntityId';
+export * from './EntityIdGenerator';
