@@ -1,6 +1,6 @@
-import { Cloneable, Color } from 'src/common';
+import { Cloneable, Color, Equalable } from 'src/common';
 
-export class Brush implements Cloneable {
+export class Brush implements Cloneable, Equalable {
 
 	public color: Color = Color.WHITE;
 
