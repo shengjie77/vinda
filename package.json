@@ -1,25 +1,25 @@
 {
- "name": "vinda",
- "version": "1.0.0",
- "main": "index.js",
- "repository": "https://github.com/shengjie77/vinda.git",
- "author": "ShengJie <shengjie0202@outlook.com>",
- "license": "MIT",
- "scripts": {
-  "dev-app": "parcel ./src/app/app.html",
-	"test": "jest --passWithNoTests",
-	"test-watch": "jest --watch"
- },
- "dependencies": {
-  "typescript": "^4.2.3"
- },
- "devDependencies": {
-  "@types/jest": "^26.0.22",
-  "jest": "^26.6.3",
-  "parcel-bundler": "^1.12.5",
-  "ts-jest": "^26.5.4"
- },
- "alias": {
-  "src": "./src"
- }
+	"name": "vinda",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/shengjie77/vinda.git",
+	"author": "ShengJie <shengjie0202@outlook.com>",
+	"license": "MIT",
+	"scripts": {
+		"dev-app": "parcel ./src/app/app.html",
+		"test": "jest --passWithNoTests",
+		"test-watch": "jest --watch"
+	},
+	"dependencies": {
+		"typescript": "^4.2.3"
+	},
+	"devDependencies": {
+		"@types/jest": "^26.0.22",
+		"jest": "^26.6.3",
+		"parcel-bundler": "^1.12.5",
+		"ts-jest": "^26.5.4"
+	},
+	"alias": {
+		"src": "./src"
+	}
 }
