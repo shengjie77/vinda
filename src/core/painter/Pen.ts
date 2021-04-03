@@ -1,9 +1,9 @@
-import { Color, isEqual, Cloneable } from 'src/common';
+import { Color, isEqual, Cloneable, Equalable } from 'src/common';
 
 import { PenCap } from './PenCap';
 import { PenJoin } from './PenJoin';
 
-export class Pen implements Cloneable {
+export class Pen implements Cloneable, Equalable {
 
 	public color: Color = Color.BLACK;
 
