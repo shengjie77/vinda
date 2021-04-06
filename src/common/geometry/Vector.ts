@@ -42,7 +42,7 @@ export class Vector {
 
 }
 
-interface VectorLike {
+export interface VectorLike {
 	x: number;
 	y: number;
 }
