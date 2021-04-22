@@ -1,4 +1,13 @@
-import { PathFillRule, Line, Vector } from 'src/common';
+import {
+	PathFillRule,
+	Line,
+	Vector,
+	Ellipse,
+	EllipseLike,
+	Polygon,
+	Rect,
+	RectLike,
+} from 'src/common';
 
 export class Path {
 
@@ -28,6 +37,28 @@ export class Path {
 	public toPath2D(): Path2D {
 		return this.path2d;
 	}
+
+	public addEllipse(e: Ellipse | EllipseLike) {
+		// UNIMPLEMENTED: 
+		return {} as any;
+	}
+
+	public addPath(p: Path) {
+		// UNIMPLEMENTED: 
+		return {} as any;
+	}
+
+	public addPolygon(p: Polygon) {
+		// UNIMPLEMENTED: 
+		return {} as any;
+	}
+
+	public addRect(r: Rect | RectLike) {
+		// UNIMPLEMENTED: 
+		return {} as any;
+	}
+
+	
 
 	// ------------------------------------------------------- //
 	// ---------------  Private Section Below  --------------- //

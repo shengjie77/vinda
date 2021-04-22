@@ -1,7 +1,8 @@
+import { Rect } from 'src/common/geometry';
 
 export class Ellipse {
 
-	public static from(param: EllipseParam) {
+	public static from(param: EllipseParamV1) {
 		const ellipse = new Ellipse();
 		ellipse.x = param.x;
 		ellipse.y = param.y;
@@ -19,9 +20,18 @@ export class Ellipse {
 
 }
 
-interface EllipseParam {
+export type EllipseLike = EllipseParamV1 | EllipseParamV2 | Rect;
+
+interface EllipseParamV1 {
 	x: number;
 	y: number;
 	width: number;
 	height: number;
+}
+
+interface EllipseParamV2 {
+	centerX: number;
+	centerY: number;
+	rx: number;
+	ry: number;
 }

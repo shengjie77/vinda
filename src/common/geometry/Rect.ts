@@ -2,7 +2,7 @@ import { Vector, ConstructorOf } from 'src/common';
 
 export class Rect {
 
-	public static from(p: RectParameter): Rect {
+	public static from(p: RectLike): Rect {
 		const rect = new Rect();
 
 		if (isSizeParam(p)) {
@@ -106,21 +106,21 @@ export class Rect {
 }
 
 interface RectStatic {
-	from(p: RectParameter): Rect;
+	from(p: RectLike): Rect;
 }
 
 export type RectConstructor = ConstructorOf<Rect, RectStatic>;
 
-export type RectParameter = RectSizeParam | RectBorderParam | RectPointParam;
+export type RectLike = RectSizeParam | RectBorderParam | RectPointParam;
 
 type RectSizeParam = { x: number, y: number, width: number, height: number };
 type RectBorderParam = { top: number, bottom: number, left: number, right: number };
 type RectPointParam = { topLeft: Vector, bottomRight: Vector };
 
-function isSizeParam(p: RectParameter): p is RectSizeParam {
+function isSizeParam(p: RectLike): p is RectSizeParam {
 	return (p as RectSizeParam).width !== undefined;
 }
 
-function isBorderParam(p: RectParameter): p is RectBorderParam {
+function isBorderParam(p: RectLike): p is RectBorderParam {
 	return (p as RectBorderParam).left !== undefined;
 }
