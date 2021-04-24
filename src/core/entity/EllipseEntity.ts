@@ -1,5 +1,7 @@
-import { Entity, Drawable, Painter } from 'src/core';
+import { Drawable, Painter } from 'src/core';
 import { Ellipse } from 'src/common';
+
+import { Entity } from './Entity';
 
 export class EllipseEntity extends Entity implements Drawable {
 
