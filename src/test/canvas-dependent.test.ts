@@ -25,32 +25,43 @@ describe('Canvas Test', () => {
 
 	describe('LineEntity', () => {
 
-		describe('draw', () => {
+		test('Initial state', async () => {
+			const image = await screenshotOf(browser!, () => {
+				const { LineEntity, CanvasPainter } = vinda;
 
-			test('Initial state', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { LineEntity, CanvasPainter } = vinda;
+				const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+				const ctx = canvas.getContext('2d')!
+				const painter = new CanvasPainter(ctx);
 
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
-
-					const entity = new LineEntity();
-					entity.draw(painter);
-				})
-
-				expect(image).toMatchImageSnapshot();
+				const entity = new LineEntity();
+				entity.draw(painter);
 			})
 
+			expect(image).toMatchImageSnapshot();
+		})
+
+	})
+
+	describe('RectEntity', () => {
+		test('Initial state', async () => {
+			const image = await screenshotOf(browser!, () => {
+				const { RectEntity, CanvasPainter } = vinda;
+
+				const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+				const ctx = canvas.getContext('2d')!
+				const painter = new CanvasPainter(ctx);
+
+				const entity = new RectEntity();
+				entity.draw(painter);
+			})
+
+			expect(image).toMatchImageSnapshot();
 		})
 	})
 
 	describe('CanvasPainter', () => {
 
-
-
 		describe('strokeRect', () => {
-
 			test('Stroke rect with default state', async () => {
 				const image = await screenshotOf(browser!, () => {
 					const { Rect, CanvasPainter } = vinda;
@@ -70,7 +81,6 @@ describe('Canvas Test', () => {
 
 				expect(image).toMatchImageSnapshot();
 			})
-
 		})
 
 		describe('fillRect', () => {

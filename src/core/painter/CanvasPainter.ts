@@ -1,5 +1,5 @@
 import { Painter, Brush, Pen, PainterState, PainterContext } from 'src/core/painter';
-import { Line, Rect, Path, Polygon, Transform } from 'src/common/geometry';
+import { Line, Rect, Path, Polygon, Transform, Ellipse } from 'src/common/geometry';
 import { Stack } from 'src/common';
 
 export class CanvasPainter implements Painter {
@@ -46,6 +46,11 @@ export class CanvasPainter implements Painter {
 		this.applyState();
 
 		this.ctx.strokeRect(rect.x, rect.y, rect.width, rect.height);
+	}
+
+	public strokeEllipse(ellipse: Ellipse) {
+		// UNIMPLEMENTED: 
+		return {} as any;
 	}
 
 	public strokeRoundedRect(rect: Rect, xRadius: number, yRadius: number) {
