@@ -1,7 +1,8 @@
 import * as puppeteer from 'puppeteer';
 
-import { Pen, CanvasPainter, Brush, PainterState } from 'src/core/painter';
 import * as vinda from 'src/index';
+import { Pen, CanvasPainter, Brush, PainterState } from 'src/core/painter';
+
 import { screenshotOf } from 'src/test/screenshotOf';
 
 describe('CanvasPainter', () => {
@@ -11,9 +12,9 @@ describe('CanvasPainter', () => {
 		browser = await puppeteer.launch();
 	})
 
-	afterAll(() => {
+	afterAll(async () => {
 		if (browser) {
-			browser.close();
+			await browser.close();
 		}
 	})
 

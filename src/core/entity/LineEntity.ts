@@ -1,3 +1,11 @@
-import { Entity } from 'src/core/entity';
+import { Painter, Drawable } from 'src/core';
 
-export class LineEntity extends Entity {}
+import { Entity } from './Entity';
+
+export class LineEntity extends Entity implements Drawable {
+
+	public draw(painter: Painter) {
+		// TODO:
+	}
+
+}

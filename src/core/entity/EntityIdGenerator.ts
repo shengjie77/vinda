@@ -1,6 +1,7 @@
 import { EntityId } from 'src/core/entity';
 
 export class EntityIdGenerator {
+
 	public static create() {
 		return new EntityIdGenerator();
 	}
