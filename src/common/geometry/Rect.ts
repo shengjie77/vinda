@@ -1,4 +1,5 @@
-import { Vector, ConstructorOf } from 'src/common';
+import { ConstructorOf } from 'src/common/types';
+import { Vector } from './Vector';
 
 export class Rect {
 

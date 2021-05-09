@@ -16,6 +16,7 @@ export class EllipseEntity extends Entity implements Drawable {
 		})
 	}
 
+
 	public draw(painter: Painter) {
 	}
 

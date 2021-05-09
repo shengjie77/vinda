@@ -1,3 +1,5 @@
+import { CanvasPainter } from 'src/core';
+import { Button } from 'src/view'
 
 export class Application {
 
@@ -20,6 +22,15 @@ export class Application {
 		const canvas = document.getElementById('canvas') as HTMLCanvasElement
 		fillScreen(canvas);
 
+		this.drawSomething()
+	}
+
+	private drawSomething() {
+		const canvas = document.getElementById('canvas') as HTMLCanvasElement
+		const painter = CanvasPainter.create(canvas.getContext('2d')!);
+		
+		const btn = new Button()
+		btn.onPaint(painter)
 	}
 
 }

@@ -4,6 +4,10 @@ import { Stack } from 'src/common';
 
 export class CanvasPainter implements Painter {
 
+	public static create(ctx: PainterContext) {
+		return new CanvasPainter(ctx)
+	}
+
 	constructor(ctx: PainterContext) {
 		this.ctx = ctx;
 	}
@@ -53,9 +57,11 @@ export class CanvasPainter implements Painter {
 		return {} as any;
 	}
 
-	public strokeRoundedRect(rect: Rect, xRadius: number, yRadius: number) {
-		// UNIMPLEMENTED: 
-		return {} as any;
+	public strokeRoundedRect(rect: Rect, radius: number) {
+		this.applyState()
+
+		let path = roundedRectToPath2D(rect, radius)
+		this.ctx.stroke(path)
 	}
 
 	public strokePolygon(polygon: Polygon) {
@@ -137,4 +143,20 @@ export class CanvasPainter implements Painter {
 		this.ctx.setTransform(this.state.transform.toMatrix().toDOMMatrix());
 	}
 
+}
+
+function roundedRectToPath2D(rect: Rect, radius: number): Path2D {
+	let path = new Path2D()
+
+	path.moveTo(rect.left, rect.top + radius)
+	path.arcTo(rect.left, rect.top, rect.left + radius, rect.top, radius)
+	path.lineTo(rect.right - radius, rect.top)
+	path.arcTo(rect.right, rect.top, rect.right, rect.top + radius, radius)
+	path.lineTo(rect.right, rect.bottom - radius)
+	path.arcTo(rect.right, rect.bottom, rect.right - radius, rect.bottom, radius)
+	path.lineTo(rect.left + radius, rect.bottom)
+	path.arcTo(rect.left, rect.bottom, rect.left, rect.bottom - radius, radius)
+	path.closePath()
+
+	return path
 }

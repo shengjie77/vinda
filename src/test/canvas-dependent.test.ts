@@ -10,7 +10,7 @@ import { screenshotOf } from 'src/test/screenshotOf';
 // This is import is for type intelligence
 import * as vinda from 'src/index';
 
-describe('Canvas Test', () => {
+describe.skip('Canvas Test', () => {
 
 	let browser: puppeteer.Browser | undefined = undefined;
 	beforeAll(async () => {

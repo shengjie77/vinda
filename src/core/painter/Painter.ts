@@ -15,7 +15,7 @@ export interface Painter {
 
 	strokeRect(rect: Rect): void;
 
-	strokeRoundedRect(rect: Rect, xRadius: number, yRadius: number): void;
+	strokeRoundedRect(rect: Rect, radius: number): void;
 
 	strokePolygon(polygon: Polygon): void;
 
