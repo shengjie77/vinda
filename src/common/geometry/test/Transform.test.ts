@@ -1,7 +1,7 @@
 import * as PIXI from '@pixi/math';
 import { datatype } from 'faker';
 
-import { Transform } from 'src/common';
+import { Transform } from 'src/common/geometry';
 import { fromPIXIMatrix } from './helper';
 
 describe('Transform', () => {

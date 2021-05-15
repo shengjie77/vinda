@@ -1,4 +1,4 @@
-import { Line } from 'src/common';
+import { Line } from 'src/common/geometry';
 import { Painter, Drawable } from 'src/core';
 
 import { Entity } from './Entity';

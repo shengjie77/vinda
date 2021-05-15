@@ -1,5 +1,5 @@
 import * as PIXI from '@pixi/math';
-import { Matrix } from 'src/common';
+import { Matrix } from 'src/common/geometry';
 
 export function fromPIXIMatrix(m: PIXI.Matrix) {
 	return Matrix.fromArray([

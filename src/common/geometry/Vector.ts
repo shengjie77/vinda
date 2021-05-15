@@ -1,4 +1,5 @@
-import { isEqual, Matrix, Angle } from 'src/common';
+import { isEqual } from 'src/common';
+import { Angle, Matrix } from 'src/common/geometry';
 
 export class Vector {
 

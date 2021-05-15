@@ -1,7 +1,7 @@
 import { datatype } from 'faker';
 import * as PIXI from '@pixi/math';
 
-import { Matrix, Angle } from 'src/common';
+import { Matrix, Angle } from 'src/common/geometry';
 import { fromPIXIMatrix, toPIXIMatrix } from './helper';
 
 const { number } = datatype;

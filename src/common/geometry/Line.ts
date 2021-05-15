@@ -1,4 +1,5 @@
-import { Vector, ConstructorOf, Equalable } from 'src/common';
+import { ConstructorOf, Equalable } from 'src/common';
+import { Vector } from 'src/common/geometry';
 
 export class Line implements Equalable {
 

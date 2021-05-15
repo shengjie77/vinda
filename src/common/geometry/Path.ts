@@ -7,7 +7,7 @@ import {
 	Polygon,
 	Rect,
 	RectLike,
-} from 'src/common';
+} from 'src/common/geometry';
 
 export class Path {
 

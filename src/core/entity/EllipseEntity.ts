@@ -1,5 +1,5 @@
 import { Drawable, Painter } from 'src/core';
-import { Ellipse } from 'src/common';
+import { Ellipse } from 'src/common/geometry';
 
 import { Entity } from './Entity';
 
