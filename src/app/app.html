@@ -19,11 +19,31 @@
 		#container > * {
 			flex: 1 1;
 		}
+
+		#el {
+			position: fixed;
+			top: 10px;
+			left: 600px;
+			width: 100px;
+			/* background: red; */
+			border: 10px solid red;
+			background: blue;
+			border-radius: 20px;
+			box-sizing: border-box;
+		}
+
+		#el > div {
+			height: 100px;
+			/* background: blue; */
+		}
 	</style>
 </head>
 <body>
 	<div id="container">
 		<canvas id="canvas"></canvas>
+		<div id="el">
+			<div></div>
+		</div>
 	</div>
 	<script src="./main.ts"></script>
 </body>

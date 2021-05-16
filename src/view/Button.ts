@@ -1,18 +1,22 @@
+import { Color } from 'src/common/color';
 import { Rect } from 'src/common/geometry';
 import { Painter } from 'src/core/painter';
 import { View } from 'src/view';
 
-class Border {
-
-}
-
 export class Button extends View {
 
+	constructor() {
+		super();
+
+		this.border.color = Color.BLACK;
+		this.border.radius = 16;
+		this.border.width = 10;
+		this.background.color = Color.RED;
+		this.rect = Rect.create({x: 10, y: 10, width: 200, height: 100})
+	}
+
 	public onPaint(painter: Painter) {
-		const rect = Rect.from({x: 10, y: 10, width: 100, height: 40})
-		painter.strokeRoundedRect(rect, 4)
-		rect.x = 120
-		painter.strokeRect(rect)
+		super.onPaint(painter);
 	}
 
 }

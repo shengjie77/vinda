@@ -1,5 +1,6 @@
 import { Brush, Pen } from 'src/core/painter';
 import { Line, Rect, Path, Polygon, Transform } from 'src/common/geometry';
+import { Optional } from 'src/common/types';
 
 export interface Painter {
 
@@ -8,6 +9,8 @@ export interface Painter {
 	brush: Brush;
 
 	transform: Transform;
+
+	clipPath: Optional<Path2D>;
 
 	strokeLine(line: Line): void;
 
@@ -30,6 +33,8 @@ export interface Painter {
 	save(): void;
 
 	restore(): void;
+
+	test(): void;
 
 }
 

@@ -1,6 +1,7 @@
 import { Painter, Brush, Pen, PainterState, PainterContext } from 'src/core/painter';
-import { Line, Rect, Path, Polygon, Transform, Ellipse } from 'src/common/geometry';
+import { Line, Rect, Path, Polygon, Transform, Ellipse, RoundedRect } from 'src/common/geometry';
 import { Stack } from 'src/common';
+import { Optional } from 'src/common/types';
 
 export class CanvasPainter implements Painter {
 
@@ -26,6 +27,14 @@ export class CanvasPainter implements Painter {
 
 	public set brush(v: Brush) {
 		this.state.brush = v;
+	}
+
+	public get clipPath(): Optional<Path2D> {
+		return this.state.clipPath;
+	}
+
+	public set clipPath(path: Optional<Path2D>) {
+		this.state.clipPath = path;
 	}
 
 	public get transform(): Transform {
@@ -87,8 +96,10 @@ export class CanvasPainter implements Painter {
 	}
 
 	public fillRoundedRect(rect: Rect, xRadius: number, yRadius: number) {
-		// UNIMPLEMENTED: 
-		return {} as any;
+		this.applyState();
+
+		const r = new RoundedRect(rect, xRadius);
+		this.ctx.fill(r.toPath2D());
 	}
 
 	public fillPolygon(polygon: Polygon) {
@@ -103,6 +114,7 @@ export class CanvasPainter implements Painter {
 	 */
 	public save() {
 		this.stateStack.push(this.state.clone());
+		this.ctx.save();
 	}
 
 	/**
@@ -111,11 +123,54 @@ export class CanvasPainter implements Painter {
 	 * @memberof CanvasPainter
 	 */
 	public restore() {
+		this.ctx.restore();
 		if (this.stateStack.isEmpty()) {
 			return;
 		}
 
 		this.state = this.stateStack.pop()!;
+	}
+
+	public test() {
+		// this.applyState();
+		// const ctx = this.ctx;
+
+		// ctx.save();
+		// this.ctx.fillRect(300, 10, 100, 100);
+		// this.ctx.lineWidth = 10;
+		// // this.ctx.moveTo(400, 10);
+		// // this.ctx.lineTo(600, 10);
+		// this.ctx.stroke();
+		// const path = RoundedRect.create({
+		// 	x: 400,
+		// 	y: 10,
+		// 	width: 100,
+		// 	height: 100,
+		// }, 14).toPath2D();
+		// this.ctx.stroke(path);
+
+		// ctx.restore();
+
+		// ctx.save();
+		// const p = RoundedRect.create({
+		// 	x: 500,
+		// 	y: 10,
+		// 	width: 100,
+		// 	height: 100,
+		// }, 14).toPath2D();
+		// const w = 20;
+		// const p2 = RoundedRect.create({
+		// 	x: 500 + w,
+		// 	y: 10 + w,
+		// 	width: 100 - w * 2,
+		// 	height: 100 - w * 2,
+		// }, 14 - w < 0 ? 0 : 14 - w).toPath2D();
+		// const totalP = new Path2D();
+		// totalP.addPath(p);
+		// totalP.addPath(p2);
+		// ctx.clip(totalP, 'evenodd');
+		// ctx.fill(p);
+		// ctx.restore();
 	}
 
 	// ------------------------------------------------------- //
@@ -139,24 +194,16 @@ export class CanvasPainter implements Painter {
 		this.ctx.lineCap = this.pen.cap;
 		this.ctx.lineJoin = this.pen.join;
 		this.ctx.strokeStyle = this.pen.color.toCSSColor();
-
+		this.ctx.fillStyle = this.brush.color.toCSSColor();
+		if (this.clipPath) {
+			this.ctx.clip(this.clipPath, 'evenodd');
+		}
 		this.ctx.setTransform(this.state.transform.toMatrix().toDOMMatrix());
 	}
 
 }
 
 function roundedRectToPath2D(rect: Rect, radius: number): Path2D {
-	let path = new Path2D()
-
-	path.moveTo(rect.left, rect.top + radius)
-	path.arcTo(rect.left, rect.top, rect.left + radius, rect.top, radius)
-	path.lineTo(rect.right - radius, rect.top)
-	path.arcTo(rect.right, rect.top, rect.right, rect.top + radius, radius)
-	path.lineTo(rect.right, rect.bottom - radius)
-	path.arcTo(rect.right, rect.bottom, rect.right - radius, rect.bottom, radius)
-	path.lineTo(rect.left + radius, rect.bottom)
-	path.arcTo(rect.left, rect.bottom, rect.left, rect.bottom - radius, radius)
-	path.closePath()
-
-	return path
+	const r = new RoundedRect(rect, radius);
+	return r.toPath2D();
 }

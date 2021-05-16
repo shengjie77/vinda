@@ -1,24 +1,13 @@
-import * as puppeteer from 'puppeteer';
-
 import { Pen, CanvasPainter, Brush, PainterState } from 'src/core/painter';
+import { Rect } from 'src/common/geometry';
+import { createMock } from 'src/mock';
 
 describe('CanvasPainter', () => {
-
-	let browser: puppeteer.Browser | undefined = undefined;
-	beforeAll(async () => {
-		browser = await puppeteer.launch();
-	})
-
-	afterAll(async () => {
-		if (browser) {
-			await browser.close();
-		}
-	})
 
 	describe('pen', () => {
 
 		test('Initial pen should be a new pen', () => {
-			const painter = createPainter();
+			const { painter } = createPainter();
 			const expectPen = new Pen();
 
 			expect(painter.pen.equalTo(expectPen)).toBeTruthy();
@@ -29,7 +18,7 @@ describe('CanvasPainter', () => {
 	describe('brush', () => {
 
 		test('Initial bursh should be a new brush', () => {
-			const painter = createPainter();
+			const { painter } = createPainter();
 			const expectBrush = new Brush();
 
 			expect(painter.brush.equalTo(expectBrush)).toBeTruthy();
@@ -40,7 +29,7 @@ describe('CanvasPainter', () => {
 	describe('save & restore', () => {
 
 		test('Painter state should be restored to last saved', () => {
-			const painter = createPainter();
+			const { painter } = createPainter();
 			const originState = getCurrentState(painter);
 			painter.save();
 
@@ -67,11 +56,23 @@ describe('CanvasPainter', () => {
 
 	})
 
+	describe('fillRect', () => {
+
+		test('normal', () => {
+			const { painter, ctx } = createPainter();
+			const rect = Rect.create();
+			painter.fillRect(rect);
+
+			expect(ctx.fillStyle).toEqual(painter.brush.color.toCSSColor());
+		})
+
+	})
+
 })
 
 function createPainter() {
-	const ctx = {} as CanvasRenderingContext2D;
+	const ctx = createMock<CanvasRenderingContext2D>();
 	const painter = new CanvasPainter(ctx);
 
-	return painter;
+	return { painter, ctx };
 }

@@ -8,7 +8,7 @@ export class RectEntity extends Entity implements Drawable {
 	constructor() {
 		super();
 
-		this.rect_ = Rect.from({
+		this.rect_ = Rect.create({
 			x: 0,
 			y: 0,
 			width: 100,

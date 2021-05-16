@@ -31,6 +31,8 @@ export class Application {
 		
 		const btn = new Button()
 		btn.onPaint(painter)
+
+		painter.test();
 	}
 
 }

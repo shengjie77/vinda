@@ -70,7 +70,7 @@ describe.skip('Canvas Test', () => {
 					const ctx = canvas.getContext('2d')!
 					const painter = new CanvasPainter(ctx);
 
-					const rect = Rect.from({
+					const rect = Rect.create({
 						x: 200,
 						y: 200,
 						width: 100,
@@ -93,7 +93,7 @@ describe.skip('Canvas Test', () => {
 					const ctx = canvas.getContext('2d')!
 					const painter = new CanvasPainter(ctx);
 
-					const rect = Rect.from({
+					const rect = Rect.create({
 						x: 100,
 						y: 100,
 						width: 100,

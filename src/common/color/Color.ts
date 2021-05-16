@@ -41,6 +41,10 @@ export class Color implements Cloneable, Equalable {
 		return new Color(0, 0, 255, 255);
 	}
 
+	public static get TRANSPARENT(): Color {
+		return new Color(0, 0, 0, 0);
+	}
+
 	public red: number = 0;
 
 	public green: number = 0;
