@@ -142,12 +142,12 @@ describe.skip('Canvas Test', () => {
 					const painter = new CanvasPainter(ctx);
 
 					const path = new Path();
-					path.moveTo(Vector.from({
+					path.moveTo(Vector.create({
 						x: 0,
 						y: 0,
 					}));
 
-					path.lineTo(Vector.from({
+					path.lineTo(Vector.create({
 						x: 100,
 						y: 100,
 					}));
@@ -169,21 +169,21 @@ describe.skip('Canvas Test', () => {
 					const painter = new CanvasPainter(ctx);
 
 					const path = new Path();
-					path.moveTo(Vector.from({
+					path.moveTo(Vector.create({
 						x: 0,
 						y: 0,
 					}));
 
-					path.lineTo(Vector.from({
+					path.lineTo(Vector.create({
 						x: 100,
 						y: 0,
 					}));
-					path.lineTo(Vector.from({
+					path.lineTo(Vector.create({
 						x: 100,
 						y: 100,
 					}));
 
-					path.lineTo(Vector.from({
+					path.lineTo(Vector.create({
 						x: 0,
 						y: 100,
 					}));

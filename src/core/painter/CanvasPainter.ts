@@ -2,6 +2,7 @@ import { Painter, Brush, Pen, PainterState, PainterContext } from 'src/core/pain
 import { Line, Rect, Path, Polygon, Transform, Ellipse, RoundedRect } from 'src/common/geometry';
 import { Stack } from 'src/common';
 import { Optional } from 'src/common/types';
+import { Font } from 'src/common/font';
 
 export class CanvasPainter implements Painter {
 
@@ -35,6 +36,14 @@ export class CanvasPainter implements Painter {
 
 	public set clipPath(path: Optional<Path2D>) {
 		this.state.clipPath = path;
+	}
+
+	public set font(f: Font) {
+		this.state.font = f;
+	}
+
+	public get font(): Font {
+		return this.state.font;
 	}
 
 	public get transform(): Transform {
@@ -107,6 +116,18 @@ export class CanvasPainter implements Painter {
 		return {} as any;
 	}
 
+	public drawText(text: string, rect: Rect) {
+		this.applyState();
+
+		const metrix = this.ctx.measureText(text);
+		const height = metrix.actualBoundingBoxAscent + metrix.actualBoundingBoxDescent;
+		const centerY = rect.center.y;
+		const y = centerY - height / 2 + metrix.actualBoundingBoxAscent;
+		const x = rect.center.x - metrix.width / 2;
+		this.ctx.fillText(text, x, y);
+		this.ctx.font
+	}
+
 	/**
 	 * Saves the current painter state(pushes the state onto a stack).
 	 *
@@ -132,45 +153,9 @@ export class CanvasPainter implements Painter {
 	}
 
 	public test() {
-		// this.applyState();
 		// const ctx = this.ctx;
-
-		// ctx.save();
-		// this.ctx.fillRect(300, 10, 100, 100);
-		// this.ctx.lineWidth = 10;
-		// // this.ctx.moveTo(400, 10);
-		// // this.ctx.lineTo(600, 10);
-		// this.ctx.stroke();
-		// const path = RoundedRect.create({
-		// 	x: 400,
-		// 	y: 10,
-		// 	width: 100,
-		// 	height: 100,
-		// }, 14).toPath2D();
-		// this.ctx.stroke(path);
-
-		// ctx.restore();
-
-		// ctx.save();
-		// const p = RoundedRect.create({
-		// 	x: 500,
-		// 	y: 10,
-		// 	width: 100,
-		// 	height: 100,
-		// }, 14).toPath2D();
-		// const w = 20;
-		// const p2 = RoundedRect.create({
-		// 	x: 500 + w,
-		// 	y: 10 + w,
-		// 	width: 100 - w * 2,
-		// 	height: 100 - w * 2,
-		// }, 14 - w < 0 ? 0 : 14 - w).toPath2D();
-		// const totalP = new Path2D();
-		// totalP.addPath(p);
-		// totalP.addPath(p2);
-		// ctx.clip(totalP, 'evenodd');
-		// ctx.fill(p);
-		// ctx.restore();
+		// ctx.font = '30px San Francisco';
+		// ctx.fillText('See', 100, 200);
 	}
 
 	// ------------------------------------------------------- //
@@ -195,10 +180,12 @@ export class CanvasPainter implements Painter {
 		this.ctx.lineJoin = this.pen.join;
 		this.ctx.strokeStyle = this.pen.color.toCSSColor();
 		this.ctx.fillStyle = this.brush.color.toCSSColor();
+		this.ctx.font = this.state.font.toCSSString();
+
+		this.ctx.setTransform(this.state.transform.toMatrix().toDOMMatrix());
 		if (this.clipPath) {
 			this.ctx.clip(this.clipPath, 'evenodd');
 		}
-		this.ctx.setTransform(this.state.transform.toMatrix().toDOMMatrix());
 	}
 
 }

@@ -92,6 +92,13 @@ export class Rect implements Cloneable {
 		this.bottom = this.top + v;
 	}
 
+	public get center(): Vector {
+		return new Vector(
+			(this.left + this.right) / 2,
+			(this.top + this.bottom) / 2,
+		)
+	}
+
 	public update(p: RectLike) {
 		if (isSizeParam(p)) {
 			this.x = p.x;

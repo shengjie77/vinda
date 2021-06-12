@@ -3,7 +3,7 @@ import { Angle, Matrix } from 'src/common/geometry';
 
 export class Vector {
 
-	public static from(pt: VectorLike) {
+	public static create(pt: VectorLike = { x: 0, y: 0 }) {
 		return new Vector(pt.x, pt.y);
 	}
 

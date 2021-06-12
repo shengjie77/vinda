@@ -9,3 +9,4 @@ export * from './PathFillRule';
 export * from './Line';
 export * from './Path';
 export * from './Ellipse';
+export * from './Size';
