@@ -1,4 +1,5 @@
-import { EntityId, EntityIdGenerator } from 'src/core/entity';
+import { EntityId } from './EntityId';
+import { EntityIdGenerator } from './EntityIdGenerator';
 
 /**
  * Everything in Vinda's world is called Entity

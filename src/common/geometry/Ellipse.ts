@@ -2,12 +2,14 @@ import { Rect } from 'src/common/geometry';
 
 export class Ellipse {
 
-	public static from(param: EllipseParamV1) {
+	public static from(param: EllipseParamV1): Ellipse {
 		const ellipse = new Ellipse();
 		ellipse.x = param.x;
 		ellipse.y = param.y;
 		ellipse.width = param.width;
 		ellipse.height = param.height;
+
+		return ellipse;
 	}
 
 	public x: number = 0;

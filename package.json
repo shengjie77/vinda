@@ -9,11 +9,11 @@
 		"dev-app": "parcel ./src/app/app.html",
 		"test": "jest --passWithNoTests",
 		"test-watch": "jest --watch",
-		"testbed": "parcel ./src/test/testbed.html --port 8081"
+		"test-scripts": "ts-node ./scripts/runTest.ts"
 	},
 	"dependencies": {
 		"lodash": "^4.17.21",
-		"typescript": "^4.2.3"
+		"typescript": "^4.3.2"
 	},
 	"devDependencies": {
 		"@pixi/math": "^6.0.1",
@@ -21,6 +21,7 @@
 		"@types/jest": "^26.0.22",
 		"@types/jest-image-snapshot": "^4.3.0",
 		"@types/lodash": "^4.14.168",
+		"@types/parcel-bundler": "^1.12.3",
 		"@types/puppeteer": "^5.4.3",
 		"faker": "^5.5.2",
 		"jest": "^26.6.3",
@@ -29,9 +30,13 @@
 		"jest-image-snapshot": "^4.4.1",
 		"parcel-bundler": "^1.12.5",
 		"puppeteer": "^8.0.0",
-		"ts-jest": "^26.5.4"
+		"ts-jest": "^26.5.4",
+		"ts-node": "^9.1.1"
 	},
 	"alias": {
 		"src": "./src"
+	},
+	"vinda": {
+		"testbedPort": 8081
 	}
 }

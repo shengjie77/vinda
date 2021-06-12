@@ -2,7 +2,6 @@
 // https://jestjs.io/docs/en/configuration.html
 
 const tsPreset = require('ts-jest/jest-preset');
-const puppeteerPreset = require('jest-puppeteer/jest-preset.json');
 
 module.exports = {
 	...tsPreset,

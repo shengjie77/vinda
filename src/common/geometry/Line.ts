@@ -1,8 +1,9 @@
-import { Vector, ConstructorOf, Equalable } from 'src/common';
+import { ConstructorOf, Equalable } from 'src/common';
+import { Vector } from 'src/common/geometry';
 
 export class Line implements Equalable {
 
-	public static from(p: LineParameter): Line {
+	public static from(p: LineLike): Line {
 		const line = new Line();
 
 		if (isRawParam(p)) {
@@ -58,10 +59,10 @@ export class Line implements Equalable {
 }
 
 export interface LineStatic {
-	from(p: LineParameter): Line;
+	from(p: LineLike): Line;
 }
 
-export type LineParameter = LineRawParam | LinePointParam;
+export type LineLike = LineRawParam | LinePointParam;
 
 interface LineRawParam {
 	x1: number;
@@ -75,7 +76,7 @@ interface LinePointParam {
 	p2: Vector;
 }
 
-function isRawParam(p: LineParameter): p is LineRawParam {
+function isRawParam(p: LineLike): p is LineRawParam {
 	return (p as LineRawParam).x1 !== undefined;
 }
 

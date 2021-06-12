@@ -1,7 +1,7 @@
 import { Browser } from "puppeteer";
 
-
-const port = 8081;
+const config = require('../../package.json')['vinda'];
+const port = config.testbedPort;
 
 export async function screenshotOf(browser: Browser, fn: () => void) {
 	const page = await browser.newPage();

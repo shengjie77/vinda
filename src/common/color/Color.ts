@@ -21,6 +21,22 @@ export class Color implements Cloneable, Equalable {
 		return new Color(red, green, blue, alpha);
 	}
 
+	public static fromCSS(css: string): Color {
+		const regx = /#[0-9a-zA-Z]{6}/;
+		if (regx.test(css)) {
+			return Color.fromRgba(
+				parseInt(`0x${css.slice(1,3)}`),
+				parseInt(`0x${css.slice(3,5)}`),
+				parseInt(`0x${css.slice(5,7)}`),
+				255,
+			)
+		}
+		
+		console.error(`${css} is not valid.`);
+
+		return Color.BLACK;
+	}
+
 	public static get WHITE(): Color {
 		return new Color(255, 255, 255, 255);
 	}
@@ -39,6 +55,10 @@ export class Color implements Cloneable, Equalable {
 
 	public static get BLUE(): Color {
 		return new Color(0, 0, 255, 255);
+	}
+
+	public static get TRANSPARENT(): Color {
+		return new Color(0, 0, 0, 0);
 	}
 
 	public red: number = 0;

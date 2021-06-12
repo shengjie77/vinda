@@ -1,4 +1,5 @@
-import { isEqual, Cloneable, Angle } from 'src/common';
+import { isEqual, Cloneable } from 'src/common';
+import { Angle } from 'src/common/geometry';
 
 /**
  * | a | c | tx |

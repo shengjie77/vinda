@@ -1,3 +1,29 @@
-import { Entity } from 'src/core/entity';
+import { Drawable, Painter } from 'src/core';
+import { Rect } from 'src/common/geometry';
 
-export class RectEntity extends Entity {}
+import { Entity } from './Entity';
+
+export class RectEntity extends Entity implements Drawable {
+
+	constructor() {
+		super();
+
+		this.rect_ = Rect.create({
+			x: 0,
+			y: 0,
+			width: 100,
+			height: 50,
+		})
+	}
+
+	public draw(painter: Painter) {
+		painter.strokeRect(this.rect_);
+	}
+
+	// ------------------------------------------------------- //
+	// ---------------  Private Section Below  --------------- //
+	// ------------------------------------------------------- //
+
+	private rect_: Rect;
+
+}

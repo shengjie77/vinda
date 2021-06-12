@@ -1,23 +1,12 @@
-import { Vector, ConstructorOf } from 'src/common';
+import { ConstructorOf, Cloneable } from 'src/common/types';
+import { Vector } from './Vector';
 
-export class Rect {
+export class Rect implements Cloneable {
 
-	public static from(p: RectLike): Rect {
+	public static create(p?: RectLike): Rect {
 		const rect = new Rect();
-
-		if (isSizeParam(p)) {
-			rect.x = p.x;
-			rect.y = p.y;
-			rect.width = p.width;
-			rect.height = p.height;
-		} else if (isBorderParam(p)) {
-			rect.top = p.top;
-			rect.bottom = p.bottom;
-			rect.left = p.left;
-			rect.right = p.right;
-		} else {
-			rect.topLeft = p.topLeft;
-			rect.bottomRight = p.bottomRight;
+		if (p) {
+			rect.update(p);
 		}
 
 		return rect;
@@ -101,6 +90,51 @@ export class Rect {
 
 	public set height(v: number) {
 		this.bottom = this.top + v;
+	}
+
+	public get center(): Vector {
+		return new Vector(
+			(this.left + this.right) / 2,
+			(this.top + this.bottom) / 2,
+		)
+	}
+
+	public update(p: RectLike) {
+		if (isSizeParam(p)) {
+			this.x = p.x;
+			this.y = p.y;
+			this.width = p.width;
+			this.height = p.height;
+		} else if (isBorderParam(p)) {
+			this.top = p.top;
+			this.bottom = p.bottom;
+			this.left = p.left;
+			this.right = p.right;
+		} else {
+			this.topLeft = p.topLeft;
+			this.bottomRight = p.bottomRight;
+		}
+	}
+
+	public shrink(val: number): this {
+		this.x = this.x + val;
+		this.y += val;
+		this.width -= val * 2;
+		this.height -= val * 2;
+
+		return this;
+	}
+
+	// Cloneable
+	public clone(): Rect {
+		const rect = Rect.create({
+			x: this.x,
+			y: this.y,
+			width: this.width,
+			height: this.height,
+		})
+
+		return rect;
 	}
 
 }
