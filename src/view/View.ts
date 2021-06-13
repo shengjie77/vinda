@@ -1,12 +1,19 @@
 import { Painter } from 'src/core/painter'
 import { Matrix, Rect, RoundedRect, Transform, Size, Vector } from 'src/common/geometry';
 import { PaintEntity } from 'src/core/system/paint';
+import {
+	LayoutEntity,
+	Layout,
+	ColumnLayout,
+	SizePolicyPair,
+	SizePolicy,
+} from 'src/core/system/layout';
 import { Optional } from 'src/common';
 
 import { Background } from './Background';
 import { Border } from './Border';
 
-export class View implements PaintEntity {
+export class View implements PaintEntity, LayoutEntity {
 
 	// ------------------------------------------------------- //
 	// ------------------  Static Methods  ------------------- //
@@ -106,6 +113,44 @@ export class View implements PaintEntity {
 	public border: Border = Border.create();
 	public background: Background = Background.create();
 
+	// Override LayoutEntity
+	public build() {
+		this.getLayout().build(this);
+	}
+
+	public setLayout(layout: Layout) {
+		this.#layout = layout;
+	}
+
+	public getLayout() {
+		return this.#layout;
+	}
+
+	public setSizePolicy(pair: SizePolicyPair) {
+		this.#layoutSizePolicyPair = pair;
+	}
+
+	public getSizePolicy(): SizePolicyPair {
+		return this.#layoutSizePolicyPair;
+	}
+
+	public setLayoutSize(size: Size) {
+		this.#layoutSize = size;
+	}
+
+	public getLayoutSize(): Size {
+		return this.#layoutSize;
+	}
+
+	public getChildLayoutEntities(): LayoutEntity[] {
+		return this.#children;
+	}
+
+	public setActualBounds(rect: Rect): void {
+		console.log(rect);
+		this.bounds = rect;
+	}
+
 	public rect: Rect = new Rect();
 
 	// ------------------------------------------------------- //
@@ -128,6 +173,9 @@ export class View implements PaintEntity {
 	#parent: Optional<View> = undefined;
 	#transform: Transform = Transform.fromIdentity();
 	#size: Size = Size.create();
+	#layout: Layout = ColumnLayout.create(this);
+	#layoutSizePolicyPair: SizePolicyPair = { horizontal: SizePolicy.Fixed, vertical: SizePolicy.Fixed };
+	#layoutSize: Size = Size.create();
 
 	public onPaint(painter: Painter) {
 		this.paintBackground(painter, this.background);

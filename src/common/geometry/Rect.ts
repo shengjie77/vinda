@@ -21,7 +21,7 @@ export class Rect implements Cloneable {
 	public right: number = 0;
 
 	public get topLeft(): Vector {
-		return new Vector(this.top, this.left);
+		return new Vector(this.left, this.top);
 	}
 
 	public set topLeft(pt: Vector) {
@@ -30,7 +30,7 @@ export class Rect implements Cloneable {
 	}
 
 	public get topRight(): Vector {
-		return new Vector(this.top, this.right);
+		return new Vector(this.right, this.top);
 	}
 
 	public set topRight(pt: Vector) {
@@ -39,7 +39,7 @@ export class Rect implements Cloneable {
 	}
 
 	public get bottomLeft(): Vector {
-		return new Vector(this.bottom, this.left);
+		return new Vector(this.left, this.bottom);
 	}
 
 	public set bottomLeft(pt: Vector) {
@@ -48,7 +48,7 @@ export class Rect implements Cloneable {
 	}
 
 	public get bottomRight(): Vector {
-		return new Vector(this.bottom, this.right);
+		return new Vector(this.right, this.bottom);
 	}
 
 	public set bottomRight(pt: Vector) {
