@@ -8,7 +8,12 @@ import {
   Vector,
 } from 'src/common/geometry'
 import { PaintEntity } from 'src/core/system/paint'
-import { LayoutEntity, Layout, ColumnLayout } from 'src/core/system/layout'
+import {
+  LayoutEntity,
+  Layout,
+  ColumnLayout,
+  Flex,
+} from 'src/core/system/layout'
 import { Optional } from 'src/common'
 
 import { Background as BackgroundStyle } from './Background'
@@ -51,6 +56,14 @@ export class View implements PaintEntity, LayoutEntity {
 
   public getLayout() {
     return this._layout
+  }
+
+  public setFlex(flex: Flex) {
+    this._flex = flex
+  }
+
+  public getFlex(): Flex {
+    return this._flex
   }
 
   public getLayoutEntities(): LayoutEntity[] {
@@ -144,6 +157,7 @@ export class View implements PaintEntity, LayoutEntity {
   private _transform: Transform = Transform.fromIdentity()
   private _size: Size = Size.create()
   private _layout: Layout = ColumnLayout.create()
+  private _flex: Flex = { basis: 0, ratio: 1 }
 
   public onPaint(painter: Painter) {
     this.paintBackground(painter, this.background)

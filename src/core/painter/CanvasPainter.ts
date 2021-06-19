@@ -161,21 +161,7 @@ export class CanvasPainter implements Painter {
     this.state = this.stateStack.pop()!
   }
 
-  public test() {
-    const ctx = this.ctx
-    ctx.save()
-
-    ctx.fillStyle = 'red'
-    ctx.fillRect(100, 500, 300, 300)
-    ctx.fillStyle = 'blue'
-    ctx.fillRect(100, 500, 50, 50)
-    ctx.fillStyle = 'green'
-    ctx.fillRect(100, 500 + 50, 100, 50)
-
-    ctx.restore()
-    // ctx.font = '30px San Francisco';
-    // ctx.fillText('See', 100, 200);
-  }
+  public test() {}
 
   // ------------------------------------------------------- //
   // ---------------  Private Section Below  --------------- //

@@ -19,10 +19,15 @@ export class ColumnLayout extends Layout {
       })
       e.setPosition(pos)
 
-      const nextY = currentY + e.getSize().height
+      const nextY = currentY + this.calculateEntityHeight(e)
       return nextY
     }
 
     host.getLayoutEntities().reduce(updatePosition, startY)
+  }
+
+  private calculateEntityHeight(e: LayoutEntity): number {
+    const height = e.getSize().height
+    return height
   }
 }

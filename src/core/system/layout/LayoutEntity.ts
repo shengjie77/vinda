@@ -1,6 +1,6 @@
 import { Rect, Size, Vector } from 'src/common/geometry'
 
-import { Layout } from './Layout'
+import { Flex, Layout } from './Layout'
 import { SizePolicy } from './SizePolicy'
 
 export interface LayoutEntity {
@@ -14,6 +14,9 @@ export interface LayoutEntity {
 
   setLayout(layout: Layout): void
   getLayout(): Layout
+
+  setFlex(flex: Flex): void
+  getFlex(): Flex
 
   getLayoutEntities(): LayoutEntity[]
 }

@@ -1,6 +1,13 @@
 import { View } from 'src/view'
 import { PaintSystem } from 'src/core/system/paint'
-import { LayoutSystem, SizePolicy } from 'src/core/system/layout'
+import {
+  ColumnLayout,
+  CrossAxisAlignment,
+  LayoutSystem,
+  MainAxisAlignment,
+  RowLayout,
+  SizePolicy,
+} from 'src/core/system/layout'
 import { Color } from 'src/common'
 import { Rect, Size } from 'src/common/geometry'
 
@@ -35,16 +42,28 @@ export class Application {
 
     const view = View.create()
     view.background.color = Color.RED
+    const layout = RowLayout.create()
+    layout.setCrossAxisAlignment(CrossAxisAlignment.Center)
+    layout.setMainAxisAlignment(MainAxisAlignment.SpaceBetween)
+    view.setLayout(layout)
     view.setSize(Size.create({ width: 512, height: 256 }))
 
     const cv1 = View.create()
     cv1.background.color = Color.GREEN
     cv1.setSize(Size.create({ width: 50, height: 50 }))
+    cv1.setFlex({
+      basis: 50,
+      ratio: 0,
+    })
     view.addChild(cv1)
 
     const cv2 = View.create()
     cv2.background.color = Color.BLUE
     cv2.setSize(Size.create({ width: 80, height: 90 }))
+    cv2.setFlex({
+      basis: 80,
+      ratio: 0,
+    })
     view.addChild(cv2)
 
     layoutSystem.addEntity(view)
