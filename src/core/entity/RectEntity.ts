@@ -1,4 +1,5 @@
-import { Drawable, Painter } from 'src/core';
+import { Drawable } from 'src/core';
+import { Painter } from 'src/core/painter';
 import { Rect } from 'src/common/geometry';
 
 import { Entity } from './Entity';

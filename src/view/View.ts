@@ -10,8 +10,8 @@ import {
 } from 'src/core/system/layout';
 import { Optional } from 'src/common';
 
-import { Background } from './Background';
-import { Border } from './Border';
+import { Background as BackgroundStyle } from './Background';
+import { Border as BorderStyle } from './Border';
 
 export class View implements PaintEntity, LayoutEntity {
 
@@ -96,6 +96,8 @@ export class View implements PaintEntity, LayoutEntity {
 	public paint(painter: Painter) {
 		this.paintBackground(painter, this.background);
 		this.paintBorder(painter, this.border);
+
+
 	}
 
 	public getChildPaintEntites() {
@@ -110,8 +112,8 @@ export class View implements PaintEntity, LayoutEntity {
 		return Rect.create({ topLeft, bottomRight });
 	}
 
-	public border: Border = Border.create();
-	public background: Background = Background.create();
+	public border: BorderStyle = BorderStyle.create();
+	public background: BackgroundStyle = BackgroundStyle.create();
 
 	// Override LayoutEntity
 	public build() {
@@ -147,7 +149,6 @@ export class View implements PaintEntity, LayoutEntity {
 	}
 
 	public setActualBounds(rect: Rect): void {
-		console.log(rect);
 		this.bounds = rect;
 	}
 
@@ -186,7 +187,7 @@ export class View implements PaintEntity, LayoutEntity {
 	// ---------------  Private Section Below  --------------- //
 	// ------------------------------------------------------- //
 
-	private paintBorder(painter: Painter, border: Border) {
+	private paintBorder(painter: Painter, border: BorderStyle) {
 		painter.save();
 		const outerRounedRect = new RoundedRect({
 			x: this.rect.x,
@@ -210,7 +211,7 @@ export class View implements PaintEntity, LayoutEntity {
 		painter.restore();
 	}
 
-	private paintBackground(painter: Painter, background: Background) {
+	private paintBackground(painter: Painter, background: BackgroundStyle) {
 		painter.save();
 		painter.brush.color = background.color;
 		painter.fillRoundedRect(this.getPaintRect(), this.border.radius, this.border.radius);

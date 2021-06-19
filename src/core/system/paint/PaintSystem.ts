@@ -20,6 +20,7 @@ export class PaintSystem {
 	}
 
 	public paint() {
+		this.#painter.test();
 		this.#entites.forEach(e => this.paintRecursively(e));
 	}
 

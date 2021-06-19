@@ -5,41 +5,41 @@ import { Font } from 'src/common/font';
 
 export interface Painter {
 
-	pen: Pen;
+  pen: Pen;
 
-	brush: Brush;
+  brush: Brush;
 
-	transform: Transform;
+  transform: Transform;
 
-	clipPath: Optional<Path2D>;
+  clipPath: Optional<Path2D>;
 
-	font: Font;
+  font: Font;
 
-	strokeLine(line: Line): void;
+  strokeLine(line: Line): void;
 
-	strokePath(path: Path): void;
+  strokePath(path: Path): void;
 
-	strokeRect(rect: Rect): void;
+  strokeRect(rect: Rect): void;
 
-	strokeRoundedRect(rect: Rect, radius: number): void;
+  strokeRoundedRect(rect: Rect, radius: number): void;
 
-	strokePolygon(polygon: Polygon): void;
+  strokePolygon(polygon: Polygon): void;
 
-	fillPath(path: Path): void;
+  fillPath(path: Path): void;
 
-	fillRect(rect: Rect): void;
+  fillRect(rect: Rect): void;
 
-	fillRoundedRect(rect: Rect, xRadius: number, yRadius: number): void;
+  fillRoundedRect(rect: Rect, xRadius: number, yRadius: number): void;
 
-	fillPolygon(polygon: Polygon): void;
+  fillPolygon(polygon: Polygon): void;
 
-	drawText(text: string, rect: Rect): void;
+  drawText(text: string, rect: Rect): void;
 
-	save(): void;
+  save(): void;
 
-	restore(): void;
+  restore(): void;
 
-	test(): void;
+  test(): void;
 
 }
 
