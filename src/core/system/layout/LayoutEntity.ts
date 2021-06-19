@@ -1,28 +1,21 @@
-import { Rect, Size } from 'src/common/geometry'
+import { Rect, Size, Vector } from 'src/common/geometry'
 
 import { Layout } from './Layout'
 import { SizePolicy } from './SizePolicy'
 
 export interface LayoutEntity {
-  /**
-   * Build the layout of child entities
-   *
-   * @memberof LayoutEntity
-   */
-  build(): void
+  setSize(size: Size): void
+  getSize(): Size
+
+  setPosition(pos: Vector): void
+  getPosition(): Vector
+
+  layout(): void
 
   setLayout(layout: Layout): void
   getLayout(): Layout
 
-  setSizePolicy(pair: SizePolicyPair): void
-  getSizePolicy(): SizePolicyPair
-
-  setLayoutSize(size: Size): void
-  getLayoutSize(): Size
-
-  getChildLayoutEntities(): LayoutEntity[]
-
-  setActualBounds(rect: Rect): void
+  getLayoutEntities(): LayoutEntity[]
 }
 
 export interface SizePolicyPair {

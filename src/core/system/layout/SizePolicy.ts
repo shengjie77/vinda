@@ -1,5 +1,4 @@
-
 export enum SizePolicy {
-	Fixed,
-	Stretch,
+  Fixed,
+  Stretch,
 }

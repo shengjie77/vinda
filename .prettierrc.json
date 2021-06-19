@@ -2,13 +2,5 @@
   "semi": false,
   "bracketSpacing": true,
   "singleQuote": true,
-  "parser": "typescript",
-  "importOrder": ["^src/", "^[./]"],
-  "importOrderSeparation": true,
-  "experimentalBabelParserPluginsList" : [
-    "jsx",
-    "typescript",
-    "classPrivateProperties",
-    "classPrivateMethods"
-  ]
+  "parser": "typescript"
 }

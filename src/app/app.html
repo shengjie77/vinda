@@ -1,55 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Vinda</title>
-	<style>
-		body {
-			margin: 0;
-		}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vinda</title>
+  <style>
+    body {
+      margin: 0;
+    }
 
-		#container {
-			display: flex;
-			flex-direction: column;
-			height: 100vh;
-		}
+    #container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
 
-		#container > * {
-			flex: 1 1;
-		}
+    #container>* {
+      flex: 1 1;
+    }
 
-		#el {
-			position: fixed;
-			top: 10px;
-			left: 600px;
-			width: 100px;
-			/* background: red; */
-			border: 10px solid red;
-			/* background: blue; */
-			border-radius: 20px;
-			box-sizing: border-box;
-			display: flex;
-		}
+    #el {
+      position: fixed;
+      top: 10px;
+      left: 600px;
+      background: red;
+      box-sizing: border-box;
+      display: flex;
+    }
 
-		#el > div {
-			height: 100px;
-			background: green;
-			margin: 10px;
-			/* background: blue; */
-		}
-	</style>
+    #el>div {
+      height: 100px;
+      width: 100px;
+      flex: 50px 0 0;
+      background: green;
+      margin: 10px;
+      /* background: blue; */
+    }
+  </style>
 </head>
+
 <body>
-	<div id="container">
-		<canvas id="canvas"></canvas>
-		<div id="el">
-			<div></div>
-			<div></div>
-			<div></div>
-		</div>
-	</div>
-	<script src="./main.ts"></script>
+  <div id="container">
+    <canvas id="canvas"></canvas>
+    <div id="el">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  <script src="./main.ts"></script>
 </body>
+
 </html>
