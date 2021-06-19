@@ -1,43 +1,46 @@
 {
-	"name": "vinda",
-	"version": "1.0.0",
-	"main": "index.js",
-	"repository": "https://github.com/shengjie77/vinda.git",
-	"author": "ShengJie <shengjie0202@outlook.com>",
-	"license": "MIT",
-	"scripts": {
-		"dev-app": "parcel ./src/app/app.html",
-		"test": "jest --passWithNoTests",
-		"test-watch": "jest --watch",
-		"test-scripts": "ts-node ./scripts/runTest.ts"
-	},
-	"dependencies": {
-		"lodash": "^4.17.21",
-		"typescript": "^4.3.2"
-	},
-	"devDependencies": {
-		"@pixi/math": "^6.0.1",
-		"@types/faker": "^5.5.0",
-		"@types/jest": "^26.0.22",
-		"@types/jest-image-snapshot": "^4.3.0",
-		"@types/lodash": "^4.14.168",
-		"@types/parcel-bundler": "^1.12.3",
-		"@types/puppeteer": "^5.4.3",
-		"faker": "^5.5.2",
-		"jest": "^26.6.3",
-		"jest-canvas-mock": "^2.3.1",
-		"jest-environment-jsdom-fifteen": "^1.0.2",
-		"jest-image-snapshot": "^4.4.1",
-		"parcel-bundler": "^1.12.5",
-		"prettier": "2.3.1",
-		"puppeteer": "^8.0.0",
-		"ts-jest": "^26.5.4",
-		"ts-node": "^9.1.1"
-	},
-	"alias": {
-		"src": "./src"
-	},
-	"vinda": {
-		"testbedPort": 8081
-	}
+  "name": "vinda",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/shengjie77/vinda.git",
+  "author": "ShengJie <shengjie0202@outlook.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev-app": "parcel ./src/app/app.html",
+    "test": "jest --passWithNoTests",
+    "test-watch": "jest --watch",
+    "test-scripts": "ts-node ./scripts/runTest.ts"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "typescript": "^4.3.2"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-private-methods": "^7.14.5",
+    "@pixi/math": "^6.0.1",
+    "@trivago/prettier-plugin-sort-imports": "^2.0.2",
+    "@types/faker": "^5.5.0",
+    "@types/jest": "^26.0.22",
+    "@types/jest-image-snapshot": "^4.3.0",
+    "@types/lodash": "^4.14.168",
+    "@types/parcel-bundler": "^1.12.3",
+    "@types/puppeteer": "^5.4.3",
+    "faker": "^5.5.2",
+    "jest": "^26.6.3",
+    "jest-canvas-mock": "^2.3.1",
+    "jest-environment-jsdom-fifteen": "^1.0.2",
+    "jest-image-snapshot": "^4.4.1",
+    "parcel-bundler": "^1.12.5",
+    "prettier": "2.3.1",
+    "puppeteer": "^8.0.0",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1"
+  },
+  "alias": {
+    "src": "./src"
+  },
+  "vinda": {
+    "testbedPort": 8081
+  }
 }

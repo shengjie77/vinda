@@ -14,8 +14,8 @@ import {
   Ellipse,
   RoundedRect,
 } from 'src/common/geometry'
-import { Stack } from 'src/common'
 import { Optional } from 'src/common/types'
+import { Stack } from 'src/common'
 import { Font } from 'src/common/font'
 
 export class CanvasPainter implements Painter {

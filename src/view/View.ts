@@ -13,6 +13,8 @@ import { Optional } from 'src/common';
 import { Background as BackgroundStyle } from './Background';
 import { Border as BorderStyle } from './Border';
 
+
+
 export class View implements PaintEntity, LayoutEntity {
 
 	// ------------------------------------------------------- //
