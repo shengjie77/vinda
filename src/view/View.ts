@@ -8,6 +8,7 @@ import {
   Vector,
 } from 'src/common/geometry'
 import { PaintEntity } from 'src/core/system/paint'
+import { EventEntity } from 'src/core/system/event'
 import {
   LayoutEntity,
   Layout,
@@ -19,7 +20,7 @@ import { Optional } from 'src/common'
 import { Background as BackgroundStyle } from './Background'
 import { Border as BorderStyle } from './Border'
 
-export class View implements PaintEntity, LayoutEntity {
+export class View implements PaintEntity, LayoutEntity, EventEntity {
   // ------------------------------------------------------- //
   // ------------------  Static Methods  ------------------- //
   // ------------------------------------------------------- //
@@ -121,20 +122,22 @@ export class View implements PaintEntity, LayoutEntity {
   }
 
   public getPaintRect() {
-    const matrix = this.getMatrix()
-
-    const topLeft = Vector.create().transform(matrix)
-    const bottomRight = Vector.create({
-      x: this.getWidth(),
-      y: this.getHeight(),
-    }).transform(matrix)
-    return Rect.create({ topLeft, bottomRight })
+    return this.getGlobalRect()
   }
 
   public border: BorderStyle = BorderStyle.create()
   public background: BackgroundStyle = BackgroundStyle.create()
 
   public rect: Rect = new Rect()
+
+  // EventEntity
+  public getHitTestRect(): Rect {
+    return this.getGlobalRect()
+  }
+
+  public mouseDown(): void {
+    console.log('mouse down')
+  }
 
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
@@ -205,5 +208,15 @@ export class View implements PaintEntity, LayoutEntity {
       this.border.radius
     )
     painter.restore()
+  }
+
+  private getGlobalRect(): Rect {
+    const matrix = this.getMatrix()
+    const topLeft = Vector.create().transform(matrix)
+    const bottomRight = Vector.create({
+      x: this.getWidth(),
+      y: this.getHeight(),
+    }).transform(matrix)
+    return Rect.create({ topLeft, bottomRight })
   }
 }

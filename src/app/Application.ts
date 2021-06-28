@@ -1,5 +1,6 @@
 import { View } from 'src/view'
 import { PaintSystem } from 'src/core/system/paint'
+import { EventSystem } from 'src/core/system/event'
 import {
   ColumnLayout,
   CrossAxisAlignment,
@@ -14,6 +15,11 @@ import { Rect, Size } from 'src/common/geometry'
 export class Application {
   public static create(): Application {
     return new Application()
+  }
+
+  constructor() {
+    const canvas = document.getElementById('canvas') as HTMLCanvasElement
+    this._eventSystem = EventSystem.create(canvas)
   }
 
   public run() {
@@ -71,7 +77,13 @@ export class Application {
 
     paintSystem.addEntity(view)
     paintSystem.paint()
+    this._eventSystem.addEntity(view)
   }
+
+  // ------------------------------------------------------- //
+  // -----------------  Private Properties  ---------------- //
+  // ------------------------------------------------------- //
+  private _eventSystem: EventSystem
 }
 
 function fillScreen(canvas: HTMLCanvasElement) {
