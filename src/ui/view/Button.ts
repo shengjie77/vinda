@@ -1,31 +1,31 @@
-import { Color } from 'src/common/color'
-import { Rect } from 'src/common/geometry'
 import { Painter } from 'src/ui/painter'
-import { View } from 'src/ui/view'
+import { TextStyle } from 'src/ui/style'
+
+import { View } from './View'
+import { paintText } from './utils'
 
 export class Button extends View {
-  public text: string = 'button'
-
-  constructor() {
-    super()
-
-    // this.border.color = Color.fromCSS('#0078d4');
-    this.border.color = Color.RED
-    this.border.radius = 16
-    this.border.width = 1
-    this.background.color = Color.fromCSS('#0078d4')
-    // this.rect = Rect.create({ x: 10, y: 10, width: 200, height: 100 })
+  public static create() {
+    return new Button()
   }
 
-  public onPaint(painter: Painter) {
-    super.onPaint(painter)
-
-    this.paintText(painter, this.text)
+  public setText(text: string) {
+    this._text = text
   }
 
-  protected paintText(painter: Painter, text: string) {
-    painter.save()
-    // painter.drawText(this.text, this.rect)
-    painter.restore()
+  public getText(): string {
+    return this._text
   }
+
+  public override paint(painter: Painter) {
+    super.paint(painter)
+
+    paintText(painter, this._text, this.getLocalRect(), this._style)
+  }
+
+  // ------------------------------------------------------- //
+  // -----------------  Private Properties  ---------------- //
+  // ------------------------------------------------------- //
+  private _text: string = ''
+  private _style: TextStyle = TextStyle.create()
 }

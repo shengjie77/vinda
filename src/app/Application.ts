@@ -1,4 +1,4 @@
-import { View, MainWindow, Label } from 'src/ui/view'
+import { View, MainWindow, Label, Button } from 'src/ui/view'
 import {
   ColumnLayout,
   CrossAxisAlignment,
@@ -40,10 +40,8 @@ export class Application {
   }
 
   private drawSomething() {
-    const layoutSystem = LayoutSystem.create()
-
     const view = View.create()
-    view.background.color = Color.RED
+    // view.background.color = Color.RED
     const layout = RowLayout.create()
     layout.setCrossAxisAlignment(CrossAxisAlignment.Center)
     layout.setMainAxisAlignment(MainAxisAlignment.SpaceBetween)
@@ -72,8 +70,13 @@ export class Application {
     const label = Label.create()
     label.setX(40)
     label.setY(100)
-    // label.setSize(Size.create({ width: 200, height: 50 }))
+    label.setText('Hello')
     view.addChild(label)
+
+    const btn = Button.create()
+    btn.setText('Button')
+    btn.setPosition(Vector.create({ x: 100, y: 30 }))
+    view.addChild(btn)
     this._mainWindow.addView(view)
   }
 

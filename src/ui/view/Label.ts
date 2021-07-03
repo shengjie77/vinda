@@ -1,69 +1,9 @@
-import { Color } from 'src/common'
-import { Font } from 'src/common/font'
-import { Alignment, Rect, Size } from 'src/common/geometry'
-import { Brush, Painter } from 'src/ui/painter'
+import { Size } from 'src/common/geometry'
+import { Painter } from 'src/ui/painter'
+import { TextStyle } from 'src/ui/style'
 
 import { View } from './View'
-
-class TextStyle {
-  public font: Font
-  public color: Color
-  public horizontalAlignment: Alignment
-  public verticalAlignment: Alignment
-
-  public static create() {
-    return new TextStyle()
-  }
-
-  // ------------------------------------------------------- //
-  // ------------------  Private Methods  ------------------ //
-  // ------------------------------------------------------- //
-  private constructor() {
-    this.font = Font.create()
-    this.color = Color.BLACK
-    this.horizontalAlignment = Alignment.Center
-    this.verticalAlignment = Alignment.Center
-  }
-}
-
-function paintText(
-  painter: Painter,
-  text: string,
-  rect: Rect,
-  style: TextStyle
-) {
-  painter.save()
-
-  const textRect = rect.clone()
-
-  const brush = new Brush()
-  brush.color = style.color
-  painter.brush = brush
-  painter.font = style.font
-
-  if (textRect.size.isEmpty()) {
-    const size = measureText(painter, text, style)
-    textRect.size = size
-  }
-
-  painter.drawText(text, textRect, {
-    horizontalAlignment: style.horizontalAlignment,
-    verticalAlignment: style.verticalAlignment,
-  })
-
-  painter.restore()
-}
-
-function measureText(painter: Painter, text: string, style: TextStyle): Size {
-  painter.save()
-
-  painter.font = style.font
-  const size = painter.measureText(text)
-
-  painter.restore()
-
-  return size
-}
+import { paintText } from './utils'
 
 export class Label extends View {
   public static create(): Label {
@@ -82,7 +22,7 @@ export class Label extends View {
     super.paint(painter)
     const rect = this.getLocalRect()
 
-    paintText(painter, 'Hello', rect, this._style)
+    paintText(painter, this._text, rect, this._style)
   }
 
   // ------------------------------------------------------- //
