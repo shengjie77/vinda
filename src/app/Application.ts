@@ -49,7 +49,7 @@ export class Application {
     view.setSize(Size.create({ width: 512, height: 256 }))
 
     const cv1 = View.create()
-    cv1.background.color = Color.GREEN
+    cv1.stylesheet.background.color = Color.GREEN
     cv1.setPosition(Vector.create({ x: 40, y: 40 }))
     cv1.setSize(Size.create({ width: 50, height: 50 }))
     cv1.setFlex({
@@ -71,11 +71,16 @@ export class Application {
     label.setX(40)
     label.setY(100)
     label.setText('Hello')
+    label.setSize(Size.create({ width: 100, height: 48 }))
     view.addChild(label)
 
     const btn = Button.create()
     btn.setText('Button')
     btn.setPosition(Vector.create({ x: 100, y: 30 }))
+    btn.stylesheet.background.color = Color.BLUE
+    btn.stylesheet.padding.update(10)
+    btn.stylesheet.text.font.size = 20
+    btn.setSize(Size.create({ width: 100, height: 50 }))
     view.addChild(btn)
     this._mainWindow.addView(view)
   }

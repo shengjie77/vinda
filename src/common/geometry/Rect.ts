@@ -3,7 +3,7 @@ import { Size } from './Size'
 import { Vector } from './Vector'
 
 export class Rect implements Cloneable {
-  public static create(p?: RectLike): Rect {
+  public static create(p?: RectParam): Rect {
     const rect = new Rect()
     if (p) {
       rect.update(p)
@@ -111,13 +111,13 @@ export class Rect implements Cloneable {
     this.height = v.height
   }
 
-  public update(p: RectLike) {
-    if (isSizeParam(p)) {
+  public update(p: RectParam) {
+    if (isParamV1(p)) {
       this.x = p.x
       this.y = p.y
       this.width = p.width
       this.height = p.height
-    } else if (isBorderParam(p)) {
+    } else if (isParamV2(p)) {
       this.top = p.top
       this.bottom = p.bottom
       this.left = p.left
@@ -128,11 +128,18 @@ export class Rect implements Cloneable {
     }
   }
 
-  public shrink(val: number): this {
-    this.x = this.x + val
-    this.y += val
-    this.width -= val * 2
-    this.height -= val * 2
+  public shrink(val: number | ParamV2): this {
+    if (isParamV2(val)) {
+      this.top += val.top
+      this.bottom -= val.bottom
+      this.left += val.left
+      this.right -= val.right
+    } else {
+      this.x = this.x + val
+      this.y += val
+      this.width -= val * 2
+      this.height -= val * 2
+    }
 
     return this
   }
@@ -160,26 +167,26 @@ export class Rect implements Cloneable {
 }
 
 interface RectStatic {
-  from(p: RectLike): Rect
+  from(p: RectParam): Rect
 }
 
 export type RectConstructor = ConstructorOf<Rect, RectStatic>
 
-export type RectLike = RectSizeParam | RectBorderParam | RectPointParam
+export type RectParam = ParamV1 | ParamV2 | ParamV3
 
-type RectSizeParam = { x: number; y: number; width: number; height: number }
-type RectBorderParam = {
+type ParamV1 = { x: number; y: number; width: number; height: number }
+type ParamV2 = {
   top: number
   bottom: number
   left: number
   right: number
 }
-type RectPointParam = { topLeft: Vector; bottomRight: Vector }
+type ParamV3 = { topLeft: Vector; bottomRight: Vector }
 
-function isSizeParam(p: RectLike): p is RectSizeParam {
-  return (p as RectSizeParam).width !== undefined
+function isParamV1(p: RectParam): p is ParamV1 {
+  return (p as ParamV1).width !== undefined
 }
 
-function isBorderParam(p: RectLike): p is RectBorderParam {
-  return (p as RectBorderParam).left !== undefined
+function isParamV2(p: any): p is ParamV2 {
+  return (p as ParamV2).left !== undefined
 }

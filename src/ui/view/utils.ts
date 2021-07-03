@@ -15,7 +15,7 @@ export function paintText(
   const brush = new Brush()
   brush.color = style.color
   painter.brush = brush
-  painter.font = style.font
+  painter.font = style.font.clone()
 
   if (textRect.size.isEmpty()) {
     const size = measureText(painter, text, style)

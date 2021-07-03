@@ -1,10 +1,12 @@
 import { Painter } from 'src/ui/painter'
-import { TextStyle } from 'src/ui/style'
+import { TextStyle, ButtonStylesheet } from 'src/ui/style'
 
 import { View } from './View'
 import { paintText } from './utils'
 
 export class Button extends View {
+  public stylesheet: ButtonStylesheet = ButtonStylesheet.create()
+
   public static create() {
     return new Button()
   }
@@ -20,12 +22,11 @@ export class Button extends View {
   public override paint(painter: Painter) {
     super.paint(painter)
 
-    paintText(painter, this._text, this.getLocalRect(), this._style)
+    paintText(painter, this._text, this.getContentRect(), this.stylesheet.text)
   }
 
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
   private _text: string = ''
-  private _style: TextStyle = TextStyle.create()
 }

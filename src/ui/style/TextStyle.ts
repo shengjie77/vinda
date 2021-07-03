@@ -2,7 +2,9 @@ import { Color } from 'src/common'
 import { Font } from 'src/common/font'
 import { Alignment } from 'src/common/geometry'
 
-export class TextStyle {
+import { Style } from './Style'
+
+export class TextStyle implements Style {
   public font: Font
   public color: Color
   public horizontalAlignment: Alignment
@@ -10,6 +12,17 @@ export class TextStyle {
 
   public static create() {
     return new TextStyle()
+  }
+
+  public clone(): TextStyle {
+    const v = TextStyle.create()
+
+    v.font = this.font.clone()
+    v.color = this.color.clone()
+    v.horizontalAlignment = this.horizontalAlignment
+    v.verticalAlignment = this.verticalAlignment
+
+    return v
   }
 
   // ------------------------------------------------------- //

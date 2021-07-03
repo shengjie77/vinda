@@ -9,11 +9,16 @@ import {
 } from 'src/common/geometry'
 import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common'
-
-import { Background as BackgroundStyle } from './Background'
-import { Border as BorderStyle } from './Border'
+import {
+  BackgroundStyle,
+  BorderStyle,
+  ViewStylesheet,
+  PaddingStyle,
+} from 'src/ui/style'
 
 export class View {
+  public stylesheet: ViewStylesheet = ViewStylesheet.create()
+
   // ------------------------------------------------------- //
   // ------------------  Static Methods  ------------------- //
   // ------------------------------------------------------- //
@@ -110,16 +115,13 @@ export class View {
   }
 
   public paint(painter: Painter) {
-    this.paintBackground(painter, this.background)
-    this.paintBorder(painter, this.border)
+    this.paintBackground(painter, this.stylesheet.background)
+    this.paintBorder(painter, this.stylesheet.border)
   }
 
   public getChildren() {
     return this._children
   }
-
-  public border: BorderStyle = BorderStyle.create()
-  public background: BackgroundStyle = BackgroundStyle.create()
 
   public getHitTestRect(): Rect {
     return this.getGlobalRect()
@@ -129,6 +131,19 @@ export class View {
     const rect = Rect.create()
     rect.width = this.getWidth()
     rect.height = this.getHeight()
+
+    return rect
+  }
+
+  public getContentRect(): Rect {
+    const rect = this.getLocalRect()
+    const padding = this.stylesheet.padding
+    rect.shrink({
+      top: padding.top,
+      bottom: padding.bottom,
+      left: padding.left,
+      right: padding.right,
+    })
 
     return rect
   }
@@ -161,21 +176,6 @@ export class View {
   }
 
   // ------------------------------------------------------- //
-  // -----------------  Private Properties  ---------------- //
-  // ------------------------------------------------------- //
-  private _children: View[] = []
-  private _parent: Optional<View> = undefined
-  private _transform: Transform = Transform.fromIdentity()
-  private _size: Size = Size.create()
-  private _layout: Layout = ColumnLayout.create()
-  private _flex: Flex = { basis: 0, ratio: 1 }
-
-  public onPaint(painter: Painter) {
-    this.paintBackground(painter, this.background)
-    this.paintBorder(painter, this.border)
-  }
-
-  // ------------------------------------------------------- //
   // ---------------  Private Section Below  --------------- //
   // ------------------------------------------------------- //
 
@@ -189,14 +189,12 @@ export class View {
         width: rect.width,
         height: rect.height,
       },
-      this.border.radius
+      border.radius
     )
     const outerPath = outerRounedRect.toPath2D()
-    const innerRoundedRect = outerRounedRect.clone().shrink(this.border.width)
+    const innerRoundedRect = outerRounedRect.clone().shrink(border.width)
     innerRoundedRect.radius =
-      this.border.radius - this.border.width >= 0
-        ? this.border.radius - this.border.width
-        : 0
+      border.radius - border.width >= 0 ? border.radius - border.width : 0
     const innerPath = innerRoundedRect.toPath2D()
     const clipPath = new Path2D()
     clipPath.addPath(outerPath)
@@ -213,9 +211,22 @@ export class View {
     painter.brush.color = background.color
     painter.fillRoundedRect(
       this.getLocalRect(),
-      this.border.radius,
-      this.border.radius
+      // TODO:
+      // It's better to implement radius by clip, so we can
+      // get rid of the dependency of border
+      this.stylesheet.border.radius,
+      this.stylesheet.border.radius
     )
     painter.restore()
   }
+
+  // ------------------------------------------------------- //
+  // -----------------  Private Properties  ---------------- //
+  // ------------------------------------------------------- //
+  private _children: View[] = []
+  private _parent: Optional<View> = undefined
+  private _transform: Transform = Transform.fromIdentity()
+  private _size: Size = Size.create()
+  private _layout: Layout = ColumnLayout.create()
+  private _flex: Flex = { basis: 0, ratio: 1 }
 }
