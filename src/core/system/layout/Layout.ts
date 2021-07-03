@@ -1,4 +1,4 @@
-import { LayoutEntity } from './LayoutEntity'
+import { View } from 'src/view'
 
 export enum MainAxisAlignment {
   Start,
@@ -21,5 +21,5 @@ export interface Flex {
 }
 
 export abstract class Layout {
-  public abstract build(host: LayoutEntity): void
+  public abstract build(host: View): void
 }

@@ -72,10 +72,10 @@ export class Application {
     })
     view.addChild(cv2)
 
-    layoutSystem.addEntity(view)
+    layoutSystem.addView(view)
     layoutSystem.build()
 
-    paintSystem.addEntity(view)
+    paintSystem.addView(view)
     paintSystem.paint()
     this._eventSystem.addEntity(view)
   }

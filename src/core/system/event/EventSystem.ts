@@ -1,6 +1,5 @@
 import { Vector } from 'src/common/geometry'
-
-import { EventEntity } from './EventEntity'
+import { View } from 'src/view'
 
 export class EventSystem {
   public static create(container: HTMLElement) {
@@ -12,7 +11,7 @@ export class EventSystem {
     this.bindEvents()
   }
 
-  public addEntity(e: EventEntity) {
+  public addEntity(e: View) {
     this._entites.push(e)
   }
 
@@ -33,5 +32,5 @@ export class EventSystem {
   }
 
   private _container: HTMLElement
-  private _entites: EventEntity[] = []
+  private _entites: View[] = []
 }

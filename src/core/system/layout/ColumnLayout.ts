@@ -1,18 +1,18 @@
 import { Vector } from 'src/common/geometry'
+import { View } from 'src/view'
 
 import { Layout } from './Layout'
-import { LayoutEntity } from './LayoutEntity'
 
 export class ColumnLayout extends Layout {
   public static create(): ColumnLayout {
     return new ColumnLayout()
   }
 
-  public override build(host: LayoutEntity) {
+  public override build(host: View) {
     const startY = 0
     const x = 0
 
-    const updatePosition = (currentY: number, e: LayoutEntity) => {
+    const updatePosition = (currentY: number, e: View) => {
       const pos = Vector.create({
         x,
         y: currentY,
@@ -26,7 +26,7 @@ export class ColumnLayout extends Layout {
     host.getLayoutEntities().reduce(updatePosition, startY)
   }
 
-  private calculateEntityHeight(e: LayoutEntity): number {
+  private calculateEntityHeight(e: View): number {
     const height = e.getSize().height
     return height
   }

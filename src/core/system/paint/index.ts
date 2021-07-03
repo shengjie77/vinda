@@ -1,2 +1,1 @@
-export * from './PaintSystem';
-export * from './PaintEntity';
+export * from './PaintSystem'

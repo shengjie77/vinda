@@ -1,6 +1,5 @@
 import { Painter, CanvasPainter } from 'src/core/painter'
-
-import { PaintEntity } from './PaintEntity'
+import { View } from 'src/view'
 
 export class PaintSystem {
   // ------------------------------------------------------- //
@@ -14,31 +13,32 @@ export class PaintSystem {
   // -------------------  Public Methods  ------------------ //
   // ------------------------------------------------------- //
   constructor(ctx: CanvasRenderingContext2D) {
-    this.#ctx = ctx
-    this.#painter = CanvasPainter.create(this.#ctx)
+    this._ctx = ctx
+    this._painter = CanvasPainter.create(this._ctx)
   }
 
   public paint() {
-    this.#painter.test()
-    this.#entites.forEach((e) => this.paintRecursively(e))
+    this._painter.test()
+    this._views.forEach((e) => this.paintRecursively(e))
   }
 
-  public addEntity(entity: PaintEntity) {
-    this.#entites.push(entity)
+  // TODO: delete later
+  public addView(entity: View) {
+    this._views.push(entity)
   }
 
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
-  private paintRecursively(entity: PaintEntity) {
-    entity.paint(this.#painter)
-    entity.getChildPaintEntites().forEach((e) => this.paintRecursively(e))
+  private paintRecursively(view: View) {
+    view.paint(this._painter)
+    view.getChildPaintEntites().forEach((e) => this.paintRecursively(e))
   }
 
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
-  #ctx: CanvasRenderingContext2D
-  #painter: Painter
-  #entites: PaintEntity[] = []
+  private _ctx: CanvasRenderingContext2D
+  private _painter: Painter
+  private _views: View[] = []
 }

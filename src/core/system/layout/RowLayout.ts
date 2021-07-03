@@ -1,7 +1,7 @@
 import { Vector } from 'src/common/geometry'
+import { View } from 'src/view'
 
 import { CrossAxisAlignment, Layout, MainAxisAlignment } from './Layout'
-import { LayoutEntity } from './LayoutEntity'
 
 export class RowLayout extends Layout {
   public static create(): RowLayout {
@@ -16,9 +16,9 @@ export class RowLayout extends Layout {
     this._crossAxisAlignment = align
   }
 
-  public override build(host: LayoutEntity) {
+  public override build(host: View) {
     const ctx = host.getLayoutEntities().reduce(
-      (ctx: Context, e: LayoutEntity) => {
+      (ctx: Context, e: View) => {
         const { basis, ratio } = e.getFlex()
         ctx.space += basis
         ctx.totalRatio += ratio
@@ -34,7 +34,7 @@ export class RowLayout extends Layout {
       ctx.space = 0
     }
 
-    const updateChild = (currentX: number, e: LayoutEntity) => {
+    const updateChild = (currentX: number, e: View) => {
       const w = this.calculateEntityWidth(e, ctx)
       const size = e.getSize()
       size.width = w
@@ -51,7 +51,7 @@ export class RowLayout extends Layout {
     this.alignMainAxis(host, ctx)
   }
 
-  private calculateEntityWidth(e: LayoutEntity, ctx: Context): number {
+  private calculateEntityWidth(e: View, ctx: Context): number {
     const { basis, ratio } = e.getFlex()
     const flexSpace =
       ratio === 0 || ctx.totalRatio === 0
@@ -61,7 +61,7 @@ export class RowLayout extends Layout {
     return result
   }
 
-  private alignMainAxis(host: LayoutEntity, ctx: Context) {
+  private alignMainAxis(host: View, ctx: Context) {
     let startX = 0
     let space = 0
     switch (this._mainAxisAlignment) {
@@ -94,7 +94,7 @@ export class RowLayout extends Layout {
         break
     }
 
-    const updateChild = (currentX: number, e: LayoutEntity) => {
+    const updateChild = (currentX: number, e: View) => {
       const pos = Vector.create({
         x: currentX,
         y: e.getPosition().y,
@@ -110,7 +110,7 @@ export class RowLayout extends Layout {
     ctx.right = right
   }
 
-  private alignCrossAxis(host: LayoutEntity, child: LayoutEntity) {
+  private alignCrossAxis(host: View, child: View) {
     const pos = child.getPosition()
     const hostSize = host.getSize()
     const childSize = child.getSize()

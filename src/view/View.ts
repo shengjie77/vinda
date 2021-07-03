@@ -7,20 +7,13 @@ import {
   Size,
   Vector,
 } from 'src/common/geometry'
-import { PaintEntity } from 'src/core/system/paint'
-import { EventEntity } from 'src/core/system/event'
-import {
-  LayoutEntity,
-  Layout,
-  ColumnLayout,
-  Flex,
-} from 'src/core/system/layout'
+import { Layout, ColumnLayout, Flex } from 'src/core/system/layout'
 import { Optional } from 'src/common'
 
 import { Background as BackgroundStyle } from './Background'
 import { Border as BorderStyle } from './Border'
 
-export class View implements PaintEntity, LayoutEntity, EventEntity {
+export class View {
   // ------------------------------------------------------- //
   // ------------------  Static Methods  ------------------- //
   // ------------------------------------------------------- //
@@ -67,7 +60,7 @@ export class View implements PaintEntity, LayoutEntity, EventEntity {
     return this._flex
   }
 
-  public getLayoutEntities(): LayoutEntity[] {
+  public getLayoutEntities(): View[] {
     return this._children
   }
 
