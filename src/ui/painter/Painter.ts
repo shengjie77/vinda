@@ -1,7 +1,7 @@
 import { Font } from 'src/common/font'
 import { Line, Rect, Path, Polygon, Transform } from 'src/common/geometry'
 import { Optional } from 'src/common/types'
-import { Brush, Pen } from 'src/core/painter'
+import { Brush, Pen } from 'src/ui/painter'
 
 export interface Painter {
   pen: Pen

@@ -1,5 +1,5 @@
 import { Vector } from 'src/common/geometry'
-import { View } from 'src/view'
+import { View } from 'src/ui/view'
 
 import { Layout } from './Layout'
 

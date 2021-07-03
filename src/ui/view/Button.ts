@@ -1,7 +1,7 @@
 import { Color } from 'src/common/color'
 import { Rect } from 'src/common/geometry'
-import { Painter } from 'src/core/painter'
-import { View } from 'src/view'
+import { Painter } from 'src/ui/painter'
+import { View } from 'src/ui/view'
 
 export class Button extends View {
   public text: string = 'button'

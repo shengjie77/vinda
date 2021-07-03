@@ -1,6 +1,6 @@
-import { View } from 'src/view'
-import { PaintSystem } from 'src/core/system/paint'
-import { EventSystem } from 'src/core/system/event'
+import { View } from 'src/ui/view'
+import { PaintSystem } from 'src/ui/system/paint'
+import { EventSystem } from 'src/ui/system/event'
 import {
   ColumnLayout,
   CrossAxisAlignment,
@@ -8,7 +8,7 @@ import {
   MainAxisAlignment,
   RowLayout,
   SizePolicy,
-} from 'src/core/system/layout'
+} from 'src/ui/system/layout'
 import { Color } from 'src/common'
 import { Rect, Size } from 'src/common/geometry'
 

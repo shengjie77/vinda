@@ -1,4 +1,4 @@
-import { Painter } from 'src/core/painter'
+import { Painter } from 'src/ui/painter'
 import {
   Matrix,
   Rect,
@@ -7,7 +7,7 @@ import {
   Size,
   Vector,
 } from 'src/common/geometry'
-import { Layout, ColumnLayout, Flex } from 'src/core/system/layout'
+import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common'
 
 import { Background as BackgroundStyle } from './Background'
@@ -110,12 +110,8 @@ export class View {
     this.paintBorder(painter, this.border)
   }
 
-  public getChildPaintEntites() {
+  public getChildren() {
     return this._children
-  }
-
-  public getPaintRect() {
-    return this.getGlobalRect()
   }
 
   public border: BorderStyle = BorderStyle.create()
@@ -123,9 +119,18 @@ export class View {
 
   public rect: Rect = new Rect()
 
-  // EventEntity
   public getHitTestRect(): Rect {
     return this.getGlobalRect()
+  }
+
+  public getGlobalRect(): Rect {
+    const matrix = this.getMatrix()
+    const topLeft = Vector.create().transform(matrix)
+    const bottomRight = Vector.create({
+      x: this.getWidth(),
+      y: this.getHeight(),
+    }).transform(matrix)
+    return Rect.create({ topLeft, bottomRight })
   }
 
   public mouseDown(): void {
@@ -187,7 +192,7 @@ export class View {
     clipPath.addPath(innerPath)
     painter.clipPath = clipPath
     painter.brush.color = border.color
-    painter.fillRoundedRect(this.getPaintRect(), border.radius, border.radius)
+    painter.fillRoundedRect(this.getGlobalRect(), border.radius, border.radius)
 
     painter.restore()
   }
@@ -196,20 +201,10 @@ export class View {
     painter.save()
     painter.brush.color = background.color
     painter.fillRoundedRect(
-      this.getPaintRect(),
+      this.getGlobalRect(),
       this.border.radius,
       this.border.radius
     )
     painter.restore()
-  }
-
-  private getGlobalRect(): Rect {
-    const matrix = this.getMatrix()
-    const topLeft = Vector.create().transform(matrix)
-    const bottomRight = Vector.create({
-      x: this.getWidth(),
-      y: this.getHeight(),
-    }).transform(matrix)
-    return Rect.create({ topLeft, bottomRight })
   }
 }

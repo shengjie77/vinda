@@ -1,5 +1,5 @@
-import { Painter, CanvasPainter } from 'src/core/painter'
-import { View } from 'src/view'
+import { Painter, CanvasPainter } from 'src/ui/painter'
+import { View } from 'src/ui/view'
 
 export class PaintSystem {
   // ------------------------------------------------------- //
@@ -32,7 +32,7 @@ export class PaintSystem {
   // ------------------------------------------------------- //
   private paintRecursively(view: View) {
     view.paint(this._painter)
-    view.getChildPaintEntites().forEach((e) => this.paintRecursively(e))
+    view.getChildren().forEach((e) => this.paintRecursively(e))
   }
 
   // ------------------------------------------------------- //

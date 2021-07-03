@@ -1,4 +1,4 @@
-import { View } from 'src/view'
+import { View } from 'src/ui/view'
 
 export class LayoutSystem {
   public static create() {

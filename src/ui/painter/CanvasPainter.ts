@@ -4,7 +4,7 @@ import {
   Pen,
   PainterState,
   PainterContext,
-} from 'src/core/painter'
+} from 'src/ui/painter'
 import {
   Line,
   Rect,
