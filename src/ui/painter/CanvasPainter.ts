@@ -13,10 +13,15 @@ import {
   Transform,
   Ellipse,
   RoundedRect,
+  Alignment,
+  Matrix,
+  Size,
 } from 'src/common/geometry'
 import { Optional } from 'src/common/types'
-import { Stack } from 'src/common'
+import { Color, Stack } from 'src/common'
 import { Font } from 'src/common/font'
+
+import { TextOption } from './Painter'
 
 export class CanvasPainter implements Painter {
   public static create(ctx: PainterContext) {
@@ -59,12 +64,12 @@ export class CanvasPainter implements Painter {
     return this.state.font
   }
 
-  public get transform(): Transform {
-    return this.state.transform
+  public get matrix(): Matrix {
+    return this.state.matrix
   }
 
-  public set transform(v: Transform) {
-    this.state.transform = v
+  public set matrix(v: Matrix) {
+    this.state.matrix = v
   }
 
   public strokeLine(line: Line) {
@@ -124,17 +129,43 @@ export class CanvasPainter implements Painter {
     return {} as any
   }
 
-  public drawText(text: string, rect: Rect) {
+  public drawText(text: string, rect: Rect, opt?: Partial<TextOption>) {
     this.applyState()
 
-    const metrix = this.ctx.measureText(text)
+    const option = mergeDefaultTextOption(opt)
+    const metric = this.ctx.measureText(text)
     const height =
-      metrix.actualBoundingBoxAscent + metrix.actualBoundingBoxDescent
-    const centerY = rect.center.y
-    const y = centerY - height / 2 + metrix.actualBoundingBoxAscent
-    const x = rect.center.x - metrix.width / 2
+      metric.actualBoundingBoxAscent + metric.actualBoundingBoxDescent
+
+    const xMap: any = {
+      [Alignment.Left]: () => rect.left,
+      [Alignment.Center]: () => rect.center.x - metric.width / 2,
+      [Alignment.Right]: () => rect.right - metric.width,
+    }
+
+    const yMap: any = {
+      [Alignment.Top]: () => rect.top + height,
+      [Alignment.Center]: () =>
+        rect.center.y - height / 2 + metric.actualBoundingBoxAscent,
+      [Alignment.Bottom]: () => rect.bottom,
+    }
+
+    // this.drawTestRect(rect)
+    const x = xMap[option.horizontalAlignment]()
+    const y = yMap[option.verticalAlignment]()
     this.ctx.fillText(text, x, y)
-    this.ctx.font
+  }
+
+  public measureText(text: string): Size {
+    this.applyState()
+
+    const size = Size.create()
+    const metric = this.ctx.measureText(text)
+    size.width = metric.width
+    size.height =
+      metric.actualBoundingBoxAscent + metric.actualBoundingBoxDescent
+
+    return size
   }
 
   /**
@@ -164,14 +195,8 @@ export class CanvasPainter implements Painter {
   public test() {}
 
   // ------------------------------------------------------- //
-  // ---------------  Private Section Below  --------------- //
+  // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
-
-  private ctx: PainterContext
-
-  private stateStack: Stack<PainterState> = new Stack()
-
-  private state: PainterState = new PainterState()
 
   /**
    * Apply current PainterState to CanvasRenderingContext.
@@ -187,14 +212,42 @@ export class CanvasPainter implements Painter {
     this.ctx.fillStyle = this.brush.color.toCSSColor()
     this.ctx.font = this.state.font.toCSSString()
 
-    this.ctx.setTransform(this.state.transform.toMatrix().toDOMMatrix())
+    this.ctx.setTransform(this.state.matrix.toDOMMatrix())
     if (this.clipPath) {
       this.ctx.clip(this.clipPath, 'evenodd')
     }
   }
+
+  private drawTestRect(rect: Rect) {
+    this.save()
+
+    this.pen = Pen.create()
+    this.ctx.strokeRect(rect.x, rect.y, rect.width, rect.height)
+
+    this.restore()
+  }
+
+  // ------------------------------------------------------- //
+  // -----------------  Private Properties  ---------------- //
+  // ------------------------------------------------------- //
+  private ctx: PainterContext
+  private stateStack: Stack<PainterState> = new Stack()
+  private state: PainterState = new PainterState()
 }
 
 function roundedRectToPath2D(rect: Rect, radius: number): Path2D {
   const r = new RoundedRect(rect, radius)
   return r.toPath2D()
+}
+
+function mergeDefaultTextOption(opt?: Partial<TextOption>): TextOption {
+  const defaultOpt: TextOption = {
+    horizontalAlignment: Alignment.Center,
+    verticalAlignment: Alignment.Center,
+  }
+
+  return {
+    ...defaultOpt,
+    ...opt,
+  }
 }

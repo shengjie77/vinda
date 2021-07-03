@@ -1,6 +1,4 @@
-import { View } from 'src/ui/view'
-import { PaintSystem } from 'src/ui/system/paint'
-import { EventSystem } from 'src/ui/system/event'
+import { View, MainWindow, Label } from 'src/ui/view'
 import {
   ColumnLayout,
   CrossAxisAlignment,
@@ -10,7 +8,7 @@ import {
   SizePolicy,
 } from 'src/ui/system/layout'
 import { Color } from 'src/common'
-import { Rect, Size } from 'src/common/geometry'
+import { Rect, Size, Vector } from 'src/common/geometry'
 
 export class Application {
   public static create(): Application {
@@ -19,7 +17,8 @@ export class Application {
 
   constructor() {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
-    this._eventSystem = EventSystem.create(canvas)
+
+    this._mainWindow = MainWindow.create(canvas)
   }
 
   public run() {
@@ -41,9 +40,6 @@ export class Application {
   }
 
   private drawSomething() {
-    const canvas = document.getElementById('canvas') as HTMLCanvasElement
-    const paintSystem = PaintSystem.createFromCanvas(canvas)
-
     const layoutSystem = LayoutSystem.create()
 
     const view = View.create()
@@ -56,6 +52,7 @@ export class Application {
 
     const cv1 = View.create()
     cv1.background.color = Color.GREEN
+    cv1.setPosition(Vector.create({ x: 40, y: 40 }))
     cv1.setSize(Size.create({ width: 50, height: 50 }))
     cv1.setFlex({
       basis: 50,
@@ -63,27 +60,27 @@ export class Application {
     })
     view.addChild(cv1)
 
-    const cv2 = View.create()
-    cv2.background.color = Color.BLUE
-    cv2.setSize(Size.create({ width: 80, height: 90 }))
-    cv2.setFlex({
-      basis: 80,
-      ratio: 0,
-    })
-    view.addChild(cv2)
+    // const cv2 = View.create()
+    // cv2.background.color = Color.BLUE
+    // cv2.setSize(Size.create({ width: 80, height: 90 }))
+    // cv2.setFlex({
+    //   basis: 80,
+    //   ratio: 0,
+    // })
+    // view.addChild(cv2)
 
-    layoutSystem.addView(view)
-    layoutSystem.build()
-
-    paintSystem.addView(view)
-    paintSystem.paint()
-    this._eventSystem.addEntity(view)
+    const label = Label.create()
+    label.setX(40)
+    label.setY(100)
+    // label.setSize(Size.create({ width: 200, height: 50 }))
+    view.addChild(label)
+    this._mainWindow.addView(view)
   }
 
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
-  private _eventSystem: EventSystem
+  private _mainWindow: MainWindow
 }
 
 function fillScreen(canvas: HTMLCanvasElement) {

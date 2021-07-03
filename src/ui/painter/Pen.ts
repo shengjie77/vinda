@@ -1,33 +1,36 @@
-import { Color, isEqual, Cloneable, Equalable } from 'src/common';
+import { Color, isEqual, Cloneable, Equalable } from 'src/common'
 
-import { PenCap } from './PenCap';
-import { PenJoin } from './PenJoin';
+import { PenCap } from './PenCap'
+import { PenJoin } from './PenJoin'
 
 export class Pen implements Cloneable, Equalable {
+  public static create() {
+    return new Pen()
+  }
 
-	public color: Color = Color.BLACK;
+  public color: Color = Color.BLACK
 
-	public width: number = 1.0;
+  public width: number = 1.0
 
-	public cap: PenCap = PenCap.Butt;
+  public cap: PenCap = PenCap.Butt
 
-	public join: PenJoin = PenJoin.Bevel;
+  public join: PenJoin = PenJoin.Bevel
 
-	public clone(): Pen {
-		const pen = new Pen();
+  public clone(): Pen {
+    const pen = new Pen()
 
-		pen.color = this.color.clone();
-		pen.width = this.width;
+    pen.color = this.color.clone()
+    pen.width = this.width
 
-		return pen;
-	}
+    return pen
+  }
 
-	public equalTo(pen: Pen) {
-		return this.color.equalTo(pen.color)
-			&& isEqual(this.width, pen.width)
-			&& this.cap === pen.cap
-			&& this.join === pen.join
-	}
-
+  public equalTo(pen: Pen) {
+    return (
+      this.color.equalTo(pen.color) &&
+      isEqual(this.width, pen.width) &&
+      this.cap === pen.cap &&
+      this.join === pen.join
+    )
+  }
 }
-

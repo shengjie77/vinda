@@ -14,7 +14,7 @@ export class Button extends View {
     this.border.radius = 16
     this.border.width = 1
     this.background.color = Color.fromCSS('#0078d4')
-    this.rect = Rect.create({ x: 10, y: 10, width: 200, height: 100 })
+    // this.rect = Rect.create({ x: 10, y: 10, width: 200, height: 100 })
   }
 
   public onPaint(painter: Painter) {
@@ -25,7 +25,7 @@ export class Button extends View {
 
   protected paintText(painter: Painter, text: string) {
     painter.save()
-    painter.drawText(this.text, this.rect)
+    // painter.drawText(this.text, this.rect)
     painter.restore()
   }
 }

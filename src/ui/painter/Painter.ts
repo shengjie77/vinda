@@ -1,14 +1,27 @@
 import { Font } from 'src/common/font'
-import { Line, Rect, Path, Polygon, Transform } from 'src/common/geometry'
+import {
+  Line,
+  Rect,
+  Path,
+  Polygon,
+  Alignment,
+  Matrix,
+  Size,
+} from 'src/common/geometry'
 import { Optional } from 'src/common/types'
 import { Brush, Pen } from 'src/ui/painter'
+
+export interface TextOption {
+  horizontalAlignment: Alignment
+  verticalAlignment: Alignment
+}
 
 export interface Painter {
   pen: Pen
 
   brush: Brush
 
-  transform: Transform
+  matrix: Matrix
 
   clipPath: Optional<Path2D>
 
@@ -32,7 +45,8 @@ export interface Painter {
 
   fillPolygon(polygon: Polygon): void
 
-  drawText(text: string, rect: Rect): void
+  drawText(text: string, rect: Rect, opt?: Partial<TextOption>): void
+  measureText(text: string): Size
 
   save(): void
 

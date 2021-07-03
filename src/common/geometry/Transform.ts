@@ -1,5 +1,5 @@
-import { Cloneable, Equalable } from 'src/common/types';
-import { Vector, Angle, Matrix } from 'src/common/geometry';
+import { Cloneable, Equalable } from 'src/common/types'
+import { Vector, Angle, Matrix } from 'src/common/geometry'
 
 /**
  * Transform order: scale -> rotate -> translate
@@ -9,43 +9,43 @@ import { Vector, Angle, Matrix } from 'src/common/geometry';
  * @implements {Cloneable}
  */
 export class Transform implements Cloneable, Equalable {
+  public static fromIdentity(): Transform {
+    return new Transform()
+  }
 
-	public static fromIdentity(): Transform {
-		return new Transform();
-	}
+  public translation: Vector = new Vector()
 
-	public translation: Vector = new Vector();
+  public scale: Vector = new Vector(1, 1)
 
-	public scale: Vector = new Vector(1, 1);
+  public rotation: Angle = new Angle()
 
-	public rotation: Angle = new Angle();
+  public translate(tx: number, ty: number) {
+    this.translation.x += tx
+    this.translation.y += ty
+  }
 
-	public translate(tx: number, ty: number) {
-		this.translation.x += tx;
-		this.translation.y += ty;
-	}
+  public toMatrix(): Matrix {
+    return Matrix.fromIdentity()
+      .translate(this.translation.x, this.translation.y)
+      .rotate(this.rotation)
+      .scale(this.scale.x, this.scale.y)
+  }
 
-	public toMatrix(): Matrix {
-		return Matrix.fromIdentity()
-			.translate(this.translation.x, this.translation.y)
-			.rotate(this.rotation)
-			.scale(this.scale.x, this.scale.y)
-	}
+  public clone(): Transform {
+    const t = Transform.fromIdentity()
 
-	public clone(): Transform {
-		const t = Transform.fromIdentity();
+    t.translation = this.translation.clone()
+    t.scale = this.scale.clone()
+    t.rotation = this.rotation.clone()
 
-		t.translation = this.translation.clone();
-		t.scale = this.scale.clone();
-		t.rotation = this.rotation.clone();
+    return t
+  }
 
-		return t;
-	}
-
-	public equalTo(t: Transform): boolean {
-		return this.translation.equalTo(t.translation)
-			&& this.scale.equalTo(t.scale)
-			&& this.rotation.equalTo(t.rotation)
-	}
-
+  public equalTo(t: Transform): boolean {
+    return (
+      this.translation.equalTo(t.translation) &&
+      this.scale.equalTo(t.scale) &&
+      this.rotation.equalTo(t.rotation)
+    )
+  }
 }

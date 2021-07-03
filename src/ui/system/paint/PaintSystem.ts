@@ -17,22 +17,23 @@ export class PaintSystem {
     this._painter = CanvasPainter.create(this._ctx)
   }
 
-  public paint() {
-    this._painter.test()
-    this._views.forEach((e) => this.paintRecursively(e))
-  }
-
-  // TODO: delete later
-  public addView(entity: View) {
-    this._views.push(entity)
+  public paint(views: View[]) {
+    views.forEach((v) => this.paintRecursively(v))
   }
 
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
   private paintRecursively(view: View) {
+    this._painter.save()
+
+    this._painter.matrix = this._painter.matrix
+      .clone()
+      .append(view.getTransform().toMatrix())
     view.paint(this._painter)
     view.getChildren().forEach((e) => this.paintRecursively(e))
+
+    this._painter.restore()
   }
 
   // ------------------------------------------------------- //
@@ -40,5 +41,4 @@ export class PaintSystem {
   // ------------------------------------------------------- //
   private _ctx: CanvasRenderingContext2D
   private _painter: Painter
-  private _views: View[] = []
 }

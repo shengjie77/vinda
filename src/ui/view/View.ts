@@ -100,6 +100,10 @@ export class View {
     return this.getSize().height
   }
 
+  public getTransform() {
+    return this._transform
+  }
+
   public addChild(child: View) {
     child._parent = this
     this._children.push(child)
@@ -117,10 +121,16 @@ export class View {
   public border: BorderStyle = BorderStyle.create()
   public background: BackgroundStyle = BackgroundStyle.create()
 
-  public rect: Rect = new Rect()
-
   public getHitTestRect(): Rect {
     return this.getGlobalRect()
+  }
+
+  public getLocalRect(): Rect {
+    const rect = Rect.create()
+    rect.width = this.getWidth()
+    rect.height = this.getHeight()
+
+    return rect
   }
 
   public getGlobalRect(): Rect {
@@ -171,12 +181,13 @@ export class View {
 
   private paintBorder(painter: Painter, border: BorderStyle) {
     painter.save()
+    const rect = this.getLocalRect()
     const outerRounedRect = new RoundedRect(
       {
-        x: this.rect.x,
-        y: this.rect.y,
-        width: this.rect.width,
-        height: this.rect.height,
+        x: rect.x,
+        y: rect.y,
+        width: rect.width,
+        height: rect.height,
       },
       this.border.radius
     )
@@ -192,7 +203,7 @@ export class View {
     clipPath.addPath(innerPath)
     painter.clipPath = clipPath
     painter.brush.color = border.color
-    painter.fillRoundedRect(this.getGlobalRect(), border.radius, border.radius)
+    painter.fillRoundedRect(this.getLocalRect(), border.radius, border.radius)
 
     painter.restore()
   }
@@ -201,7 +212,7 @@ export class View {
     painter.save()
     painter.brush.color = background.color
     painter.fillRoundedRect(
-      this.getGlobalRect(),
+      this.getLocalRect(),
       this.border.radius,
       this.border.radius
     )

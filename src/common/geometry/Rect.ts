@@ -1,4 +1,5 @@
 import { ConstructorOf, Cloneable } from 'src/common/types'
+import { Size } from './Size'
 import { Vector } from './Vector'
 
 export class Rect implements Cloneable {
@@ -96,6 +97,18 @@ export class Rect implements Cloneable {
       (this.left + this.right) / 2,
       (this.top + this.bottom) / 2
     )
+  }
+
+  public get size(): Size {
+    return Size.create({
+      width: this.width,
+      height: this.height,
+    })
+  }
+
+  public set size(v: Size) {
+    this.width = v.width
+    this.height = v.height
   }
 
   public update(p: RectLike) {
