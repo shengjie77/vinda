@@ -3,6 +3,7 @@ import { Cloneable, Equalable } from 'src/common/types'
 export class Font implements Cloneable, Equalable {
   public size: number = 20
   public family: string
+  public lineHeight: number = 20
 
   public static create() {
     return new Font()
@@ -10,7 +11,7 @@ export class Font implements Cloneable, Equalable {
 
   constructor() {
     this.size = 20
-    this.family = 'PingFang SC'
+    this.family = 'serif'
   }
 
   public toCSSString(): string {
@@ -20,6 +21,7 @@ export class Font implements Cloneable, Equalable {
   public clone(): Font {
     const f = new Font()
     f.size = this.size
+    f.family = this.family
     return f
   }
 

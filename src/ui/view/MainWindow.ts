@@ -9,6 +9,7 @@ export class MainWindow {
   }
 
   public addView(view: View) {
+    view.setPaintSystem(this._paintSystem)
     this._views.push(view)
     this.update()
   }

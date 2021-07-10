@@ -1,3 +1,5 @@
+import { Font } from 'src/common/font'
+import { Size } from 'src/common/geometry'
 import { Painter, CanvasPainter } from 'src/ui/painter'
 import { View } from 'src/ui/view'
 
@@ -19,6 +21,17 @@ export class PaintSystem {
 
   public paint(views: View[]) {
     views.forEach((v) => this.paintRecursively(v))
+  }
+
+  public measureText(text: string, font: Font): Size {
+    this._painter.save()
+
+    this._painter.font = font.clone()
+    const size = this._painter.measureText(text)
+
+    this._painter.restore()
+
+    return size
   }
 
   // ------------------------------------------------------- //

@@ -16,19 +16,24 @@ export class Size implements Equalable, Cloneable {
   }
 
   set width(v: number) {
-    this.#width = v
+    this._width = v
   }
 
   get width(): number {
-    return this.#width
+    return this._width
   }
 
   set height(v: number) {
-    this.#height = v
+    this._height = v
   }
 
   get height(): number {
-    return this.#height
+    return this._height
+  }
+
+  public expand(w: number, h: number) {
+    this._width += w
+    this._height += h
   }
 
   public isEmpty(): boolean {
@@ -51,8 +56,8 @@ export class Size implements Equalable, Cloneable {
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
-  #width: number = 0
-  #height: number = 0
+  private _width: number = 0
+  private _height: number = 0
 }
 
 export interface SizeParam {

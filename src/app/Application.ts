@@ -9,6 +9,7 @@ import {
 } from 'src/ui/system/layout'
 import { Color } from 'src/common'
 import { Rect, Size, Vector } from 'src/common/geometry'
+import { FluentDesignTheme } from 'src/ui/theme'
 
 export class Application {
   public static create(): Application {
@@ -49,7 +50,7 @@ export class Application {
     view.setSize(Size.create({ width: 512, height: 256 }))
 
     const cv1 = View.create()
-    cv1.stylesheet.background.color = Color.GREEN
+    cv1.getStylesheet().background.color = Color.GREEN
     cv1.setPosition(Vector.create({ x: 40, y: 40 }))
     cv1.setSize(Size.create({ width: 50, height: 50 }))
     cv1.setFlex({
@@ -74,13 +75,15 @@ export class Application {
     label.setSize(Size.create({ width: 100, height: 48 }))
     view.addChild(label)
 
+    const theme = new FluentDesignTheme()
     const btn = Button.create()
-    btn.setText('Button')
+    btn.setText('Primary')
     btn.setPosition(Vector.create({ x: 100, y: 30 }))
-    btn.stylesheet.background.color = Color.BLUE
-    btn.stylesheet.padding.update(10)
-    btn.stylesheet.text.font.size = 20
-    btn.setSize(Size.create({ width: 100, height: 50 }))
+    btn.setStylesheet(theme.buttonPrimaryStyle)
+    // btn.getStylesheet().background.color = Color.BLUE
+    // btn.getStylesheet().padding.update(10)
+    // btn.getStylesheet().text.font.size = 20
+    // btn.setSize(Size.create({ width: 100, height: 50 }))
     view.addChild(btn)
     this._mainWindow.addView(view)
   }

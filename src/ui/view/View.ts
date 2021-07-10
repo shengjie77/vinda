@@ -9,16 +9,11 @@ import {
 } from 'src/common/geometry'
 import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common'
-import {
-  BackgroundStyle,
-  BorderStyle,
-  ViewStylesheet,
-  PaddingStyle,
-} from 'src/ui/style'
+import { BackgroundStyle, BorderStyle, ViewStylesheet } from 'src/ui/style'
+import { ViewState } from './ViewState'
+import { PaintSystem } from '../system/paint'
 
 export class View {
-  public stylesheet: ViewStylesheet = ViewStylesheet.create()
-
   // ------------------------------------------------------- //
   // ------------------  Static Methods  ------------------- //
   // ------------------------------------------------------- //
@@ -115,8 +110,8 @@ export class View {
   }
 
   public paint(painter: Painter) {
-    this.paintBackground(painter, this.stylesheet.background)
-    this.paintBorder(painter, this.stylesheet.border)
+    this.paintBackground(painter, this.getStylesheet().background)
+    this.paintBorder(painter, this.getStylesheet().border)
   }
 
   public getChildren() {
@@ -137,7 +132,7 @@ export class View {
 
   public getContentRect(): Rect {
     const rect = this.getLocalRect()
-    const padding = this.stylesheet.padding
+    const padding = this.getStylesheet().padding
     rect.shrink({
       top: padding.top,
       bottom: padding.bottom,
@@ -162,9 +157,26 @@ export class View {
     console.log('mouse down')
   }
 
+  public getStylesheet(): ViewStylesheet {
+    return this._stylesheet
+  }
+
+  public setStylesheet(stylesheet: ViewStylesheet) {
+    this._stylesheet = stylesheet
+  }
+
+  public setPaintSystem(s: Optional<PaintSystem>) {
+    this._paintSystem = s
+  }
+
+  public getPaintSystem(): Optional<PaintSystem> {
+    return this._paintSystem
+  }
+
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
+
   private getMatrix(): Matrix {
     const matrix = this._transform.toMatrix()
 
@@ -214,8 +226,8 @@ export class View {
       // TODO:
       // It's better to implement radius by clip, so we can
       // get rid of the dependency of border
-      this.stylesheet.border.radius,
-      this.stylesheet.border.radius
+      this.getStylesheet().border.radius,
+      this.getStylesheet().border.radius
     )
     painter.restore()
   }
@@ -229,4 +241,6 @@ export class View {
   private _size: Size = Size.create()
   private _layout: Layout = ColumnLayout.create()
   private _flex: Flex = { basis: 0, ratio: 1 }
+  private _stylesheet: ViewStylesheet = ViewStylesheet.create()
+  private _paintSystem: Optional<PaintSystem>
 }

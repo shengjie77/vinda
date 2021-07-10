@@ -133,9 +133,8 @@ export class CanvasPainter implements Painter {
     this.applyState()
 
     const option = mergeDefaultTextOption(opt)
-    const metric = this.ctx.measureText(text)
-    const height =
-      metric.actualBoundingBoxAscent + metric.actualBoundingBoxDescent
+    const metric: any = this.ctx.measureText(text)
+    const height = this.state.font.lineHeight
 
     const xMap: any = {
       [Alignment.Left]: () => rect.left,
@@ -146,7 +145,7 @@ export class CanvasPainter implements Painter {
     const yMap: any = {
       [Alignment.Top]: () => rect.top + height,
       [Alignment.Center]: () =>
-        rect.center.y - height / 2 + metric.actualBoundingBoxAscent,
+        rect.center.y - height / 2 + metric.fontBoundingBoxAscent,
       [Alignment.Bottom]: () => rect.bottom,
     }
 
