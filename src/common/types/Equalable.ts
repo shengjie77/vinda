@@ -1,7 +1,3 @@
-
 export interface Equalable {
-
-	equalTo(v: any): boolean;
-
+  equalTo(v: any): boolean
 }
-

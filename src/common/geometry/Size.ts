@@ -1,16 +1,18 @@
-import { Equalable, Cloneable } from 'src/common'
+import { Equalable, Cloneable, cloneProperty } from 'src/common/types'
 
 const DEFAULT_PARAM: SizeParam = {
   width: 0,
   height: 0,
 }
 
-export class Size implements Equalable, Cloneable {
+export class Size extends Cloneable implements Equalable {
   public static create(param?: Partial<SizeParam>) {
     return new Size(param)
   }
 
   constructor(param: Partial<SizeParam> = DEFAULT_PARAM) {
+    super()
+
     this.width = param.width ?? DEFAULT_PARAM.width
     this.height = param.height ?? DEFAULT_PARAM.height
   }
@@ -44,19 +46,13 @@ export class Size implements Equalable, Cloneable {
     return this.width === other.width && this.height === other.height
   }
 
-  public clone(): Size {
-    const size = Size.create()
-
-    size.width = this.width
-    size.height = this.height
-
-    return size
-  }
-
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
+  @cloneProperty()
   private _width: number = 0
+
+  @cloneProperty()
   private _height: number = 0
 }
 

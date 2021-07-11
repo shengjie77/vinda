@@ -1,4 +1,3 @@
-
 export type ConstructorOf<T, Static = {}> = {
-	new(...args: any[]): T;
+  new (...args: any[]): T
 } & Static

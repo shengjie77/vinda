@@ -11,3 +11,8 @@ yarn test-watch
 ```
 yarn dev-app
 ```
+
+### Counting lines of code
+```
+https://api.codetabs.com/v1/loc/?github=shengjie77/vinda
+```
