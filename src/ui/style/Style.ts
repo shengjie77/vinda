@@ -1,3 +1,3 @@
-import { Cloneable } from 'src/common'
+import { Cloneable } from 'src/common/types'
 
-export interface Style extends Cloneable {}
+export class Style extends Cloneable {}

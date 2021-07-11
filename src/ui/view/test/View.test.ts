@@ -2,7 +2,10 @@ import { View } from 'src/ui/view'
 import { Rect } from 'src/common/geometry'
 import { createMockPainter } from 'src/mock'
 
-describe('View', () => {
+describe.skip('View', () => {
+  test('empty', () => {
+    expect(1).toBe(1)
+  })
   // describe('onPaint', () => {
   //   test('With solid border', () => {
   //     const view = View.create()

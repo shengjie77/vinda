@@ -1,8 +1,9 @@
-import { ConstructorOf, Cloneable } from 'src/common/types'
+import { ConstructorOf, Cloneable, cloneProperty } from 'src/common/types'
+
 import { Size } from './Size'
 import { Vector } from './Vector'
 
-export class Rect implements Cloneable {
+export class Rect extends Cloneable {
   public static create(p?: RectParam): Rect {
     const rect = new Rect()
     if (p) {
@@ -12,12 +13,16 @@ export class Rect implements Cloneable {
     return rect
   }
 
+  @cloneProperty()
   public top: number = 0
 
+  @cloneProperty()
   public bottom: number = 0
 
+  @cloneProperty()
   public left: number = 0
 
+  @cloneProperty()
   public right: number = 0
 
   public get topLeft(): Vector {
@@ -151,18 +156,6 @@ export class Rect implements Cloneable {
       pos.y >= this.top &&
       pos.y <= this.bottom
     )
-  }
-
-  // Cloneable
-  public clone(): Rect {
-    const rect = Rect.create({
-      x: this.x,
-      y: this.y,
-      width: this.width,
-      height: this.height,
-    })
-
-    return rect
   }
 }
 

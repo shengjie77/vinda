@@ -1,9 +1,17 @@
+import { cloneProperty } from 'src/common/types'
 import { Style } from './Style'
 
-export class PaddingStyle implements Style {
+export class PaddingStyle extends Style {
+  @cloneProperty()
   public top: number = 0
+
+  @cloneProperty()
   public bottom: number = 0
+
+  @cloneProperty()
   public left: number = 0
+
+  @cloneProperty()
   public right: number = 0
 
   public static create(param: PaddingStyleParam = 0): PaddingStyle {
@@ -23,15 +31,6 @@ export class PaddingStyle implements Style {
     } else {
       console.warn('Invalid param format!')
     }
-  }
-
-  public clone(): PaddingStyle {
-    return PaddingStyle.create({
-      top: this.top,
-      bottom: this.bottom,
-      left: this.left,
-      right: this.right,
-    })
   }
 
   // ------------------------------------------------------- //

@@ -22,19 +22,19 @@ export class Path {
   public fillRule: PathFillRule = PathFillRule.NonZero
 
   public moveTo(pt: Vector) {
-    this.path2d.moveTo(pt.x, pt.y)
+    this._path2d.moveTo(pt.x, pt.y)
   }
 
   public lineTo(pt: Vector) {
-    this.path2d.lineTo(pt.x, pt.y)
+    this._path2d.lineTo(pt.x, pt.y)
   }
 
   public close() {
-    this.path2d.closePath()
+    this._path2d.closePath()
   }
 
   public toPath2D(): Path2D {
-    return this.path2d
+    return new Path2D(this._path2d)
   }
 
   public addEllipse(e: Ellipse | EllipseLike) {
@@ -61,5 +61,5 @@ export class Path {
   // ---------------  Private Section Below  --------------- //
   // ------------------------------------------------------- //
 
-  private path2d: Path2D = new Path2D()
+  private _path2d: Path2D = new Path2D()
 }

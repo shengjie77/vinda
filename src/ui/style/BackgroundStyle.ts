@@ -1,19 +1,13 @@
 import { Color } from 'src/common/color'
+import { cloneProperty } from 'src/common/types'
 
 import { Style } from './Style'
 
-export class BackgroundStyle implements Style {
+export class BackgroundStyle extends Style {
+  @cloneProperty()
   public color: Color = Color.WHITE
 
   public static create(): BackgroundStyle {
     return new BackgroundStyle()
-  }
-
-  public clone(): BackgroundStyle {
-    const v = BackgroundStyle.create()
-
-    v.color = this.color.clone()
-
-    return v
   }
 }

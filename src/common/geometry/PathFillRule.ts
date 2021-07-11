@@ -1,8 +1,5 @@
-
 export enum PathFillRule {
+  EvenOdd = 'evenodd',
 
-	EvenOdd = 'evenodd',
-
-	NonZero = 'nonzero',
-
+  NonZero = 'nonzero',
 }

@@ -1,10 +1,7 @@
-
 export enum PenJoin {
+  Round = 'round',
 
-	Round = 'round',
+  Bevel = 'bevel',
 
-	Bevel = 'bevel',
-
-	Miter = 'miter',
-
+  Miter = 'miter',
 }

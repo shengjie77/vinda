@@ -4,199 +4,163 @@
  * tests in this file.
  */
 
-import * as puppeteer from 'puppeteer';
-import { screenshotOf } from 'src/test/screenshotOf';
+import * as puppeteer from 'puppeteer'
+import { screenshotOf } from 'src/test/screenshotOf'
 
 // This is import is for type intelligence
-import * as vinda from 'src/index';
+import * as vinda from 'src/index'
 
 describe.skip('Canvas Test', () => {
+  let browser: puppeteer.Browser | undefined = undefined
+  beforeAll(async () => {
+    browser = await puppeteer.launch()
+  })
 
-	let browser: puppeteer.Browser | undefined = undefined;
-	beforeAll(async () => {
-		browser = await puppeteer.launch();
-	})
+  afterAll(async () => {
+    if (browser) {
+      await browser.close()
+    }
+  })
 
-	afterAll(async () => {
-		if (browser) {
-			await browser.close();
-		}
-	})
+  describe('CanvasPainter', () => {
+    describe('strokeRect', () => {
+      test('Stroke rect with default state', async () => {
+        const image = await screenshotOf(browser!, () => {
+          const { Rect, CanvasPainter } = vinda
 
-	describe('LineEntity', () => {
+          const canvas = document.getElementById('canvas') as HTMLCanvasElement
+          const ctx = canvas.getContext('2d')!
+          const painter = new CanvasPainter(ctx)
 
-		test('Initial state', async () => {
-			const image = await screenshotOf(browser!, () => {
-				const { LineEntity, CanvasPainter } = vinda;
+          const rect = Rect.create({
+            x: 200,
+            y: 200,
+            width: 100,
+            height: 100,
+          })
+          painter.strokeRect(rect)
+        })
 
-				const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-				const ctx = canvas.getContext('2d')!
-				const painter = new CanvasPainter(ctx);
+        expect(image).toMatchImageSnapshot()
+      })
+    })
 
-				const entity = new LineEntity();
-				entity.draw(painter);
-			})
+    describe('fillRect', () => {
+      test('Fill rect with default state', async () => {
+        const image = await screenshotOf(browser!, () => {
+          const { Rect, CanvasPainter } = vinda
 
-			expect(image).toMatchImageSnapshot();
-		})
+          const canvas = document.getElementById('canvas') as HTMLCanvasElement
+          const ctx = canvas.getContext('2d')!
+          const painter = new CanvasPainter(ctx)
 
-	})
+          const rect = Rect.create({
+            x: 100,
+            y: 100,
+            width: 100,
+            height: 100,
+          })
+          painter.fillRect(rect)
+        })
 
-	describe('RectEntity', () => {
-		test('Initial state', async () => {
-			const image = await screenshotOf(browser!, () => {
-				const { RectEntity, CanvasPainter } = vinda;
+        expect(image).toMatchImageSnapshot()
+      })
+    })
 
-				const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-				const ctx = canvas.getContext('2d')!
-				const painter = new CanvasPainter(ctx);
+    describe('strokeLine', () => {
+      test('Stroke line with default state', async () => {
+        const image = await screenshotOf(browser!, () => {
+          const { Line, CanvasPainter } = vinda
 
-				const entity = new RectEntity();
-				entity.draw(painter);
-			})
+          const canvas = document.getElementById('canvas') as HTMLCanvasElement
+          const ctx = canvas.getContext('2d')!
+          const painter = new CanvasPainter(ctx)
 
-			expect(image).toMatchImageSnapshot();
-		})
-	})
+          const line = Line.from({
+            x1: 100,
+            y1: 100,
+            x2: 200,
+            y2: 200,
+          })
 
-	describe('CanvasPainter', () => {
+          painter.strokeLine(line)
+        })
 
-		describe('strokeRect', () => {
-			test('Stroke rect with default state', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { Rect, CanvasPainter } = vinda;
+        expect(image).toMatchImageSnapshot()
+      })
+    })
 
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
+    describe('strokePath', () => {
+      test('Path consists of a line', async () => {
+        const image = await screenshotOf(browser!, () => {
+          const { Path, CanvasPainter, Vector } = vinda
+          const canvas = document.getElementById('canvas') as HTMLCanvasElement
+          const ctx = canvas.getContext('2d')!
+          const painter = new CanvasPainter(ctx)
 
-					const rect = Rect.create({
-						x: 200,
-						y: 200,
-						width: 100,
-						height: 100,
-					})
-					painter.strokeRect(rect);
-				})
+          const path = new Path()
+          path.moveTo(
+            Vector.create({
+              x: 0,
+              y: 0,
+            })
+          )
 
-				expect(image).toMatchImageSnapshot();
-			})
-		})
+          path.lineTo(
+            Vector.create({
+              x: 100,
+              y: 100,
+            })
+          )
+          painter.strokePath(path)
+        })
 
-		describe('fillRect', () => {
+        expect(image).toMatchImageSnapshot()
+      })
+    })
 
-			test('Fill rect with default state', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { Rect, CanvasPainter } = vinda;
+    describe('fillPath', () => {
+      test('Path consists of a rect', async () => {
+        const image = await screenshotOf(browser!, () => {
+          const { Path, CanvasPainter, Vector } = vinda
+          const canvas = document.getElementById('canvas') as HTMLCanvasElement
+          const ctx = canvas.getContext('2d')!
+          const painter = new CanvasPainter(ctx)
 
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
+          const path = new Path()
+          path.moveTo(
+            Vector.create({
+              x: 0,
+              y: 0,
+            })
+          )
 
-					const rect = Rect.create({
-						x: 100,
-						y: 100,
-						width: 100,
-						height: 100,
-					})
-					painter.fillRect(rect);
-				})
+          path.lineTo(
+            Vector.create({
+              x: 100,
+              y: 0,
+            })
+          )
+          path.lineTo(
+            Vector.create({
+              x: 100,
+              y: 100,
+            })
+          )
 
-				expect(image).toMatchImageSnapshot();
-			})
+          path.lineTo(
+            Vector.create({
+              x: 0,
+              y: 100,
+            })
+          )
 
-		})
+          path.close()
+          painter.fillPath(path)
+        })
 
-		describe('strokeLine', () => {
-
-			test('Stroke line with default state', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { Line, CanvasPainter } = vinda;
-
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
-
-					const line = Line.from({
-						x1: 100,
-						y1: 100,
-						x2: 200,
-						y2: 200,
-					})
-
-					painter.strokeLine(line);
-				})
-
-				expect(image).toMatchImageSnapshot();
-			})
-
-		})
-
-		describe('strokePath', () => {
-
-			test('Path consists of a line', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { Path, CanvasPainter, Vector } = vinda;
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
-
-					const path = new Path();
-					path.moveTo(Vector.create({
-						x: 0,
-						y: 0,
-					}));
-
-					path.lineTo(Vector.create({
-						x: 100,
-						y: 100,
-					}));
-					painter.strokePath(path);
-				})
-
-				expect(image).toMatchImageSnapshot();
-			})
-
-		})
-
-		describe('fillPath', () => {
-
-			test('Path consists of a rect', async () => {
-				const image = await screenshotOf(browser!, () => {
-					const { Path, CanvasPainter, Vector } = vinda;
-					const canvas = document.getElementById('canvas') as HTMLCanvasElement;
-					const ctx = canvas.getContext('2d')!
-					const painter = new CanvasPainter(ctx);
-
-					const path = new Path();
-					path.moveTo(Vector.create({
-						x: 0,
-						y: 0,
-					}));
-
-					path.lineTo(Vector.create({
-						x: 100,
-						y: 0,
-					}));
-					path.lineTo(Vector.create({
-						x: 100,
-						y: 100,
-					}));
-
-					path.lineTo(Vector.create({
-						x: 0,
-						y: 100,
-					}));
-
-					path.close();
-					painter.fillPath(path);
-				})
-
-				expect(image).toMatchImageSnapshot();
-			})
-
-		})
-
-	})
-
+        expect(image).toMatchImageSnapshot()
+      })
+    })
+  })
 })

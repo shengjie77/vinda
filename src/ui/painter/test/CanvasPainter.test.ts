@@ -2,7 +2,7 @@ import { Pen, CanvasPainter, Brush, PainterState } from 'src/ui/painter'
 import { Rect } from 'src/common/geometry'
 import { createMock } from 'src/mock'
 
-describe('CanvasPainter', () => {
+describe.skip('CanvasPainter', () => {
   describe('pen', () => {
     test('Initial pen should be a new pen', () => {
       const { painter } = createPainter()

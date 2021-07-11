@@ -1,10 +1,7 @@
-
 export enum PenCap {
+  Butt = 'butt',
 
-	Butt = 'butt',
+  Round = 'round',
 
-	Round = 'round',
-
-	Square = 'square',
-
+  Square = 'square',
 }

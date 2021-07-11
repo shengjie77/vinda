@@ -1,4 +1,5 @@
-import { isEqual, Cloneable } from 'src/common'
+import { Cloneable, cloneProperty } from 'src/common/types'
+import { isEqual } from 'src/common'
 import { Angle } from 'src/common/geometry'
 
 /**
@@ -9,7 +10,7 @@ import { Angle } from 'src/common/geometry'
  * @export
  * @class Matrix
  */
-export class Matrix implements Cloneable {
+export class Matrix extends Cloneable {
   public static fromIdentity(): Matrix {
     return new Matrix()
   }
@@ -71,6 +72,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public a: number = 1
 
   /**
@@ -79,6 +81,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public b: number = 0
 
   /**
@@ -87,6 +90,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public c: number = 0
 
   /**
@@ -95,6 +99,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public d: number = 1
 
   /**
@@ -103,6 +108,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public tx: number = 0
 
   /**
@@ -111,6 +117,7 @@ export class Matrix implements Cloneable {
    * @type {number}
    * @memberof Matrix
    */
+  @cloneProperty()
   public ty: number = 0
 
   public set scaleX(v: number) {
@@ -179,10 +186,6 @@ export class Matrix implements Cloneable {
     ;[this.a, this.b, this.c, this.d, this.tx, this.ty] = arr
 
     return this
-  }
-
-  public clone(): Matrix {
-    return new Matrix().updateFromArray(this.toArray())
   }
 
   public equalTo(t: Matrix): boolean {

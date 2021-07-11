@@ -1,26 +1,24 @@
-import { Cloneable } from 'src/common'
+import { Cloneable, cloneProperty } from 'src/common/types'
 
 import { BackgroundStyle } from './BackgroundStyle'
 import { BorderStyle } from './BorderStyle'
 import { PaddingStyle } from './PaddingStyle'
 import { CursorStyle } from './CursorStyle'
 
-export class ViewStylesheet implements Cloneable {
+export class ViewStylesheet extends Cloneable {
+  @cloneProperty()
   public border: BorderStyle = BorderStyle.create()
+
+  @cloneProperty()
   public padding: PaddingStyle = PaddingStyle.create()
+
+  @cloneProperty()
   public background: BackgroundStyle = BackgroundStyle.create()
+
+  @cloneProperty()
   public cursor: CursorStyle = CursorStyle.create()
 
   public static create(): ViewStylesheet {
     return new ViewStylesheet()
-  }
-
-  public clone() {
-    const s = ViewStylesheet.create()
-    s.border = this.border.clone()
-    s.padding = this.padding.clone()
-    s.background = this.background.clone()
-    s.cursor = this.cursor.clone()
-    return s
   }
 }

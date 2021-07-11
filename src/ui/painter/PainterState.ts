@@ -1,31 +1,34 @@
 import { Pen, Brush } from 'src/ui/painter'
-import { Cloneable } from 'src/common'
 import { Matrix, Transform } from 'src/common/geometry'
-import { Optional } from 'src/common/types'
+import { Optional, cloneProperty, Cloneable } from 'src/common/types'
 import { Font } from 'src/common/font'
 
-export class PainterState implements Cloneable {
+export class PainterState extends Cloneable {
+  @cloneProperty()
   public pen: Pen = new Pen()
+
+  @cloneProperty()
   public brush: Brush = new Brush()
+
   public clipPath: Optional<Path2D> = undefined
+
+  @cloneProperty()
   public font: Font = new Font()
 
+  @cloneProperty()
   public matrix: Matrix = Matrix.fromIdentity()
 
   constructor() {
+    super()
+
     const ratio = window.devicePixelRatio
     this.matrix.scaleX *= ratio
     this.matrix.scaleY *= ratio
   }
 
-  public clone(): PainterState {
-    const state = new PainterState()
-
-    state.pen = this.pen.clone()
-    state.brush = this.brush.clone()
-    state.matrix = this.matrix.clone()
+  public clone() {
+    const state = super.clone()
     state.clipPath = this.clipPath ? new Path2D(this.clipPath) : undefined
-    state.font = this.font.clone()
 
     return state
   }

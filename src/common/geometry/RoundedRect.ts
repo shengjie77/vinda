@@ -1,14 +1,16 @@
+import { cloneProperty } from 'src/common/types'
+
 import { Rect, RectParam } from './Rect'
 
 export class RoundedRect extends Rect {
+  @cloneProperty()
+  public radius: number = 0
+
   constructor(rect: RectParam, radius: number) {
     super()
-
     this.update(rect)
     this.radius = radius
   }
-
-  public radius: number = 0
 
   public toPath2D(): Path2D {
     const path = new Path2D()
@@ -25,10 +27,5 @@ export class RoundedRect extends Rect {
     path.closePath()
 
     return path
-  }
-
-  public clone(): RoundedRect {
-    const rect = new RoundedRect(this, this.radius)
-    return rect
   }
 }

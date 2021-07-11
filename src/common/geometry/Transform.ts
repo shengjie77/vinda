@@ -1,4 +1,4 @@
-import { Cloneable, Equalable } from 'src/common/types'
+import { Cloneable, cloneProperty, Equalable } from 'src/common/types'
 import { Vector, Angle, Matrix } from 'src/common/geometry'
 
 /**
@@ -8,15 +8,18 @@ import { Vector, Angle, Matrix } from 'src/common/geometry'
  * @class Transform
  * @implements {Cloneable}
  */
-export class Transform implements Cloneable, Equalable {
+export class Transform extends Cloneable implements Equalable {
   public static fromIdentity(): Transform {
     return new Transform()
   }
 
+  @cloneProperty()
   public translation: Vector = new Vector()
 
+  @cloneProperty()
   public scale: Vector = new Vector(1, 1)
 
+  @cloneProperty()
   public rotation: Angle = new Angle()
 
   public translate(tx: number, ty: number) {
@@ -29,16 +32,6 @@ export class Transform implements Cloneable, Equalable {
       .translate(this.translation.x, this.translation.y)
       .rotate(this.rotation)
       .scale(this.scale.x, this.scale.y)
-  }
-
-  public clone(): Transform {
-    const t = Transform.fromIdentity()
-
-    t.translation = this.translation.clone()
-    t.scale = this.scale.clone()
-    t.rotation = this.rotation.clone()
-
-    return t
   }
 
   public equalTo(t: Transform): boolean {

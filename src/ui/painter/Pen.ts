@@ -1,30 +1,26 @@
-import { isEqual, Cloneable, Equalable } from 'src/common'
+import { isEqual } from 'src/common'
+import { cloneProperty, Cloneable, Equalable } from 'src/common/types'
 import { Color } from 'src/common/color'
 
 import { PenCap } from './PenCap'
 import { PenJoin } from './PenJoin'
 
-export class Pen implements Cloneable, Equalable {
+export class Pen extends Cloneable implements Equalable {
   public static create() {
     return new Pen()
   }
 
+  @cloneProperty()
   public color: Color = Color.BLACK
 
+  @cloneProperty()
   public width: number = 1.0
 
+  @cloneProperty()
   public cap: PenCap = PenCap.Butt
 
+  @cloneProperty()
   public join: PenJoin = PenJoin.Bevel
-
-  public clone(): Pen {
-    const pen = new Pen()
-
-    pen.color = this.color.clone()
-    pen.width = this.width
-
-    return pen
-  }
 
   public equalTo(pen: Pen) {
     return (

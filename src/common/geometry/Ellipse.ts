@@ -1,39 +1,42 @@
-import { Rect } from 'src/common/geometry';
+import { cloneProperty, Cloneable } from 'src/common/types'
+import { Rect } from 'src/common/geometry'
 
-export class Ellipse {
+export class Ellipse extends Cloneable {
+  public static from(param: EllipseParamV1): Ellipse {
+    const ellipse = new Ellipse()
+    ellipse.x = param.x
+    ellipse.y = param.y
+    ellipse.width = param.width
+    ellipse.height = param.height
 
-	public static from(param: EllipseParamV1): Ellipse {
-		const ellipse = new Ellipse();
-		ellipse.x = param.x;
-		ellipse.y = param.y;
-		ellipse.width = param.width;
-		ellipse.height = param.height;
+    return ellipse
+  }
 
-		return ellipse;
-	}
+  @cloneProperty()
+  public x: number = 0
 
-	public x: number = 0;
+  @cloneProperty()
+  public y: number = 0
 
-	public y: number = 0;
+  @cloneProperty()
+  public width: number = 0
 
-	public width: number = 0;
-
-	public height: number = 0;
-
+  @cloneProperty()
+  public height: number = 0
 }
 
-export type EllipseLike = EllipseParamV1 | EllipseParamV2 | Rect;
+export type EllipseLike = EllipseParamV1 | EllipseParamV2 | Rect
 
 interface EllipseParamV1 {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+  x: number
+  y: number
+  width: number
+  height: number
 }
 
 interface EllipseParamV2 {
-	centerX: number;
-	centerY: number;
-	rx: number;
-	ry: number;
+  centerX: number
+  centerY: number
+  rx: number
+  ry: number
 }

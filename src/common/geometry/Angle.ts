@@ -1,75 +1,71 @@
-import { isEqual, Cloneable, Equalable } from 'src/common';
+import { isEqual } from 'src/common'
+import { cloneProperty, Cloneable, Equalable } from 'src/common/types'
 
 /**
  * 正值代表从 x 轴正向向 y 轴正向旋转,
  * 在屏幕坐标系下就是顺时针旋转
  */
-export class Angle implements Cloneable, Equalable {
+export class Angle extends Cloneable implements Equalable {
+  public static fromDegree(deg: number): Angle {
+    const angle = new Angle()
+    angle.degree = deg
 
-	public static fromDegree(deg: number): Angle {
-		const angle = new Angle();
-		angle.degree = deg;
+    return angle
+  }
 
-		return angle;
-	}
+  public static fromRadian(rad: number): Angle {
+    const angle = new Angle()
+    angle.radian = rad
 
-	public static fromRadian(rad: number): Angle {
-		const angle = new Angle();
-		angle.radian = rad;
+    return angle
+  }
 
-		return angle;
-	}
+  public set degree(deg: number) {
+    this.radian = degreeToRadian(deg)
+  }
 
-	public set degree(deg: number) {
-		this.radian = degreeToRadian(deg);
-	}
+  public get degree(): number {
+    return radianToDegree(this.radian)
+  }
 
-	public get degree(): number {
-		return radianToDegree(this.radian);
-	}
+  public set radian(rad: number) {
+    this._radian = rad
+  }
 
-	public set radian(rad: number) {
-		this._radian = rad;
-	}
+  public get radian(): number {
+    return this._radian
+  }
 
-	public get radian(): number {
-		return this._radian;
-	}
+  public normalize() {
+    const result = normalizeRadian(this._radian)
+    this._radian = result
+  }
 
-	public normalize() {
-		const result = normalizeRadian(this._radian);
-		this._radian = result;
-	}
+  public equalTo(a: Angle): boolean {
+    const v1 = normalizeRadian(this.radian)
+    const v2 = normalizeRadian(a.radian)
+    return isEqual(v1, v2)
+  }
 
-	public clone(): Angle {
-		return Angle.fromRadian(this.radian);
-	}
+  // ------------------------------------------------------- //
+  // ---------------  Private Section Below  --------------- //
+  // ------------------------------------------------------- //
 
-	public equalTo(a: Angle): boolean {
-		const v1 = normalizeRadian(this.radian);
-		const v2 = normalizeRadian(a.radian);
-		return isEqual(v1, v2);
-	}
-
-	// ------------------------------------------------------- //
-	// ---------------  Private Section Below  --------------- //
-	// ------------------------------------------------------- //
-
-	private _radian: number = 0;
-
+  @cloneProperty()
+  private _radian: number = 0
 }
 
 function degreeToRadian(angle: number) {
-	const radian = (angle / 180) * Math.PI;
-	return radian;
+  const radian = (angle / 180) * Math.PI
+  return radian
 }
 
 function radianToDegree(radian: number) {
-	const degree = (radian / Math.PI) * 180;
-	return degree;
+  const degree = (radian / Math.PI) * 180
+  return degree
 }
 
 function normalizeRadian(radian: number) {
-	const result = radian % (Math.PI * 2);
-	return result < 0 ? result + Math.PI * 2 : result;
+  const result = radian % (Math.PI * 2)
+  return result < 0 ? result + Math.PI * 2 : result
 }

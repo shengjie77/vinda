@@ -18,7 +18,7 @@ import {
   Size,
 } from 'src/common/geometry'
 import { Optional } from 'src/common/types'
-import { Color, Stack } from 'src/common'
+import { Stack } from 'src/common'
 import { Font } from 'src/common/font'
 
 import { TextOption } from './Painter'
@@ -134,7 +134,7 @@ export class CanvasPainter implements Painter {
 
     const option = mergeDefaultTextOption(opt)
     const metric: any = this.ctx.measureText(text)
-    const height = this.state.font.lineHeight
+    const height = metric.fontBoundingBoxAscent + metric.fontBoundingBoxDescent
 
     const xMap: any = {
       [Alignment.Left]: () => rect.left,
@@ -145,7 +145,7 @@ export class CanvasPainter implements Painter {
     const yMap: any = {
       [Alignment.Top]: () => rect.top + height,
       [Alignment.Center]: () =>
-        rect.center.y - height / 2 + metric.fontBoundingBoxAscent,
+        rect.center.y + height / 2 - metric.fontBoundingBoxDescent,
       [Alignment.Bottom]: () => rect.bottom,
     }
 

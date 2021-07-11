@@ -1,8 +1,9 @@
-import { isEqual, Cloneable, Equalable } from 'src/common'
+import { Cloneable, cloneProperty, Equalable } from 'src/common/types'
+import { isEqual } from 'src/common'
 
 import { convertValueRange, IntegerRange, FloatRange } from './ValueRange'
 
-export class Color implements Cloneable, Equalable {
+export class Color extends Cloneable implements Equalable {
   public static fromHex(hex: number): Color {
     const r = (hex >>> 16) & 0x0000ff
     const g = (hex >>> 8) & 0x0000ff
@@ -74,15 +75,21 @@ export class Color implements Cloneable, Equalable {
     return new Color(0, 0, 0, 0)
   }
 
+  @cloneProperty()
   public red: number = 0
 
+  @cloneProperty()
   public green: number = 0
 
+  @cloneProperty()
   public blue: number = 0
 
+  @cloneProperty()
   public alpha: number = 255
 
   constructor(r: number, g: number, b: number, a: number) {
+    super()
+
     this.red = r
     this.green = g
     this.blue = b
@@ -93,12 +100,6 @@ export class Color implements Cloneable, Equalable {
     this.red = r
     this.green = g
     this.blue = b
-  }
-
-  public clone() {
-    const color = new Color(this.red, this.green, this.blue, this.alpha)
-
-    return color
   }
 
   /**

@@ -8,7 +8,7 @@ import {
   Vector,
 } from 'src/common/geometry'
 import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
-import { Optional } from 'src/common'
+import { Optional } from 'src/common/types'
 import { BackgroundStyle, BorderStyle, ViewStylesheet } from 'src/ui/style'
 
 import { ViewState } from './ViewState'

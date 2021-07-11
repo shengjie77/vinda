@@ -1,3 +1,5 @@
+import { cloneProperty } from 'src/common/types'
+
 import { Style } from './Style'
 
 export enum CursorType {
@@ -5,19 +7,13 @@ export enum CursorType {
   Pointer = 'pointer',
 }
 
-export class CursorStyle implements Style {
+export class CursorStyle extends Style {
+  @cloneProperty()
   public type: CursorType = CursorType.Default
 
   public static create(type: CursorType = CursorType.Default): CursorStyle {
     const s = new CursorStyle()
     s.type = type
-    return s
-  }
-
-  public clone(): CursorStyle {
-    const s = new CursorStyle()
-    s.type = this.type
-
     return s
   }
 }

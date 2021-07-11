@@ -1,8 +1,8 @@
-import { Application } from 'src/app/Application';
+import { Application } from 'src/app/Application'
 
-main();
+main()
 
 function main() {
-	const app = Application.create();
-	app.run();
+  const app = Application.create()
+  app.run()
 }
