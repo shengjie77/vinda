@@ -3,35 +3,31 @@ import { Size } from 'src/common/geometry'
 import { Painter, CanvasPainter } from 'src/ui/painter'
 import { View } from 'src/ui/view'
 
+export interface PaintSystemProvider {
+  getContainer(): HTMLCanvasElement
+  getViews(): View[]
+}
+
 export class PaintSystem {
   // ------------------------------------------------------- //
   // ------------------  Static Methods  ------------------- //
   // ------------------------------------------------------- //
-  public static createFromCanvas(canvas: HTMLCanvasElement) {
-    return new PaintSystem(canvas.getContext('2d')!)
+  public static createFromCanvas(provider: PaintSystemProvider) {
+    return new PaintSystem(provider)
   }
 
   // ------------------------------------------------------- //
   // -------------------  Public Methods  ------------------ //
   // ------------------------------------------------------- //
-  constructor(ctx: CanvasRenderingContext2D) {
-    this._ctx = ctx
+  constructor(provider: PaintSystemProvider) {
+    this._provider = provider
+    this._ctx = provider.getContainer().getContext('2d')!
     this._painter = CanvasPainter.create(this._ctx)
+    requestAnimationFrame(this.handleFrame)
   }
 
-  public paint(views: View[]) {
-    views.forEach((v) => this.paintRecursively(v))
-  }
-
-  public measureText(text: string, font: Font): Size {
-    this._painter.save()
-
-    this._painter.font = font.clone()
-    const size = this._painter.measureText(text)
-
-    this._painter.restore()
-
-    return size
+  public markDirty() {
+    this._dirty = true
   }
 
   // ------------------------------------------------------- //
@@ -49,9 +45,26 @@ export class PaintSystem {
     this._painter.restore()
   }
 
+  private handleFrame = () => {
+    requestAnimationFrame(this.handleFrame)
+
+    if (!this._dirty) {
+      return
+    }
+
+    this.paint(this._provider.getViews())
+    this._dirty = false
+  }
+
+  private paint(views: View[]) {
+    views.forEach((v) => this.paintRecursively(v))
+  }
+
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
   private _ctx: CanvasRenderingContext2D
   private _painter: Painter
+  private _dirty: boolean = false
+  private _provider: PaintSystemProvider
 }

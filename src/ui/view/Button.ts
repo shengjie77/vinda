@@ -20,7 +20,7 @@ export class Button extends View {
     return this._text
   }
 
-  public getStylesheet(state: ViewState = ViewState.Normal): ButtonStylesheet {
+  public getStylesheetForState(state: ViewState): ButtonStylesheet {
     return this._stylesheetMap.get(state)!
   }
 
@@ -28,6 +28,9 @@ export class Button extends View {
     stylesheet: ButtonStylesheet,
     state: ViewState = ViewState.Normal
   ) {
+    if (state === ViewState.Normal) {
+      super.setStylesheet(stylesheet)
+    }
     this._stylesheetMap.set(state, stylesheet)
     this.update()
   }
@@ -35,12 +38,28 @@ export class Button extends View {
   public override paint(painter: Painter) {
     super.paint(painter)
 
-    paintText(
-      painter,
-      this._text,
-      this.getContentRect(),
-      this.getStylesheet().text
-    )
+    const ss =
+      this.getStylesheetForState(this.getState()) ?? this.getStylesheet()
+    paintText(painter, this._text, this.getContentRect(), ss.text)
+  }
+
+  // ------------------------------------------------------- //
+  // -----------------  Protected Methods  ----------------- //
+  // ------------------------------------------------------- //
+  protected override setState(state: ViewState) {
+    const oldState = this.getState()
+    super.setState(state)
+
+    if (oldState === state) {
+      return
+    }
+
+    const ss = this.getStylesheetForState(state)
+    if (ss) {
+      super.setStylesheet(ss)
+    }
+
+    this.requestPaint()
   }
 
   // ------------------------------------------------------- //
@@ -61,7 +80,7 @@ export class Button extends View {
   }
 
   private update() {
-    const font = this.getStylesheet().text.font
+    const font = this.getStylesheetForState(this.getState()).text.font
 
     const canvas = document.createElement('canvas')
     const ctx = canvas.getContext('2d')!

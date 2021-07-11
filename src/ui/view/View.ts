@@ -10,8 +10,9 @@ import {
 import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common'
 import { BackgroundStyle, BorderStyle, ViewStylesheet } from 'src/ui/style'
+
 import { ViewState } from './ViewState'
-import { PaintSystem } from '../system/paint'
+import { ViewHost, EmptyViewHost } from './ViewHost'
 
 export class View {
   // ------------------------------------------------------- //
@@ -153,24 +154,45 @@ export class View {
     return Rect.create({ topLeft, bottomRight })
   }
 
-  public mouseDown(): void {
-    console.log('mouse down')
-  }
-
   public getStylesheet(): ViewStylesheet {
-    return this._stylesheet
+    return this._defaultStylesheet
   }
 
   public setStylesheet(stylesheet: ViewStylesheet) {
-    this._stylesheet = stylesheet
+    this._defaultStylesheet = stylesheet
   }
 
-  public setPaintSystem(s: Optional<PaintSystem>) {
-    this._paintSystem = s
+  public handleMouseEnter() {
+    this._isMouseIn = true
+    this.setState(ViewState.Hover)
   }
 
-  public getPaintSystem(): Optional<PaintSystem> {
-    return this._paintSystem
+  public handleMouseLeave() {
+    this._isMouseIn = false
+    this.setState(ViewState.Normal)
+  }
+
+  public isMouseIn(): boolean {
+    return this._isMouseIn
+  }
+
+  public setViewHost(host: ViewHost) {
+    this._viewHost = host
+  }
+
+  // ------------------------------------------------------- //
+  // -----------------  Protected Methods  ----------------- //
+  // ------------------------------------------------------- //
+  protected setState(state: ViewState) {
+    this._state = state
+  }
+
+  protected getState() {
+    return this._state
+  }
+
+  protected requestPaint() {
+    this._viewHost.requestPaint()
   }
 
   // ------------------------------------------------------- //
@@ -241,6 +263,9 @@ export class View {
   private _size: Size = Size.create()
   private _layout: Layout = ColumnLayout.create()
   private _flex: Flex = { basis: 0, ratio: 1 }
-  private _stylesheet: ViewStylesheet = ViewStylesheet.create()
-  private _paintSystem: Optional<PaintSystem>
+  private _state: ViewState = ViewState.Normal
+  private _isMouseIn: boolean = false
+  private _viewHost: ViewHost = EmptyViewHost.create()
+
+  private _defaultStylesheet: ViewStylesheet = ViewStylesheet.create()
 }

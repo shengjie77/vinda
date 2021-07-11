@@ -1,32 +1,55 @@
-import { PaintSystem } from 'src/ui/system/paint'
+import { PaintSystem, PaintSystemProvider } from 'src/ui/system/paint'
 import { LayoutSystem } from 'src/ui/system/layout'
-import { EventSystem } from 'src/ui/system/event'
+import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
+import { Vector } from 'src/common/geometry'
 
-export class MainWindow {
+import { ViewHost } from './ViewHost'
+
+export class MainWindow
+  implements EventSystemProvider, PaintSystemProvider, ViewHost
+{
   public static create(canvas: HTMLCanvasElement) {
     return new MainWindow(canvas)
   }
 
   public addView(view: View) {
-    view.setPaintSystem(this._paintSystem)
+    this.traverse(view)
     this._views.push(view)
     this.update()
+  }
+
+  public getContainer(): HTMLCanvasElement {
+    return this._canvas
+  }
+
+  public getViews(): View[] {
+    return this._views
+  }
+
+  public requestPaint() {
+    this._paintSystem.markDirty()
   }
 
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
   private constructor(canvas: HTMLCanvasElement) {
-    this._paintSystem = PaintSystem.createFromCanvas(canvas)
+    this._canvas = canvas
+    this._paintSystem = PaintSystem.createFromCanvas(this)
     this._layoutSystem = LayoutSystem.create()
-    this._eventSystem = EventSystem.create(canvas)
+    this._eventSystem = EventSystem.create(this)
 
     this._views = []
   }
 
   private update() {
-    this._paintSystem.paint(this._views)
+    this.requestPaint()
+  }
+
+  private traverse(view: View) {
+    view.setViewHost(this)
+    view.getChildren().forEach((v) => this.traverse(v))
   }
 
   // ------------------------------------------------------- //
@@ -37,4 +60,5 @@ export class MainWindow {
   private _eventSystem: EventSystem
 
   private _views: View[]
+  private _canvas: HTMLCanvasElement
 }

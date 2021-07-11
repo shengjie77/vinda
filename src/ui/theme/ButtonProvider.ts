@@ -96,11 +96,3 @@ function withFont(style: ButtonStylesheet) {
 function withTextColor(style: ButtonStylesheet) {
   style.text.color = Color.fromHex(Palette.White)
 }
-
-const normal = {
-  withBackground(style: ButtonStylesheet) {
-    const bg = BackgroundStyle.create()
-    bg.color = Color.fromHex(Palette.CyanBlue10)
-    style.background = bg
-  },
-}
