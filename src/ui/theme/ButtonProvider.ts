@@ -37,7 +37,7 @@ export class ButtonProvider {
     return style
   }
 
-  public get primaryPressedStyle(): ButtonStylesheet {
+  public get primaryActiveStyle(): ButtonStylesheet {
     const style = ButtonStylesheet.create()
     this.updateFont(style)
     style.text.color = Color.fromHex(Palette.White)

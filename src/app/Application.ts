@@ -56,6 +56,7 @@ export class Application {
     btn.setPosition(Vector.create({ x: 100, y: 30 }))
     btn.setStylesheetForState(theme.button.primaryNormalStyle, ViewState.Normal)
     btn.setStylesheetForState(theme.button.primaryHoverStyle, ViewState.Hover)
+    btn.setStylesheetForState(theme.button.primaryActiveStyle, ViewState.Active)
     view.addChild(btn)
 
     // const btn_hover = Button.create()

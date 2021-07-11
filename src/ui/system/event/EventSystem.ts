@@ -18,25 +18,66 @@ export class EventSystem {
 
   private bindEvents() {
     const container = this._provider.getContainer()
-    function dispathEvent(view: View, ev: MouseEvent) {
+
+    container.addEventListener('mousemove', this.dispatchMouseMoveEvent)
+    container.addEventListener('mousedown', this.dispatchMouseDownEvent)
+    container.addEventListener('mouseup', this.dispatchMouseUpEvent)
+  }
+
+  private dispatchMouseMoveEvent = (ev: MouseEvent) => {
+    this._provider.getViews().forEach((v) => dispatchEvent(v, ev))
+  }
+
+  private dispatchMouseDownEvent = (ev: MouseEvent) => {
+    function dispatchDown(view: View, ev: MouseEvent) {
       const pos = Vector.create({
         x: ev.clientX,
         y: ev.clientY,
       })
 
-      view.getChildren().forEach((v) => dispathEvent(v, ev))
-
-      const isMouseInOld = view.isMouseIn()
-      const isMouseIn = view.getGlobalRect().contains(pos)
-      if (isMouseIn !== isMouseInOld) {
-        isMouseIn ? view.handleMouseEnter() : view.handleMouseLeave()
+      if (!view.getGlobalRect().contains(pos)) {
+        return
       }
+
+      view.getChildren().forEach((v) => dispatchDown(v, ev))
+      view.handleMouseDown(ev)
     }
 
-    container.addEventListener('mousemove', (ev: MouseEvent) => {
-      this._provider.getViews().forEach((v) => dispathEvent(v, ev))
-    })
+    this._provider.getViews().forEach((v) => dispatchDown(v, ev))
+  }
+
+  private dispatchMouseUpEvent = (ev: MouseEvent) => {
+    function dispatch(view: View, ev: MouseEvent) {
+      const pos = Vector.create({
+        x: ev.clientX,
+        y: ev.clientY,
+      })
+
+      if (!view.getGlobalRect().contains(pos)) {
+        return
+      }
+
+      view.getChildren().forEach((v) => dispatch(v, ev))
+      view.handleMouseUp(ev)
+    }
+
+    this._provider.getViews().forEach((v) => dispatch(v, ev))
   }
 
   private _provider: EventSystemProvider
+}
+
+function dispatchEvent(view: View, ev: MouseEvent) {
+  const pos = Vector.create({
+    x: ev.clientX,
+    y: ev.clientY,
+  })
+
+  view.getChildren().forEach((v) => dispatchEvent(v, ev))
+
+  const isMouseInOld = view.isMouseIn()
+  const isMouseIn = view.getGlobalRect().contains(pos)
+  if (isMouseIn !== isMouseInOld) {
+    isMouseIn ? view.handleMouseEnter() : view.handleMouseLeave()
+  }
 }

@@ -1,11 +1,10 @@
 import { Painter } from 'src/ui/painter'
 import { ButtonStylesheet } from 'src/ui/style'
-import { PaintSystem } from 'src/ui/system/paint'
+import { Size } from 'src/common/geometry'
 
 import { View } from './View'
 import { paintText } from './utils'
 import { ViewState } from './ViewState'
-import { Size } from 'src/common/geometry'
 
 export class Button extends View {
   public static create() {
@@ -43,15 +42,8 @@ export class Button extends View {
   // ------------------------------------------------------- //
   // -----------------  Protected Methods  ----------------- //
   // ------------------------------------------------------- //
-  protected override setState(state: ViewState) {
-    const oldState = this.getState()
-    super.setState(state)
-
-    if (oldState === state) {
-      return
-    }
-
-    const ss = this.getStylesheetForState(state)
+  protected override onStateChanged(prevState: ViewState) {
+    const ss = this.getStylesheetForState(this.getState())
     if (ss) {
       super.setStylesheet(ss)
     }

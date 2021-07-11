@@ -172,6 +172,16 @@ export class View {
     this.setState(ViewState.Normal)
   }
 
+  public handleMouseDown(ev: MouseEvent) {
+    this.setState(ViewState.Active)
+    this.onMouseDown(ev)
+  }
+
+  public handleMouseUp(ev: MouseEvent) {
+    this.setState(ViewState.Hover)
+    this.onMouseUp(ev)
+  }
+
   public isMouseIn(): boolean {
     return this._isMouseIn
   }
@@ -183,8 +193,19 @@ export class View {
   // ------------------------------------------------------- //
   // -----------------  Protected Methods  ----------------- //
   // ------------------------------------------------------- //
+  protected onStateChanged(prevState: ViewState) {}
+  protected onMouseDown(ev: MouseEvent) {}
+  protected onMouseUp(ev: MouseEvent) {}
+
   protected setState(state: ViewState) {
+    if (this._state === state) {
+      return
+    }
+
+    const prev = this._state
     this._state = state
+
+    this.onStateChanged(prev)
   }
 
   protected getState() {
