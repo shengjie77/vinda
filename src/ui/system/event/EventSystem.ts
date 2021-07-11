@@ -25,7 +25,7 @@ export class EventSystem {
   }
 
   private dispatchMouseMoveEvent = (ev: MouseEvent) => {
-    this._provider.getViews().forEach((v) => dispatchEvent(v, ev))
+    this._provider.getViews().forEach((v) => this.dispatchEvent(v, ev))
   }
 
   private dispatchMouseDownEvent = (ev: MouseEvent) => {
@@ -64,20 +64,34 @@ export class EventSystem {
     this._provider.getViews().forEach((v) => dispatch(v, ev))
   }
 
-  private _provider: EventSystemProvider
-}
+  private dispatchEvent = (view: View, ev: MouseEvent) => {
+    const pos = Vector.create({
+      x: ev.clientX,
+      y: ev.clientY,
+    })
 
-function dispatchEvent(view: View, ev: MouseEvent) {
-  const pos = Vector.create({
-    x: ev.clientX,
-    y: ev.clientY,
-  })
+    let handled = false
 
-  view.getChildren().forEach((v) => dispatchEvent(v, ev))
+    view.getChildren().forEach((v) => {
+      const child_handled = this.dispatchEvent(v, ev)
+      handled = handled || child_handled
+    })
 
-  const isMouseInOld = view.isMouseIn()
-  const isMouseIn = view.getGlobalRect().contains(pos)
-  if (isMouseIn !== isMouseInOld) {
-    isMouseIn ? view.handleMouseEnter() : view.handleMouseLeave()
+    const isMouseInOld = view.isMouseIn()
+    const isMouseIn = view.getGlobalRect().contains(pos)
+    if (isMouseIn !== isMouseInOld) {
+      isMouseIn ? view.handleMouseEnter() : view.handleMouseLeave()
+    }
+
+    if (!handled && isMouseIn) {
+      this._provider.getContainer().style.cursor =
+        view.getStylesheet().cursor.type
+    }
+
+    handled = handled || isMouseIn
+
+    return handled
   }
+
+  private _provider: EventSystemProvider
 }

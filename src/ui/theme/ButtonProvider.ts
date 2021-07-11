@@ -5,6 +5,7 @@ import { Color } from 'src/common/color'
 import { FontSize } from './FontSize'
 import { Palette } from './Palette'
 import { FontFamily } from './FontFamily'
+import { CursorStyle, CursorType } from '../style/CursorStyle'
 
 export class ButtonProvider {
   public get primaryNormalStyle(): ButtonStylesheet {
@@ -13,6 +14,7 @@ export class ButtonProvider {
     withFont(style)
     withNormalBackground(style)
     withTextColor(style)
+    style.cursor = CursorStyle.create(CursorType.Pointer)
     style.border.radius = this.radius
 
     style.padding.update({
@@ -26,6 +28,7 @@ export class ButtonProvider {
   public get primaryHoverStyle(): ButtonStylesheet {
     const style = ButtonStylesheet.create()
     this.updateFont(style)
+    style.cursor = CursorStyle.create(CursorType.Pointer)
     style.text.color = Color.fromHex(Palette.White)
     style.background.color = Color.fromHex(this.primaryHoverColor)
     style.border.radius = this.radius
@@ -40,6 +43,7 @@ export class ButtonProvider {
   public get primaryActiveStyle(): ButtonStylesheet {
     const style = ButtonStylesheet.create()
     this.updateFont(style)
+    style.cursor = CursorStyle.create(CursorType.Pointer)
     style.text.color = Color.fromHex(Palette.White)
     style.background.color = Color.fromHex(0x005a9e)
     style.border.radius = this.radius
@@ -54,6 +58,7 @@ export class ButtonProvider {
   public get primaryDisabledStyle(): ButtonStylesheet {
     const style = ButtonStylesheet.create()
     this.updateFont(style)
+    style.cursor = CursorStyle.create(CursorType.Default)
     style.text.color = Color.fromRGB(210, 208, 206)
     style.background.color = Color.fromRGB(243, 242, 241)
     style.border.radius = this.radius

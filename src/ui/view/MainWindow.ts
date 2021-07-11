@@ -2,7 +2,7 @@ import { PaintSystem, PaintSystemProvider } from 'src/ui/system/paint'
 import { LayoutSystem } from 'src/ui/system/layout'
 import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
-import { Vector } from 'src/common/geometry'
+import { CursorType, ViewStylesheet } from 'src/ui/style'
 
 import { ViewHost } from './ViewHost'
 
@@ -29,6 +29,10 @@ export class MainWindow
 
   public requestPaint() {
     this._paintSystem.markDirty()
+  }
+
+  public applyStylesheet(ss: ViewStylesheet) {
+    this._canvas.style.cursor = ss.cursor.type
   }
 
   // ------------------------------------------------------- //

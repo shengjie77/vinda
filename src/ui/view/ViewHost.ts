@@ -1,5 +1,8 @@
+import { CursorType, ViewStylesheet } from 'src/ui/style'
+
 export interface ViewHost {
   requestPaint(): void
+  applyStylesheet(ss: ViewStylesheet): void
 }
 
 export class EmptyViewHost implements ViewHost {
@@ -8,4 +11,5 @@ export class EmptyViewHost implements ViewHost {
   }
 
   public requestPaint(): void {}
+  public applyStylesheet(ss: ViewStylesheet) {}
 }
