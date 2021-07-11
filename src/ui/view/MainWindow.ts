@@ -31,10 +31,6 @@ export class MainWindow
     this._paintSystem.markDirty()
   }
 
-  public applyStylesheet(ss: ViewStylesheet) {
-    this._canvas.style.cursor = ss.cursor.type
-  }
-
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
