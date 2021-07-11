@@ -57,25 +57,11 @@ export class Application {
     btn.setStylesheetForState(theme.button.primaryNormalStyle, ViewState.Normal)
     btn.setStylesheetForState(theme.button.primaryHoverStyle, ViewState.Hover)
     btn.setStylesheetForState(theme.button.primaryActiveStyle, ViewState.Active)
+    btn.setStylesheetForState(
+      theme.button.primaryDisabledStyle,
+      ViewState.Disabled
+    )
     view.addChild(btn)
-
-    // const btn_hover = Button.create()
-    // btn_hover.setText('Primary Hover')
-    // btn_hover.setPosition(Vector.create({ x: 200, y: 30 }))
-    // btn_hover.setStylesheet(theme.button.primaryHoverStyle)
-    // view.addChild(btn_hover)
-
-    // const btn_pressed = Button.create()
-    // btn_pressed.setText('Primary Pressed')
-    // btn_pressed.setPosition(Vector.create({ x: 350, y: 30 }))
-    // btn_pressed.setStylesheet(theme.button.primaryPressedStyle)
-    // view.addChild(btn_pressed)
-
-    // const btn_disabled = Button.create()
-    // btn_disabled.setText('Primary Pressed')
-    // btn_disabled.setPosition(Vector.create({ x: 500, y: 30 }))
-    // btn_disabled.setStylesheet(theme.button.primaryDisabledStyle)
-    // view.addChild(btn_disabled)
 
     this._mainWindow.addView(view)
   }

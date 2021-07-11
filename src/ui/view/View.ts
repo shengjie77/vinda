@@ -13,6 +13,7 @@ import { BackgroundStyle, BorderStyle, ViewStylesheet } from 'src/ui/style'
 
 import { ViewState } from './ViewState'
 import { ViewHost, EmptyViewHost } from './ViewHost'
+import { ViewStateMachine } from './ViewStateMachine'
 
 export class View {
   // ------------------------------------------------------- //
@@ -155,30 +156,32 @@ export class View {
   }
 
   public getStylesheet(): ViewStylesheet {
-    return this._defaultStylesheet
+    return this._stylesheet
   }
 
   public setStylesheet(stylesheet: ViewStylesheet) {
-    this._defaultStylesheet = stylesheet
+    this._stylesheet = stylesheet
   }
 
   public handleMouseEnter() {
     this._isMouseIn = true
-    this.setState(ViewState.Hover)
+
+    this.switchStateByEvent('mouseenter')
   }
 
   public handleMouseLeave() {
     this._isMouseIn = false
-    this.setState(ViewState.Normal)
+
+    this.switchStateByEvent('mouseleave')
   }
 
   public handleMouseDown(ev: MouseEvent) {
-    this.setState(ViewState.Active)
+    this.switchStateByEvent('mousedown')
     this.onMouseDown(ev)
   }
 
   public handleMouseUp(ev: MouseEvent) {
-    this.setState(ViewState.Hover)
+    this.switchStateByEvent('mouseup')
     this.onMouseUp(ev)
   }
 
@@ -219,6 +222,15 @@ export class View {
   // ------------------------------------------------------- //
   // ------------------  Private Methods  ------------------ //
   // ------------------------------------------------------- //
+
+  private switchStateByEvent(eventType: keyof HTMLElementEventMap) {
+    const targetState = this._viewStateMachine.switch(
+      this.getState(),
+      eventType
+    )
+
+    this.setState(targetState)
+  }
 
   private getMatrix(): Matrix {
     const matrix = this._transform.toMatrix()
@@ -287,6 +299,6 @@ export class View {
   private _state: ViewState = ViewState.Normal
   private _isMouseIn: boolean = false
   private _viewHost: ViewHost = EmptyViewHost.create()
-
-  private _defaultStylesheet: ViewStylesheet = ViewStylesheet.create()
+  private _stylesheet: ViewStylesheet = ViewStylesheet.create()
+  private _viewStateMachine: ViewStateMachine = new ViewStateMachine()
 }

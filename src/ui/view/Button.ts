@@ -19,6 +19,14 @@ export class Button extends View {
     return this._text
   }
 
+  public setEnable(enalbe: boolean) {
+    this.setState(enalbe ? ViewState.Normal : ViewState.Disabled)
+  }
+
+  public getEnable(): boolean {
+    return this.getState() !== ViewState.Disabled
+  }
+
   public getStylesheetForState(state: ViewState): ButtonStylesheet {
     return this._stylesheetMap.get(state)!
   }
