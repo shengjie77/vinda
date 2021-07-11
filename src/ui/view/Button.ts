@@ -24,10 +24,7 @@ export class Button extends View {
     return this._stylesheetMap.get(state)!
   }
 
-  public setStylesheet(
-    stylesheet: ButtonStylesheet,
-    state: ViewState = ViewState.Normal
-  ) {
+  public setStylesheetForState(stylesheet: ButtonStylesheet, state: ViewState) {
     if (state === ViewState.Normal) {
       super.setStylesheet(stylesheet)
     }
