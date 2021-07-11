@@ -1,4 +1,4 @@
-import { Color } from 'src/common'
+import { Color } from 'src/common/color'
 
 import { Style } from './Style'
 

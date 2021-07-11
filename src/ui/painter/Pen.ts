@@ -1,4 +1,5 @@
-import { Color, isEqual, Cloneable, Equalable } from 'src/common'
+import { isEqual, Cloneable, Equalable } from 'src/common'
+import { Color } from 'src/common/color'
 
 import { PenCap } from './PenCap'
 import { PenJoin } from './PenJoin'

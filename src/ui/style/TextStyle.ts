@@ -1,4 +1,4 @@
-import { Color } from 'src/common'
+import { Color } from 'src/common/color'
 import { Font } from 'src/common/font'
 import { Alignment } from 'src/common/geometry'
 

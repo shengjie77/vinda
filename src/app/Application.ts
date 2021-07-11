@@ -7,7 +7,7 @@ import {
   RowLayout,
   SizePolicy,
 } from 'src/ui/system/layout'
-import { Color } from 'src/common'
+import { Color } from 'src/common/color'
 import { Rect, Size, Vector } from 'src/common/geometry'
 import { FluentDesignTheme } from 'src/ui/theme'
 
@@ -79,12 +79,31 @@ export class Application {
     const btn = Button.create()
     btn.setText('Primary')
     btn.setPosition(Vector.create({ x: 100, y: 30 }))
-    btn.setStylesheet(theme.buttonPrimaryStyle)
+    btn.setStylesheet(theme.button.primaryNormalStyle)
     // btn.getStylesheet().background.color = Color.BLUE
     // btn.getStylesheet().padding.update(10)
     // btn.getStylesheet().text.font.size = 20
     // btn.setSize(Size.create({ width: 100, height: 50 }))
     view.addChild(btn)
+
+    const btn_hover = Button.create()
+    btn_hover.setText('Primary Hover')
+    btn_hover.setPosition(Vector.create({ x: 200, y: 30 }))
+    btn_hover.setStylesheet(theme.button.primaryHoverStyle)
+    view.addChild(btn_hover)
+
+    const btn_pressed = Button.create()
+    btn_pressed.setText('Primary Pressed')
+    btn_pressed.setPosition(Vector.create({ x: 350, y: 30 }))
+    btn_pressed.setStylesheet(theme.button.primaryPressedStyle)
+    view.addChild(btn_pressed)
+
+    const btn_disabled = Button.create()
+    btn_disabled.setText('Primary Pressed')
+    btn_disabled.setPosition(Vector.create({ x: 500, y: 30 }))
+    btn_disabled.setStylesheet(theme.button.primaryDisabledStyle)
+    view.addChild(btn_disabled)
+
     this._mainWindow.addView(view)
   }
 

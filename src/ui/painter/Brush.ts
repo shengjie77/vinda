@@ -1,4 +1,5 @@
-import { Cloneable, Color, Equalable } from 'src/common'
+import { Cloneable, Equalable } from 'src/common'
+import { Color } from 'src/common/color'
 
 export class Brush implements Cloneable, Equalable {
   public static fromColor(color: Color) {
