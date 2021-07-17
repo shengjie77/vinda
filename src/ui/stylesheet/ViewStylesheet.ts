@@ -1,9 +1,10 @@
 import { Cloneable, cloneProperty } from 'src/common/types'
-
-import { BackgroundStyle } from './BackgroundStyle'
-import { BorderStyle } from './BorderStyle'
-import { PaddingStyle } from './PaddingStyle'
-import { CursorStyle } from './CursorStyle'
+import {
+  BorderStyle,
+  BackgroundStyle,
+  CursorStyle,
+  PaddingStyle,
+} from 'src/ui/style'
 
 export class ViewStylesheet extends Cloneable {
   @cloneProperty()

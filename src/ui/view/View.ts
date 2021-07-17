@@ -9,7 +9,8 @@ import {
 } from 'src/common/geometry'
 import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common/types'
-import { BackgroundStyle, BorderStyle, ViewStylesheet } from 'src/ui/style'
+import { BackgroundStyle, BorderStyle } from 'src/ui/style'
+import { ViewStylesheet } from 'src/ui/stylesheet'
 
 import { ViewState } from './ViewState'
 import { ViewHost, EmptyViewHost } from './ViewHost'

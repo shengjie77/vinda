@@ -1,11 +1,11 @@
-import { BackgroundStyle, ButtonStylesheet } from 'src/ui/style'
+import { BackgroundStyle, CursorStyle, CursorType } from 'src/ui/style'
+import { ButtonStylesheet } from 'src/ui/stylesheet'
 import { Font } from 'src/common/font'
 import { Color } from 'src/common/color'
 
 import { FontSize } from './FontSize'
 import { Palette } from './Palette'
 import { FontFamily } from './FontFamily'
-import { CursorStyle, CursorType } from '../style/CursorStyle'
 
 export class ButtonProvider {
   public get primaryNormalStyle(): ButtonStylesheet {

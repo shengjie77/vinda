@@ -2,7 +2,6 @@ import { PaintSystem, PaintSystemProvider } from 'src/ui/system/paint'
 import { LayoutSystem } from 'src/ui/system/layout'
 import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
-import { CursorType, ViewStylesheet } from 'src/ui/style'
 
 import { ViewHost } from './ViewHost'
 

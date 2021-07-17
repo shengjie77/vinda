@@ -1,7 +1,7 @@
 import { cloneProperty } from 'src/common/types'
+import { TextStyle } from 'src/ui/style/TextStyle'
 
-import { TextStyle } from './TextStyle'
-import { ViewStylesheet } from './ViewStyleSheet'
+import { ViewStylesheet } from './ViewStylesheet'
 
 export class ButtonStylesheet extends ViewStylesheet {
   @cloneProperty()

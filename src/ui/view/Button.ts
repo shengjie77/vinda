@@ -1,5 +1,5 @@
 import { Painter } from 'src/ui/painter'
-import { ButtonStylesheet } from 'src/ui/style'
+import { ButtonStylesheet } from 'src/ui/stylesheet'
 import { Size } from 'src/common/geometry'
 
 import { View } from './View'
