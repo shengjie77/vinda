@@ -1,26 +1,27 @@
 {
-	"include": [
-		"src",
-		"./global.d.ts",
-	],
-	"compilerOptions": {
-		"target": "ESNext",
-		"module": "CommonJS",
-		"alwaysStrict": true,
-		"noImplicitAny": true,
-		"noImplicitThis": true,
-		"strict": true,
-		"strictBindCallApply": true,
-		"strictNullChecks": true,
-		"strictPropertyInitialization": true,
-		"allowSyntheticDefaultImports": false,
-		"experimentalDecorators": true,
-		"sourceMap": true,
-		"baseUrl": ".",
-		"paths": {
-			"src/*": [
-				"./src/*"
-			],
-		},
-	},
+  "include": [
+    "src",
+    "./global.d.ts",
+  ],
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "alwaysStrict": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strict": true,
+    "strictBindCallApply": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "allowSyntheticDefaultImports": false,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": [
+        "./src/*"
+      ],
+    },
+    "noUnusedLocals": true
+  },
 }

@@ -8,63 +8,58 @@ export class RowLayout extends Layout {
     return new RowLayout()
   }
 
-  public setMainAxisAlignment(align: MainAxisAlignment) {
-    this._mainAxisAlignment = align
-  }
-
-  public setCrossAxisAlignment(align: CrossAxisAlignment) {
-    this._crossAxisAlignment = align
-  }
-
-  public override build(host: View) {
-    const ctx = host.getLayoutEntities().reduce(
-      (ctx: Context, e: View) => {
-        const { basis, ratio } = e.getFlex()
-        ctx.space += basis
-        ctx.totalRatio += ratio
+  public override build(parentView: View) {
+    const ctx = parentView.getChildren().reduce(
+      (ctx: Context, view: View) => {
+        const { widthFlex } = view.getStylesheet().layout
+        const preferredSize = view.getPreferredSize()
+        ctx.space += preferredSize.width
+        ctx.totalRatio += widthFlex
         return ctx
       },
       { space: 0, totalRatio: 0, right: 0 }
     )
 
     const startX = 0
-    const y = 0
-    ctx.space = host.getSize().width - ctx.space
+    ctx.space = parentView.getSize().width - ctx.space
     if (ctx.space < 0) {
       ctx.space = 0
     }
 
-    const updateChild = (currentX: number, e: View) => {
-      const w = this.calculateEntityWidth(e, ctx)
-      const size = e.getSize()
+    const updateChild = (currentX: number, view: View) => {
+      const w = this.calculateViewWidth(view, ctx)
+      const preferredSize = view.getPreferredSize()
+      const size = view.getSize()
       size.width = w
-      e.setSize(size)
+      size.height = preferredSize.height
+      view.setSize(size)
 
       const nextX = currentX + w
       return nextX
     }
-    const right = host.getLayoutEntities().reduce(updateChild, startX)
+    const right = parentView.getChildren().reduce(updateChild, startX)
     ctx.right = right
 
-    host.getLayoutEntities().forEach((e) => this.alignCrossAxis(host, e))
+    parentView.getChildren().forEach((e) => this.alignCrossAxis(parentView, e))
 
-    this.alignMainAxis(host, ctx)
+    this.alignMainAxis(parentView, ctx)
   }
 
-  private calculateEntityWidth(e: View, ctx: Context): number {
-    const { basis, ratio } = e.getFlex()
+  private calculateViewWidth(view: View, ctx: Context): number {
+    const { widthFlex } = view.getStylesheet().layout
+    const preferredSize = view.getPreferredSize()
     const flexSpace =
-      ratio === 0 || ctx.totalRatio === 0
+      widthFlex === 0 || ctx.totalRatio === 0
         ? 0
-        : (ratio * ctx.space) / ctx.totalRatio
-    const result = basis + flexSpace
+        : (widthFlex * ctx.space) / ctx.totalRatio
+    const result = preferredSize.width + flexSpace
     return result
   }
 
-  private alignMainAxis(host: View, ctx: Context) {
+  private alignMainAxis(hostView: View, ctx: Context) {
     let startX = 0
     let space = 0
-    switch (this._mainAxisAlignment) {
+    switch (hostView.getMainAxisAlign()) {
       case MainAxisAlignment.Start:
         startX = 0
         space = 0
@@ -82,11 +77,11 @@ export class RowLayout extends Layout {
 
       case MainAxisAlignment.SpaceBetween:
         startX = 0
-        space = ctx.space / (host.getLayoutEntities().length - 1)
+        space = ctx.space / (hostView.getChildren().length - 1)
         break
 
       case MainAxisAlignment.SpaceEvenly:
-        space = ctx.space / (host.getLayoutEntities().length + 1)
+        space = ctx.space / (hostView.getChildren().length + 1)
         startX = space
         break
 
@@ -106,7 +101,7 @@ export class RowLayout extends Layout {
       const nextX = currentX + size.width + space
       return nextX
     }
-    const right = host.getLayoutEntities().reduce(updateChild, startX)
+    const right = hostView.getChildren().reduce(updateChild, startX)
     ctx.right = right
   }
 
@@ -115,7 +110,7 @@ export class RowLayout extends Layout {
     const hostSize = host.getSize()
     const childSize = child.getSize()
 
-    switch (this._crossAxisAlignment) {
+    switch (host.getCrossAxisAlign()) {
       case CrossAxisAlignment.Start:
         pos.y = 0
         break
@@ -139,9 +134,6 @@ export class RowLayout extends Layout {
     child.setPosition(pos)
     child.setSize(childSize)
   }
-
-  private _mainAxisAlignment = MainAxisAlignment.Start
-  private _crossAxisAlignment = CrossAxisAlignment.Start
 }
 
 interface Context {

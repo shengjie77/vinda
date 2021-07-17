@@ -7,7 +7,6 @@ import {
   Size,
   Vector,
 } from 'src/common/geometry'
-import { Layout, ColumnLayout, Flex } from 'src/ui/system/layout'
 import { Optional } from 'src/common/types'
 import { BackgroundStyle, BorderStyle } from 'src/ui/style'
 import { ViewStylesheet } from 'src/ui/stylesheet'
@@ -35,36 +34,25 @@ export class View {
     return this._size.clone()
   }
 
+  public getDefaultSize(): Size {
+    return Size.create()
+  }
+
+  public getPreferredSize(): Size {
+    const size = Size.create()
+    const defaultSize = this.getDefaultSize()
+    const layout = this.getStylesheet().layout
+    size.width = layout.width ?? defaultSize.width
+    size.height = layout.height ?? defaultSize.height
+    return size
+  }
+
   public setPosition(v: Vector) {
     this._transform.translation = v
   }
 
   public getPosition(): Vector {
     return this._transform.translation
-  }
-
-  public layout() {
-    this.getLayout().build(this)
-  }
-
-  public setLayout(layout: Layout) {
-    this._layout = layout
-  }
-
-  public getLayout() {
-    return this._layout
-  }
-
-  public setFlex(flex: Flex) {
-    this._flex = flex
-  }
-
-  public getFlex(): Flex {
-    return this._flex
-  }
-
-  public getLayoutEntities(): View[] {
-    return this._children
   }
 
   public setX(v: number) {
@@ -105,6 +93,14 @@ export class View {
 
   public getTransform() {
     return this._transform
+  }
+
+  public getMainAxisAlign() {
+    return this.getStylesheet().layout.mainAxisAlign
+  }
+
+  public getCrossAxisAlign() {
+    return this.getStylesheet().layout.crossAxisAlign
   }
 
   public addChild(child: View) {
@@ -295,8 +291,6 @@ export class View {
   private _parent: Optional<View> = undefined
   private _transform: Transform = Transform.fromIdentity()
   private _size: Size = Size.create()
-  private _layout: Layout = ColumnLayout.create()
-  private _flex: Flex = { basis: 0, ratio: 1 }
   private _state: ViewState = ViewState.Normal
   private _isMouseIn: boolean = false
   private _viewHost: ViewHost = EmptyViewHost.create()

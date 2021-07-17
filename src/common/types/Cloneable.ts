@@ -1,6 +1,6 @@
 import { isNumber, isString, isBoolean, isUndefined } from 'lodash'
 
-const CloneableKeys = Symbol('CloneableKeys')
+const GlobalCloneKeyMap = new Map()
 
 /**
  * Cloneable represents an object that can be cloned.
@@ -11,7 +11,7 @@ export class Cloneable {
   public clone(): this {
     const instance: any = this
     const clonedInstance = Object.create(instance.constructor.prototype)
-    const targetKeys = instance[CloneableKeys]
+    const targetKeys = getCloneKeys(instance)
     if (targetKeys === undefined) {
       console.warn(
         `There is no cloneable properties in ${instance.constructor.name}`
@@ -34,19 +34,37 @@ export class Cloneable {
 
 export function cloneProperty() {
   return function (instance: any, key: string) {
-    if (instance[CloneableKeys] === undefined) {
-      instance[CloneableKeys] = []
-    }
-
-    instance[CloneableKeys].push(key)
+    registerCloneKey(instance, key)
   }
 }
 
-function canClone(v: any): boolean {
-  return isNumber(v) || isString(v) || isBoolean(v) || v instanceof Cloneable
+function registerCloneKey(instance: any, key: string) {
+  const Constructor = instance.constructor
+  let keys: string[] = GlobalCloneKeyMap.get(Constructor)
+  if (isUndefined(keys)) {
+    keys = []
+    GlobalCloneKeyMap.set(Constructor, keys)
+  }
+  keys.push(key)
 }
 
-function clone<T>(val: T): T {
+function getCloneKeys(instance: any) {
+  const Constructor = instance.constructor
+  let keys: string[] = GlobalCloneKeyMap.get(Constructor)
+  return keys
+}
+
+function canClone(v: any): boolean {
+  return (
+    v instanceof Cloneable ||
+    isNumber(v) ||
+    isString(v) ||
+    isBoolean(v) ||
+    isUndefined(v)
+  )
+}
+
+export function clone<T>(val: T): T {
   if (val instanceof Cloneable) {
     return val.clone()
   }
@@ -55,5 +73,5 @@ function clone<T>(val: T): T {
 }
 
 export function printCloneKeys(v: Cloneable) {
-  console.log((v as any)[CloneableKeys])
+  console.log(getCloneKeys(v))
 }

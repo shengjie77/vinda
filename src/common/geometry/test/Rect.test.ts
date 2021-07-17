@@ -1,5 +1,4 @@
 import { Rect } from 'src/common/geometry'
-import { printCloneKeys } from 'src/common/types'
 
 describe('Rect', () => {
   describe('clone', () => {
@@ -10,7 +9,6 @@ describe('Rect', () => {
         width: 200,
         height: 100,
       })
-      printCloneKeys(rect)
 
       const clonedRect = rect.clone()
       expect(clonedRect.x).toEqual(rect.x)

@@ -36,7 +36,6 @@ export class Button extends View {
       super.setStylesheet(stylesheet)
     }
     this._stylesheetMap.set(state, stylesheet)
-    this.update()
   }
 
   public override paint(painter: Painter) {
@@ -45,6 +44,10 @@ export class Button extends View {
     const ss =
       this.getStylesheetForState(this.getState()) ?? this.getStylesheet()
     paintText(painter, this._text, this.getContentRect(), ss.text)
+  }
+
+  public override getDefaultSize(): Size {
+    return this.calculateDefaultSize()
   }
 
   // ------------------------------------------------------- //
@@ -76,7 +79,7 @@ export class Button extends View {
     })
   }
 
-  private update() {
+  private calculateDefaultSize() {
     const font = this.getStylesheetForState(this.getState()).text.font
 
     const canvas = document.createElement('canvas')
@@ -85,12 +88,11 @@ export class Button extends View {
     const metric: any = ctx.measureText(this._text)
     const size = Size.create()
     size.width = metric.width
-    const height = metric.fontBoundingBoxAscent + metric.fontBoundingBoxDescent
     size.height = 30
 
     const padding = this.getStylesheet().padding
     size.expand(padding.left + padding.right, padding.top + padding.bottom)
-    this.setSize(size)
+    return size
   }
 
   // ------------------------------------------------------- //

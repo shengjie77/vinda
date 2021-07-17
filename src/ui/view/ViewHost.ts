@@ -1,5 +1,6 @@
 export interface ViewHost {
   requestPaint(): void
+  requestLayout(): void
 }
 
 export class EmptyViewHost implements ViewHost {
@@ -8,4 +9,5 @@ export class EmptyViewHost implements ViewHost {
   }
 
   public requestPaint(): void {}
+  public requestLayout(): void {}
 }

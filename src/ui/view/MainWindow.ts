@@ -1,12 +1,16 @@
 import { PaintSystem, PaintSystemProvider } from 'src/ui/system/paint'
-import { LayoutSystem } from 'src/ui/system/layout'
+import { LayoutSystem, LayoutSystemProvider } from 'src/ui/system/layout'
 import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
 
 import { ViewHost } from './ViewHost'
 
 export class MainWindow
-  implements EventSystemProvider, PaintSystemProvider, ViewHost
+  implements
+    ViewHost,
+    EventSystemProvider,
+    PaintSystemProvider,
+    LayoutSystemProvider
 {
   public static create(canvas: HTMLCanvasElement) {
     return new MainWindow(canvas)
@@ -27,7 +31,12 @@ export class MainWindow
   }
 
   public requestPaint() {
-    this._paintSystem.markDirty()
+    this._needPaint = true
+  }
+
+  public requestLayout() {
+    this._needLayout = true
+    this._needPaint = true
   }
 
   // ------------------------------------------------------- //
@@ -36,13 +45,15 @@ export class MainWindow
   private constructor(canvas: HTMLCanvasElement) {
     this._canvas = canvas
     this._paintSystem = PaintSystem.createFromCanvas(this)
-    this._layoutSystem = LayoutSystem.create()
+    this._layoutSystem = LayoutSystem.create(this)
     this._eventSystem = EventSystem.create(this)
 
     this._views = []
+    this.handleFrame()
   }
 
   private update() {
+    this.requestLayout()
     this.requestPaint()
   }
 
@@ -51,13 +62,28 @@ export class MainWindow
     view.getChildren().forEach((v) => this.traverse(v))
   }
 
+  private handleFrame = () => {
+    requestAnimationFrame(this.handleFrame)
+
+    if (this._needLayout) {
+      this._layoutSystem.build()
+      this._needLayout = false
+    }
+
+    if (this._needPaint) {
+      this._paintSystem.paint()
+      this._needPaint = false
+    }
+  }
+
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
   private _paintSystem: PaintSystem
   private _layoutSystem: LayoutSystem
   private _eventSystem: EventSystem
-
   private _views: View[]
   private _canvas: HTMLCanvasElement
+  private _needPaint: boolean = false
+  private _needLayout: boolean = false
 }

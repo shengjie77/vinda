@@ -15,11 +15,6 @@ export enum CrossAxisAlignment {
   Stretch,
 }
 
-export interface Flex {
-  basis: number
-  ratio: number
-}
-
 export abstract class Layout {
   public abstract build(host: View): void
 }

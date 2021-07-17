@@ -1,5 +1,3 @@
-import { Font } from 'src/common/font'
-import { Size } from 'src/common/geometry'
 import { Painter, CanvasPainter } from 'src/ui/painter'
 import { View } from 'src/ui/view'
 
@@ -23,11 +21,10 @@ export class PaintSystem {
     this._provider = provider
     this._ctx = provider.getContainer().getContext('2d')!
     this._painter = CanvasPainter.create(this._ctx)
-    requestAnimationFrame(this.handleFrame)
   }
 
-  public markDirty() {
-    this._dirty = true
+  public paint() {
+    this._provider.getViews().forEach((v) => this.paintRecursively(v))
   }
 
   // ------------------------------------------------------- //
@@ -45,26 +42,10 @@ export class PaintSystem {
     this._painter.restore()
   }
 
-  private handleFrame = () => {
-    requestAnimationFrame(this.handleFrame)
-
-    if (!this._dirty) {
-      return
-    }
-
-    this.paint(this._provider.getViews())
-    this._dirty = false
-  }
-
-  private paint(views: View[]) {
-    views.forEach((v) => this.paintRecursively(v))
-  }
-
   // ------------------------------------------------------- //
   // -----------------  Private Properties  ---------------- //
   // ------------------------------------------------------- //
   private _ctx: CanvasRenderingContext2D
   private _painter: Painter
-  private _dirty: boolean = false
   private _provider: PaintSystemProvider
 }

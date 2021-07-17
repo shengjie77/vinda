@@ -4,6 +4,7 @@ import {
   BackgroundStyle,
   CursorStyle,
   PaddingStyle,
+  LayoutStyle,
 } from 'src/ui/style'
 
 export class ViewStylesheet extends Cloneable {
@@ -18,6 +19,9 @@ export class ViewStylesheet extends Cloneable {
 
   @cloneProperty()
   public cursor: CursorStyle = CursorStyle.create()
+
+  @cloneProperty()
+  public layout: LayoutStyle = LayoutStyle.create()
 
   public static create(): ViewStylesheet {
     return new ViewStylesheet()

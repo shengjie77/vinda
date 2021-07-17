@@ -23,7 +23,7 @@ export class ColumnLayout extends Layout {
       return nextY
     }
 
-    host.getLayoutEntities().reduce(updatePosition, startY)
+    host.getChildren().reduce(updatePosition, startY)
   }
 
   private calculateEntityHeight(e: View): number {
