@@ -53,6 +53,8 @@ export class MainWindow
 
     this._views = []
     this.handleFrame()
+
+    window.addEventListener('resize', () => this.update())
   }
 
   private update() {

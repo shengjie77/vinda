@@ -16,6 +16,7 @@ import { ViewState } from './ViewState'
 import { ViewHost, EmptyViewHost } from './ViewHost'
 import { ViewStateMachine } from './ViewStateMachine'
 import { Color } from 'src/common/color'
+import { allowUnusedLocal } from 'src/common'
 
 export class View {
   // ------------------------------------------------------- //
@@ -113,6 +114,8 @@ export class View {
   public paint(painter: Painter) {
     this.paintBackground(painter, this.getStylesheet().background)
     this.paintBorder(painter, this.getStylesheet().border)
+
+    allowUnusedLocal(this.paintRuler)
     // this.paintRuler(painter)
   }
 

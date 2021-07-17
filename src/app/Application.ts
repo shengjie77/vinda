@@ -32,17 +32,13 @@ export class Application {
     // mountUI(container);
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
     fillScreen(canvas)
+    window.addEventListener('resize', () => fillScreen(canvas))
 
     this.drawSomething()
   }
 
   private drawSomething() {
     const view = View.create()
-    // view.background.color = Color.RED
-    // const layout = RowLayout.create()
-    // layout.setCrossAxisAlignment(CrossAxisAlignment.Center)
-    // layout.setMainAxisAlignment(MainAxisAlignment.SpaceBetween)
-    // view.setLayout(layout)
     const ss = ViewStylesheet.create()
     ss.layout.type = LayoutValue.Row
     ss.layout.mainAxisAlign = MainAxisAlignment.Start
@@ -78,7 +74,6 @@ function createButton() {
   const theme = new FluentDesignTheme()
   const btn = Button.create()
   btn.setText('Primary')
-  // btn.setPosition(Vector.create({ x: 100, y: 30 }))
   btn.setStylesheetForState(theme.button.primaryNormalStyle, ViewState.Normal)
   btn.setStylesheetForState(theme.button.primaryHoverStyle, ViewState.Hover)
   btn.setStylesheetForState(theme.button.primaryActiveStyle, ViewState.Active)

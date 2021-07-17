@@ -1,5 +1,4 @@
 export * from './Layout'
 export * from './LayoutSystem'
-export * from './SizePolicy'
 export * from './ColumnLayout'
 export * from './RowLayout'
