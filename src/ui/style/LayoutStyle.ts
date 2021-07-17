@@ -1,5 +1,6 @@
 import { cloneProperty, Optional } from 'src/common/types'
 import { CrossAxisAlignment, MainAxisAlignment } from 'src/ui/system/layout'
+import { InsetsValue } from './InsetsValue'
 
 import { Style } from './Style'
 
@@ -24,6 +25,9 @@ export class LayoutStyle extends Style {
 
   @cloneProperty()
   public crossAxisAlign: CrossAxisAlignment = CrossAxisAlignment.Start
+
+  @cloneProperty()
+  public margin: InsetsValue = InsetsValue.create()
 
   public static create(): LayoutStyle {
     return new LayoutStyle()

@@ -3,7 +3,7 @@ import {
   BorderStyle,
   BackgroundStyle,
   CursorStyle,
-  PaddingStyle,
+  InsetsValue,
   LayoutStyle,
 } from 'src/ui/style'
 
@@ -12,7 +12,7 @@ export class ViewStylesheet extends Cloneable {
   public border: BorderStyle = BorderStyle.create()
 
   @cloneProperty()
-  public padding: PaddingStyle = PaddingStyle.create()
+  public padding: InsetsValue = InsetsValue.create()
 
   @cloneProperty()
   public background: BackgroundStyle = BackgroundStyle.create()

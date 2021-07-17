@@ -44,6 +44,7 @@ export class Application {
     // view.setLayout(layout)
     const ss = ViewStylesheet.create()
     ss.layout.type = LayoutValue.Row
+    ss.layout.margin.update(8)
     ss.background.color = Color.fromHex(0x8a8886)
     view.setStylesheet(ss)
     view.setSize(Size.create({ width: 512, height: 256 }))

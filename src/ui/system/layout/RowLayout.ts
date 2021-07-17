@@ -11,9 +11,9 @@ export class RowLayout extends Layout {
   public override build(parentView: View) {
     const ctx = parentView.getChildren().reduce(
       (ctx: Context, view: View) => {
-        const { widthFlex } = view.getStylesheet().layout
+        const { widthFlex, margin } = view.getStylesheet().layout
         const preferredSize = view.getPreferredSize()
-        ctx.space += preferredSize.width
+        ctx.space += preferredSize.width + margin.left + margin.right
         ctx.totalRatio += widthFlex
         return ctx
       },
@@ -89,16 +89,17 @@ export class RowLayout extends Layout {
         break
     }
 
-    const updateChild = (currentX: number, e: View) => {
+    const updateChild = (currentX: number, view: View) => {
+      const margin = view.getStylesheet().layout.margin
       const pos = Vector.create({
-        x: currentX,
-        y: e.getPosition().y,
+        x: currentX + margin.left,
+        y: view.getPosition().y,
       })
-      e.setPosition(pos)
+      view.setPosition(pos)
 
-      const size = e.getSize()
+      const size = view.getSize()
 
-      const nextX = currentX + size.width + space
+      const nextX = currentX + size.width + space + margin.left + margin.right
       return nextX
     }
     const right = hostView.getChildren().reduce(updateChild, startX)

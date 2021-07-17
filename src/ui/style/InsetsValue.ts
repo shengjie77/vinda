@@ -1,7 +1,8 @@
 import { cloneProperty } from 'src/common/types'
+
 import { Style } from './Style'
 
-export class PaddingStyle extends Style {
+export class InsetsValue extends Style {
   @cloneProperty()
   public top: number = 0
 
@@ -14,14 +15,14 @@ export class PaddingStyle extends Style {
   @cloneProperty()
   public right: number = 0
 
-  public static create(param: PaddingStyleParam = 0): PaddingStyle {
-    const v = new PaddingStyle()
+  public static create(param: InsetsValueParam = 0): InsetsValue {
+    const v = new InsetsValue()
     v.update(param)
 
     return v
   }
 
-  public update(p: PaddingStyleParam) {
+  public update(p: InsetsValueParam) {
     if (isParamV1(p)) {
       this.updateWithParamV1(p)
     } else if (isParamV2(p)) {
@@ -60,20 +61,20 @@ export class PaddingStyle extends Style {
   }
 }
 
-type PaddingStyleParam = ParamV1 | ParamV2 | ParamV3
+type InsetsValueParam = ParamV1 | ParamV2 | ParamV3
 
 type ParamV1 = number
 type ParamV2 = { horizontal: number; vertical: number }
 type ParamV3 = { top: number; bottom: number; left: number; right: number }
 
-function isParamV1(v: PaddingStyleParam): v is ParamV1 {
+function isParamV1(v: InsetsValueParam): v is ParamV1 {
   return typeof v === 'number'
 }
 
-function isParamV2(v: PaddingStyleParam): v is ParamV2 {
+function isParamV2(v: InsetsValueParam): v is ParamV2 {
   return (v as ParamV2).horizontal !== undefined
 }
 
-function isParamV3(v: PaddingStyleParam): v is ParamV3 {
+function isParamV3(v: InsetsValueParam): v is ParamV3 {
   return (v as ParamV3).left !== undefined
 }
