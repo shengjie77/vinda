@@ -5,6 +5,7 @@ import { FluentDesignTheme } from 'src/ui/theme'
 import { ViewState } from 'src/ui/view/ViewState'
 import { ViewStylesheet } from 'src/ui/stylesheet'
 import { LayoutValue } from 'src/ui/style'
+import { CrossAxisAlignment, MainAxisAlignment } from 'src/ui/system/layout'
 
 export class Application {
   public static create(): Application {
@@ -44,7 +45,8 @@ export class Application {
     // view.setLayout(layout)
     const ss = ViewStylesheet.create()
     ss.layout.type = LayoutValue.Row
-    ss.layout.margin.update(8)
+    ss.layout.mainAxisAlign = MainAxisAlignment.Start
+    ss.layout.crossAxisAlign = CrossAxisAlignment.Start
     ss.background.color = Color.fromHex(0x8a8886)
     view.setStylesheet(ss)
     view.setSize(Size.create({ width: 512, height: 256 }))

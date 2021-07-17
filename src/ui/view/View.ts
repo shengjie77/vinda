@@ -6,6 +6,7 @@ import {
   Transform,
   Size,
   Vector,
+  Line,
 } from 'src/common/geometry'
 import { Optional } from 'src/common/types'
 import { BackgroundStyle, BorderStyle } from 'src/ui/style'
@@ -14,6 +15,7 @@ import { ViewStylesheet } from 'src/ui/stylesheet'
 import { ViewState } from './ViewState'
 import { ViewHost, EmptyViewHost } from './ViewHost'
 import { ViewStateMachine } from './ViewStateMachine'
+import { Color } from 'src/common/color'
 
 export class View {
   // ------------------------------------------------------- //
@@ -111,6 +113,7 @@ export class View {
   public paint(painter: Painter) {
     this.paintBackground(painter, this.getStylesheet().background)
     this.paintBorder(painter, this.getStylesheet().border)
+    // this.paintRuler(painter)
   }
 
   public getChildren() {
@@ -239,10 +242,6 @@ export class View {
     return this._parent.getMatrix().append(matrix)
   }
 
-  // ------------------------------------------------------- //
-  // ---------------  Private Section Below  --------------- //
-  // ------------------------------------------------------- //
-
   private paintBorder(painter: Painter, border: BorderStyle) {
     painter.save()
     const rect = this.getLocalRect()
@@ -281,6 +280,27 @@ export class View {
       this.getStylesheet().border.radius,
       this.getStylesheet().border.radius
     )
+    painter.restore()
+  }
+
+  private paintRuler(painter: Painter) {
+    painter.save()
+
+    painter.pen.color = Color.RED
+    const p1 = Vector.create({
+      x: this.getLocalRect().center.x,
+      y: this.getLocalRect().top,
+    })
+
+    const p2 = p1.clone()
+    p2.y = this.getLocalRect().bottom
+    painter.strokeLine(
+      Line.from({
+        p1,
+        p2,
+      })
+    )
+
     painter.restore()
   }
 
