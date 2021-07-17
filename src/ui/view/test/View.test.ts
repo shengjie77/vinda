@@ -1,6 +1,6 @@
-import { View } from 'src/ui/view'
-import { Rect } from 'src/common/geometry'
-import { createMockPainter } from 'src/mock'
+// import { View } from 'src/ui/view'
+// import { Rect } from 'src/common/geometry'
+// import { createMockPainter } from 'src/mock'
 
 describe.skip('View', () => {
   test('empty', () => {

@@ -1,5 +1,5 @@
 import { Pen, Brush } from 'src/ui/painter'
-import { Matrix, Transform } from 'src/common/geometry'
+import { Matrix } from 'src/common/geometry'
 import { Optional, cloneProperty, Cloneable } from 'src/common/types'
 import { Font } from 'src/common/font'
 

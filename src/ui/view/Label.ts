@@ -1,4 +1,3 @@
-import { Size } from 'src/common/geometry'
 import { Painter } from 'src/ui/painter'
 import { TextStyle } from 'src/ui/style'
 
@@ -33,7 +32,6 @@ export class Label extends View {
 
     this._text = ''
     this._style = TextStyle.create()
-    this._defaultSize = Size.create()
   }
 
   // ------------------------------------------------------- //
@@ -41,5 +39,4 @@ export class Label extends View {
   // ------------------------------------------------------- //
   private _text: string
   private _style: TextStyle
-  private _defaultSize: Size
 }

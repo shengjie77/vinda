@@ -4,6 +4,7 @@ import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
 
 import { ViewHost } from './ViewHost'
+import { allowUnusedLocal } from 'src/common'
 
 export class MainWindow
   implements
@@ -47,6 +48,8 @@ export class MainWindow
     this._paintSystem = PaintSystem.createFromCanvas(this)
     this._layoutSystem = LayoutSystem.create(this)
     this._eventSystem = EventSystem.create(this)
+
+    allowUnusedLocal(this._eventSystem)
 
     this._views = []
     this.handleFrame()
