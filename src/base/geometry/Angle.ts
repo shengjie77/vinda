@@ -1,4 +1,5 @@
-import { isEqual } from 'src/base'
+import { isEqual } from 'src/base/utils'
+import { Matrix } from 'src/base/geometry'
 import { cloneProperty, Cloneable, Equalable } from 'src/base/types'
 
 /**
@@ -45,6 +46,14 @@ export class Angle extends Cloneable implements Equalable {
     const v1 = normalizeRadian(this.radian)
     const v2 = normalizeRadian(a.radian)
     return isEqual(v1, v2)
+  }
+
+  public toString() {
+    return `Angle(${this.degree})`
+  }
+
+  public toMatrix() {
+    return Matrix.fromRotate(this)
   }
 
   // ------------------------------------------------------- //

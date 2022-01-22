@@ -1,5 +1,5 @@
 import { Cloneable, cloneProperty } from 'src/base/types'
-import { isEqual } from 'src/base'
+import { isEqual } from 'src/base/utils'
 import { Angle } from 'src/base/geometry'
 
 /**

@@ -1,4 +1,4 @@
-import { lastOf, assertNotNullable } from 'src/base'
+import { lastOf, assertNotNullable } from 'src/base/utils'
 
 export class Stack<T> {
   public get count(): number {

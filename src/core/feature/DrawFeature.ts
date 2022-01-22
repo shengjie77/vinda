@@ -91,7 +91,7 @@ class RectDrawer implements Drawer {
   }
 
   public finish(pos: Vector, world: World): void {
-    console.log(`[RectDrawer] finish: ${pos}`)
+    console.log(`[RectDrawer] finish: ${pos}, entity: ${this.entity}`)
 
     this.entity = undefined
     this.from = new Vector()

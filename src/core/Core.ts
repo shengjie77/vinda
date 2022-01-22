@@ -65,7 +65,7 @@ export class Core {
   private _canvas: HTMLCanvasElement
   private _ctx: CanvasRenderingContext2D
   private _stateMap: Map<Tool, State> = new Map()
-  private _tool: Tool = Tool.Select
+  private _tool: Tool = Tool.Draw
   private _world: World = new World()
   private _renderSystem: RenderSystem
 }

@@ -1,4 +1,4 @@
-import { isEqual } from 'src/base'
+import { isEqual } from 'src/base/utils'
 import { Angle, Matrix } from 'src/base/geometry'
 import { cloneProperty, Cloneable } from 'src/base/types'
 
@@ -40,6 +40,14 @@ export class Vector extends Cloneable {
 
   public equalTo(v: Vector): boolean {
     return isEqual(this.x, v.x) && isEqual(this.y, v.y)
+  }
+
+  public toString() {
+    return `Vector(x:${this.x}, y:${this.y})`
+  }
+
+  public toMatrix() {
+    return Matrix.fromTranslate(this.x, this.y)
   }
 }
 
