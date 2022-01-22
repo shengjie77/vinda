@@ -1,4 +1,4 @@
-import { Cloneable, cloneProperty } from 'src/common/types'
+import { Cloneable, cloneProperty } from 'src/base/types'
 import {
   BorderStyle,
   BackgroundStyle,

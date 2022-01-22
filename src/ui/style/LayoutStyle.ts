@@ -1,4 +1,4 @@
-import { cloneProperty, Optional } from 'src/common/types'
+import { cloneProperty, Optional } from 'src/base/types'
 import { CrossAxisAlignment, MainAxisAlignment } from 'src/ui/system/layout'
 import { InsetsValue } from './InsetsValue'
 

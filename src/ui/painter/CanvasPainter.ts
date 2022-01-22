@@ -16,10 +16,10 @@ import {
   Alignment,
   Matrix,
   Size,
-} from 'src/common/geometry'
-import { Optional } from 'src/common/types'
-import { Stack } from 'src/common'
-import { Font } from 'src/common/font'
+} from 'src/base/geometry'
+import { Optional } from 'src/base/types'
+import { Stack } from 'src/base'
+import { Font } from 'src/base/font'
 
 import { TextOption } from './Painter'
 

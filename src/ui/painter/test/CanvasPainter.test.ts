@@ -1,5 +1,5 @@
 import { Pen, CanvasPainter, Brush, PainterState } from 'src/ui/painter'
-import { Rect } from 'src/common/geometry'
+import { Rect } from 'src/base/geometry'
 import { createMock } from 'src/mock'
 
 describe.skip('CanvasPainter', () => {

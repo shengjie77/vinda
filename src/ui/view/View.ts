@@ -7,16 +7,16 @@ import {
   Size,
   Vector,
   Line,
-} from 'src/common/geometry'
-import { Optional } from 'src/common/types'
+} from 'src/base/geometry'
+import { Optional } from 'src/base/types'
 import { BackgroundStyle, BorderStyle } from 'src/ui/style'
 import { ViewStylesheet } from 'src/ui/stylesheet'
 
 import { ViewState } from './ViewState'
 import { ViewHost, EmptyViewHost } from './ViewHost'
 import { ViewStateMachine } from './ViewStateMachine'
-import { Color } from 'src/common/color'
-import { allowUnusedLocal } from 'src/common'
+import { Color } from 'src/base/color'
+import { allowUnusedLocal } from 'src/base'
 
 export class View {
   // ------------------------------------------------------- //
@@ -155,7 +155,7 @@ export class View {
       x: this.getWidth(),
       y: this.getHeight(),
     }).transform(matrix)
-    return Rect.create({ topLeft, bottomRight })
+    return Rect.create({ p1: topLeft, p2: bottomRight })
   }
 
   public getStylesheet(): ViewStylesheet {

@@ -1,4 +1,4 @@
-import { Vector } from 'src/common/geometry'
+import { Vector } from 'src/base/geometry'
 import { View } from 'src/ui/view'
 
 export interface EventSystemProvider {

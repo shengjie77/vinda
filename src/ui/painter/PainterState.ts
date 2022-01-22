@@ -1,7 +1,7 @@
 import { Pen, Brush } from 'src/ui/painter'
-import { Matrix } from 'src/common/geometry'
-import { Optional, cloneProperty, Cloneable } from 'src/common/types'
-import { Font } from 'src/common/font'
+import { Matrix } from 'src/base/geometry'
+import { Optional, cloneProperty, Cloneable } from 'src/base/types'
+import { Font } from 'src/base/font'
 
 export class PainterState extends Cloneable {
   @cloneProperty()

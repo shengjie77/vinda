@@ -1,7 +1,7 @@
 import { BackgroundStyle, CursorStyle, CursorType } from 'src/ui/style'
 import { ButtonStylesheet } from 'src/ui/stylesheet'
-import { Font } from 'src/common/font'
-import { Color } from 'src/common/color'
+import { Font } from 'src/base/font'
+import { Color } from 'src/base/color'
 
 import { FontSize } from './FontSize'
 import { Palette } from './Palette'

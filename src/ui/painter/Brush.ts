@@ -1,5 +1,5 @@
-import { Cloneable, Equalable, cloneProperty } from 'src/common/types'
-import { Color } from 'src/common/color'
+import { Cloneable, Equalable, cloneProperty } from 'src/base/types'
+import { Color } from 'src/base/color'
 
 export class Brush extends Cloneable implements Equalable {
   public static fromColor(color: Color) {

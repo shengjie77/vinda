@@ -1,5 +1,5 @@
-import { cloneProperty } from 'src/common/types'
-import { Color } from 'src/common/color'
+import { cloneProperty } from 'src/base/types'
+import { Color } from 'src/base/color'
 
 import { Style } from './Style'
 

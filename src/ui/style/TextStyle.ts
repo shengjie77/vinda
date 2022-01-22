@@ -1,7 +1,7 @@
-import { cloneProperty } from 'src/common/types'
-import { Color } from 'src/common/color'
-import { Font } from 'src/common/font'
-import { Alignment } from 'src/common/geometry'
+import { cloneProperty } from 'src/base/types'
+import { Color } from 'src/base/color'
+import { Font } from 'src/base/font'
+import { Alignment } from 'src/base/geometry'
 
 import { Style } from './Style'
 

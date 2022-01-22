@@ -4,7 +4,7 @@ import { EventSystem, EventSystemProvider } from 'src/ui/system/event'
 import { View } from 'src/ui/view'
 
 import { ViewHost } from './ViewHost'
-import { allowUnusedLocal } from 'src/common'
+import { allowUnusedLocal } from 'src/base'
 
 export class MainWindow
   implements
