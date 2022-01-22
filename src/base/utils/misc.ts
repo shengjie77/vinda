@@ -12,3 +12,9 @@ export function isEqual(v1: number, v2: number): boolean {
 }
 
 export function allowUnusedLocal<T>(_: T) {}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/button
+export enum MouseEventButton {
+  Left = 0,
+  Right = 1,
+}

@@ -7,6 +7,10 @@ export class Vector extends Cloneable {
     return new Vector(pt.x, pt.y)
   }
 
+  public static fromMouseEvent(ev: MouseEvent) {
+    return new Vector(ev.clientX, ev.clientY)
+  }
+
   @cloneProperty()
   public x: number
 
@@ -36,6 +40,14 @@ export class Vector extends Cloneable {
     this.y = y
 
     return this
+  }
+
+  public add(v: Vector): Vector {
+    return new Vector(this.x + v.x, this.y + v.y)
+  }
+
+  public sub(v: Vector): Vector {
+    return new Vector(this.x - v.x, this.y - v.y)
   }
 
   public equalTo(v: Vector): boolean {

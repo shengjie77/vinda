@@ -38,10 +38,14 @@ export class Core {
       this.dispatch('mouseup', ev)
     })
 
+    this._canvas.addEventListener('wheel', (ev) => {
+      this.dispatch('wheel', ev)
+    })
+
     requestAnimationFrame(this.scheduleRender)
   }
 
-  private dispatch(name: EventName, ev: MouseEvent) {
+  private dispatch(name: EventName, ev: HTMLElementEventMap[EventName]) {
     const state = this._stateMap.get(this._tool)
     assertIsDefined(state, `Cannot find state by tool(${this._tool})`)
 

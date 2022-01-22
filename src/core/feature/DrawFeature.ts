@@ -1,4 +1,4 @@
-import { assertIsDefined } from 'src/base/utils'
+import { assertIsDefined, MouseEventButton } from 'src/base/utils'
 import { Rect, Vector } from 'src/base/geometry'
 import { RectEntity } from 'src/core/entity'
 import { Feature, FeatureResult } from 'src/core/feature'
@@ -16,13 +16,13 @@ export class DrawFeature extends Feature {
   }
 
   protected onMouseDown(ev: MouseEvent, world: World): FeatureResult {
-    if (this._isStarted) {
+    if (this._isStarted || ev.button !== MouseEventButton.Left) {
       return false
     }
 
     this._isStarted = true
 
-    const pos = world.mapToWorld(getVectorFromEvent(ev))
+    const pos = world.mapToWorld(Vector.fromMouseEvent(ev))
     this._drawer.start(pos, world)
 
     return true
@@ -33,7 +33,7 @@ export class DrawFeature extends Feature {
       return false
     }
 
-    const pos = world.mapToWorld(getVectorFromEvent(ev))
+    const pos = world.mapToWorld(Vector.fromMouseEvent(ev))
     this._drawer.update(pos, world)
 
     return true
@@ -44,7 +44,7 @@ export class DrawFeature extends Feature {
       return false
     }
 
-    const pos = world.mapToWorld(getVectorFromEvent(ev))
+    const pos = world.mapToWorld(Vector.fromMouseEvent(ev))
     this._drawer.finish(pos, world)
 
     this._isStarted = false
@@ -57,10 +57,6 @@ export class DrawFeature extends Feature {
   // ------------------------------------------------------- //
   private _drawer: Drawer
   private _isStarted = false
-}
-
-function getVectorFromEvent(ev: MouseEvent) {
-  return new Vector(ev.clientX, ev.clientY)
 }
 
 interface Drawer {

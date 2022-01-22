@@ -7,11 +7,14 @@ export class RenderSystem {
     ctx.save()
     const r = window.devicePixelRatio
     ctx.scale(r, r)
+    ctx.translate(world.translation.x, world.translation.y)
 
     world.entities.forEach((e) => {
       ctx.save()
 
-      ctx.setTransform(...e.matrix.toArray())
+      ctx.translate(e.position.x, e.position.y)
+      ctx.scale(e.scale.x, e.scale.y)
+      ctx.rotate(e.rotation.radian)
       ctx.fill(e.toPath())
 
       ctx.restore()

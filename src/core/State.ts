@@ -1,13 +1,18 @@
-import { Feature, SelectFeature, DrawFeature } from 'src/core/feature'
+import {
+  Feature,
+  SelectFeature,
+  DrawFeature,
+  MoveCanvasFeature,
+} from 'src/core/feature'
 
 export interface State {
   features: Feature[]
 }
 
 export const selectState: State = {
-  features: [new SelectFeature()],
+  features: [new MoveCanvasFeature(), new SelectFeature()],
 }
 
 export const drawState: State = {
-  features: [DrawFeature.rect()],
+  features: [new MoveCanvasFeature(), DrawFeature.rect()],
 }

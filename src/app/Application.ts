@@ -16,6 +16,13 @@ export class Application {
     const canvas = document.getElementById('canvas') as HTMLCanvasElement
     fillScreen(canvas)
     window.addEventListener('resize', () => fillScreen(canvas))
+    window.addEventListener(
+      'wheel',
+      (e) => {
+        e.preventDefault()
+      },
+      { passive: false }
+    )
   }
 
   public switchToSelect() {
