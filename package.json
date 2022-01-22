@@ -12,8 +12,12 @@
     "test-scripts": "ts-node ./scripts/runTest.ts"
   },
   "dependencies": {
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
     "lodash": "^4.17.21",
-    "typescript": "^4.3.5"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.5.4"
   },
   "devDependencies": {
     "@pixi/math": "^6.0.1",

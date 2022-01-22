@@ -17,6 +17,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "baseUrl": ".",
+    "jsx": "react",
     "paths": {
       "src/*": [
         "./src/*"
