@@ -1,7 +1,8 @@
 import {
   Feature,
-  SelectFeature,
   DrawFeature,
+  HoverFeature,
+  SelectFeature,
   MoveCanvasFeature,
   ZoomCanvasFeature,
 } from 'src/core/feature'
@@ -19,5 +20,5 @@ export const drawState: State = {
 }
 
 function getDefaultFeatures() {
-  return [new ZoomCanvasFeature(), new MoveCanvasFeature()]
+  return [new ZoomCanvasFeature(), new MoveCanvasFeature(), new HoverFeature()]
 }

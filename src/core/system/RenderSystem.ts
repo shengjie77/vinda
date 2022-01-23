@@ -9,16 +9,18 @@ export class RenderSystem {
     const r = window.devicePixelRatio
     const matrix = Matrix.fromScale(r, r).append(world.matrix)
     ctx.setTransform(...matrix.toArray())
-    // ctx.scale(r * world.scale, r * world.scale)
-    // ctx.translate(world.translation.x, world.translation.y)
 
     world.entities.forEach((e) => {
       ctx.save()
 
-      ctx.translate(e.position.x, e.position.y)
-      ctx.scale(e.scale.x, e.scale.y)
-      ctx.rotate(e.rotation.radian)
-      ctx.fill(e.toPath())
+      const p = new Path2D()
+      p.addPath(e.toPath(), e.matrix.toDOMMatrix())
+      ctx.fill(p)
+      if (e.hover) {
+        ctx.strokeStyle = 'red'
+        ctx.lineWidth = 2
+        ctx.stroke(p)
+      }
 
       ctx.restore()
     })

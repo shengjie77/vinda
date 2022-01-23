@@ -1,5 +1,5 @@
 import { StrokeStyle, FillStyle } from 'src/base/utils'
-import { Vector, Scale, Angle, Size, Matrix } from 'src/base/geometry'
+import { Vector, Scale, Angle, Size, Matrix, Rect } from 'src/base/geometry'
 
 let EntityCount = 0
 
@@ -12,6 +12,8 @@ export abstract class Entity {
 
   public stroke?: StrokeStyle
   public fill?: FillStyle
+
+  public hover: boolean = false
 
   constructor() {
     this.id = `${++EntityCount}`
@@ -39,6 +41,14 @@ export abstract class Entity {
     })
   }
 
+  public get width() {
+    return this.size.width
+  }
+
+  public get height() {
+    return this.size.height
+  }
+
   public get matrix(): Matrix {
     return this.position
       .toMatrix()
@@ -50,5 +60,19 @@ export abstract class Entity {
 
   public toString() {
     return `Entity(id:${this.id},position:${this.position},scale:${this.scale},rotation:${this.rotation})`
+  }
+
+  public identicalTo(e: Entity) {
+    return this.id === e.id
+  }
+
+  public hitTest(pos: Vector): boolean {
+    const ptInEntity = pos.transform(this.matrix.toInverse())
+    return Rect.create({
+      x: 0,
+      y: 0,
+      width: 1,
+      height: 1,
+    }).contains(ptInEntity)
   }
 }

@@ -159,6 +159,10 @@ export class Rect extends Cloneable {
       pos.y <= this.bottom
     )
   }
+
+  public toString() {
+    return `Rect(x:${this.x},y:${this.y},w:${this.width},h:${this.height})`
+  }
 }
 
 interface RectStatic {
