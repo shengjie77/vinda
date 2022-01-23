@@ -203,6 +203,21 @@ export class Matrix extends Cloneable {
     return new DOMMatrix(this.toArray())
   }
 
+  public toInverse(): Matrix {
+    const a = this.d / (this.a * this.d - this.b * this.c)
+    const b = this.b / (this.b * this.c - this.a * this.d)
+    const c = this.c / (this.b * this.c - this.a * this.d)
+    const d = this.a / (this.a * this.d - this.b * this.c)
+    const tx =
+      (this.c * this.ty - this.d * this.tx) /
+      (this.a * this.d - this.b * this.c)
+    const ty =
+      (this.a * this.ty - this.b * this.tx) /
+      (this.b * this.c - this.a * this.d)
+
+    return Matrix.fromArray([a, b, c, d, tx, ty])
+  }
+
   // ------------------------------------------------------- //
   // ---------------  Private Section Below  --------------- //
   // ------------------------------------------------------- //

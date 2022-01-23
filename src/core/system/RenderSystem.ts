@@ -1,3 +1,4 @@
+import { Matrix } from 'src/base/geometry'
 import { World } from 'src/core/World'
 
 export class RenderSystem {
@@ -6,8 +7,10 @@ export class RenderSystem {
 
     ctx.save()
     const r = window.devicePixelRatio
-    ctx.scale(r, r)
-    ctx.translate(world.translation.x, world.translation.y)
+    const matrix = Matrix.fromScale(r, r).append(world.matrix)
+    ctx.setTransform(...matrix.toArray())
+    // ctx.scale(r * world.scale, r * world.scale)
+    // ctx.translate(world.translation.x, world.translation.y)
 
     world.entities.forEach((e) => {
       ctx.save()

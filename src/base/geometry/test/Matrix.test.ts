@@ -68,6 +68,17 @@ describe('Matrix', () => {
       expect(m1.append(m2).equalTo(expected)).toBeTruthy()
     })
   })
+
+  describe('toInverse', () => {
+    test('inverse', () => {
+      const m = createRandomTransform()
+      const inversered = m.toInverse()
+
+      const expected = fromPIXIMatrix(toPIXIMatrix(m).invert())
+
+      expect(expected.equalTo(inversered)).toBeTruthy()
+    })
+  })
 })
 
 function createRandomTransform() {

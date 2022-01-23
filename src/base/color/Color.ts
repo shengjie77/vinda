@@ -1,5 +1,5 @@
 import { Cloneable, cloneProperty, Equalable } from 'src/base/types'
-import { isEqual } from 'src/base'
+import { isEqual } from 'src/base/utils'
 
 import { convertValueRange, IntegerRange, FloatRange } from './ValueRange'
 

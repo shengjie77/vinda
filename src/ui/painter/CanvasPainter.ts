@@ -10,7 +10,6 @@ import {
   Rect,
   Path,
   Polygon,
-  Transform,
   Ellipse,
   RoundedRect,
   Alignment,
@@ -18,7 +17,7 @@ import {
   Size,
 } from 'src/base/geometry'
 import { Optional } from 'src/base/types'
-import { Stack } from 'src/base'
+import { Stack } from 'src/base/utils'
 import { Font } from 'src/base/font'
 
 import { TextOption } from './Painter'
@@ -215,15 +214,6 @@ export class CanvasPainter implements Painter {
     if (this.clipPath) {
       this.ctx.clip(this.clipPath, 'evenodd')
     }
-  }
-
-  private drawTestRect(rect: Rect) {
-    this.save()
-
-    this.pen = Pen.create()
-    this.ctx.strokeRect(rect.x, rect.y, rect.width, rect.height)
-
-    this.restore()
   }
 
   // ------------------------------------------------------- //

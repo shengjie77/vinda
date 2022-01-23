@@ -50,6 +50,10 @@ export class Vector extends Cloneable {
     return new Vector(this.x - v.x, this.y - v.y)
   }
 
+  public mul(v: number): Vector {
+    return new Vector(this.x * v, this.y * v)
+  }
+
   public equalTo(v: Vector): boolean {
     return isEqual(this.x, v.x) && isEqual(this.y, v.y)
   }

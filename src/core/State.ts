@@ -3,6 +3,7 @@ import {
   SelectFeature,
   DrawFeature,
   MoveCanvasFeature,
+  ZoomCanvasFeature,
 } from 'src/core/feature'
 
 export interface State {
@@ -10,9 +11,13 @@ export interface State {
 }
 
 export const selectState: State = {
-  features: [new MoveCanvasFeature(), new SelectFeature()],
+  features: [...getDefaultFeatures(), new SelectFeature()],
 }
 
 export const drawState: State = {
-  features: [new MoveCanvasFeature(), DrawFeature.rect()],
+  features: [...getDefaultFeatures(), DrawFeature.rect()],
+}
+
+function getDefaultFeatures() {
+  return [new ZoomCanvasFeature(), new MoveCanvasFeature()]
 }
