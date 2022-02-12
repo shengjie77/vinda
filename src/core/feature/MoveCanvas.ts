@@ -8,7 +8,10 @@ export class MoveCanvasFeature extends Feature {
       return false
     }
 
-    const v = new Vector(-ev.deltaX, -ev.deltaY).mul(1 / world.scale)
+    const ratio = 0.5
+    const dx = -ev.deltaX * ratio
+    const dy = -ev.deltaY * ratio
+    const v = new Vector(dx, dy).mul(1 / world.scale)
     world.translate(v)
 
     return false
