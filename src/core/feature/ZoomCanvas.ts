@@ -19,5 +19,6 @@ export class ZoomCanvasFeature extends Feature {
     world.translate(t.mul(-1))
 
     return true
+    t
   }
 }

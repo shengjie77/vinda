@@ -3,6 +3,7 @@ import { Rect, Vector } from 'src/base/geometry'
 import { RectEntity } from 'src/core/entity'
 import { Feature, FeatureResult } from 'src/core/feature'
 import { World } from 'src/core/World'
+import { tag } from 'src/base/utils'
 
 export class DrawFeature extends Feature {
   public static rect(): DrawFeature {
@@ -59,6 +60,8 @@ export class DrawFeature extends Feature {
   private _isStarted = false
 }
 
+const TAG = tag('RectDrawer')
+
 interface Drawer {
   start(pos: Vector, world: World): void
   update(pos: Vector, world: World): void
@@ -67,7 +70,7 @@ interface Drawer {
 
 class RectDrawer implements Drawer {
   public start(pos: Vector, world: World): void {
-    console.log(`[RectDrawer] start: ${pos}`)
+    console.info(TAG, `start: ${pos}`)
 
     this.from = pos
 
@@ -87,7 +90,7 @@ class RectDrawer implements Drawer {
   }
 
   public finish(pos: Vector, world: World): void {
-    console.log(`[RectDrawer] finish: ${pos}, entity: ${this.entity}`)
+    console.log(TAG, `finish: ${pos}, entity: ${this.entity}`)
 
     this.entity = undefined
     this.from = new Vector()
