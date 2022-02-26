@@ -12,7 +12,7 @@ export interface State {
 }
 
 export const selectState: State = {
-  features: [...getDefaultFeatures(), new SelectFeature()],
+  features: [...getDefaultFeatures(), new HoverFeature(), new SelectFeature()],
 }
 
 export const drawState: State = {
@@ -20,5 +20,5 @@ export const drawState: State = {
 }
 
 function getDefaultFeatures() {
-  return [new ZoomCanvasFeature(), new MoveCanvasFeature(), new HoverFeature()]
+  return [new ZoomCanvasFeature(), new MoveCanvasFeature()]
 }

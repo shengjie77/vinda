@@ -14,6 +14,7 @@ export abstract class Entity {
   public fill?: FillStyle
 
   public hover: boolean = false
+  public visible: boolean = false
 
   constructor() {
     this.id = `${++EntityCount}`
@@ -67,7 +68,7 @@ export abstract class Entity {
   }
 
   public hitTest(pos: Vector): boolean {
-    const ptInEntity = pos.transform(this.matrix.toInverse())
+    const ptInEntity = pos.clone().transform(this.matrix.toInverse())
     return Rect.create({
       x: 0,
       y: 0,
