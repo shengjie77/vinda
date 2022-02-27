@@ -13,15 +13,35 @@ export class RectEntity extends Entity implements RenderComponent {
   render(ctx: CanvasRenderingContext2D): void {
     ctx.save()
 
-    const p = new Path2D()
-    p.addPath(this.toPath(), this.matrix.toDOMMatrix())
-    ctx.fill(p)
+    ctx.fillStyle = 'red'
+    const path = new Path2D()
+    path.rect(0, 0, this.width, this.height)
+    ctx.fill(path)
+
     if (this.hover) {
       ctx.strokeStyle = 'green'
       ctx.lineWidth = 2
-      ctx.stroke(p)
+      ctx.stroke(path)
+    }
+
+    if (this.selected) {
+      ctx.strokeStyle = 'blue'
+      ctx.lineWidth = 4
+      ctx.stroke(path)
     }
 
     ctx.restore()
+  }
+
+  getRenderMatrix(): DOMMatrix {
+    const scale = this.scale.clone()
+    scale.x = scale.x >= 0 ? 1 : -1
+    scale.y = scale.y >= 0 ? 1 : -1
+
+    return this.position
+      .toMatrix()
+      .append(scale.toMatrix())
+      .append(this.rotation.toMatrix())
+      .toDOMMatrix()
   }
 }

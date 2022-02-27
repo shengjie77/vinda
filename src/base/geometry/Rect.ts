@@ -160,6 +160,13 @@ export class Rect extends Cloneable {
     )
   }
 
+  public intersects(rect: Rect): boolean {
+    const xOk = this.right >= rect.left && this.left <= rect.right
+    const yOk = this.bottom >= rect.top && this.top <= rect.bottom
+
+    return xOk && yOk
+  }
+
   public toString() {
     return `Rect(x:${this.x},y:${this.y},w:${this.width},h:${this.height})`
   }

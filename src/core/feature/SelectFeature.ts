@@ -25,12 +25,7 @@ export class SelectFeature extends Feature {
       return false
     }
 
-    const rect = Rect.create({
-      p1: Vector.fromMouseEvent(ev),
-      p2: this._from,
-    })
-
-    world.showSelectFrame(rect)
+    this.updateSelection(this._from, Vector.fromMouseEvent(ev), world)
 
     true
   }
@@ -41,10 +36,28 @@ export class SelectFeature extends Feature {
     }
 
     console.log(TAG, 'Hide selection frame')
+    this.updateSelection(this._from, Vector.fromMouseEvent(ev), world)
+
     world.hideSelectFrame()
     this._from = undefined
 
     return true
+  }
+
+  // ------------------------------------------------------- //
+  // ------------------  Private Methods  ------------------ //
+  // ------------------------------------------------------- //
+  private updateSelection(from: Vector, to: Vector, world: World) {
+    const rect = Rect.create({
+      p1: from,
+      p2: to,
+    })
+
+    world.entities.forEach((e) => {
+      e.selected = e.intersectWith(rect)
+    })
+
+    world.showSelectFrame(rect)
   }
 
   // ------------------------------------------------------- //

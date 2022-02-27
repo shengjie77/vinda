@@ -8,6 +8,7 @@ export function hasRenderComponent(obj: any): obj is RenderComponent {
 }
 
 export interface RenderComponent {
+  getRenderMatrix(): DOMMatrix
   render(ctx: CanvasRenderingContext2D): void
 }
 
@@ -20,7 +21,15 @@ export class RenderSystem {
     const matrix = Matrix.fromScale(r, r).append(world.matrix)
     ctx.setTransform(...matrix.toArray())
 
-    world.renderComponents.forEach((c) => c.render(ctx))
+    world.renderComponents.forEach((c) => {
+      ctx.save()
+
+      const m = c.getRenderMatrix()
+      ctx.transform(m.a, m.b, m.c, m.d, m.e, m.f)
+      c.render(ctx)
+
+      ctx.restore()
+    })
 
     if (world.selectionEntity.visible) {
       ctx.save()

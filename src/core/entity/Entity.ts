@@ -15,6 +15,7 @@ export abstract class Entity {
 
   public hover: boolean = false
   public visible: boolean = false
+  public selected: boolean = false
 
   constructor() {
     this.id = `${++EntityCount}`
@@ -40,6 +41,14 @@ export abstract class Entity {
       width: this.scale.x,
       height: this.scale.y,
     })
+  }
+
+  public get x() {
+    return this.position.x
+  }
+
+  public get y() {
+    return this.position.y
   }
 
   public get width() {
@@ -75,5 +84,16 @@ export abstract class Entity {
       width: 1,
       height: 1,
     }).contains(ptInEntity)
+  }
+
+  public intersectWith(rect: Rect): boolean {
+    const bounds = Rect.create({
+      x: this.position.x,
+      y: this.position.y,
+      width: this.width,
+      height: this.height,
+    })
+
+    return bounds.intersects(rect)
   }
 }
