@@ -96,4 +96,8 @@ export abstract class Entity {
 
     return bounds.intersects(rect)
   }
+
+  public translate(trans: Vector) {
+    this.position = this.position.add(trans)
+  }
 }
