@@ -1,4 +1,4 @@
-import { cloneProperty } from 'src/common/types'
+import { cloneProperty } from 'src/base/types'
 
 import { Style } from './Style'
 

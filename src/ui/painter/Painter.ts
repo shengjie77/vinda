@@ -1,4 +1,4 @@
-import { Font } from 'src/common/font'
+import { Font } from 'src/base/font'
 import {
   Line,
   Rect,
@@ -7,8 +7,8 @@ import {
   Alignment,
   Matrix,
   Size,
-} from 'src/common/geometry'
-import { Optional } from 'src/common/types'
+} from 'src/base/geometry'
+import { Optional } from 'src/base/types'
 import { Brush, Pen } from 'src/ui/painter'
 
 export interface TextOption {

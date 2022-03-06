@@ -1,4 +1,4 @@
-import { Rect, Size } from 'src/common/geometry'
+import { Rect, Size } from 'src/base/geometry'
 import { Brush, Painter } from 'src/ui/painter'
 import { TextStyle } from 'src/ui/style'
 
