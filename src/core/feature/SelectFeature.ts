@@ -1,7 +1,6 @@
 import { Rect, Vector } from 'src/base/geometry'
 import { tag } from 'src/base/utils'
-import { Feature } from 'src/core/feature'
-import { FeatureResult } from 'src/core/feature/Feature'
+import { Feature, FeatureResult } from 'src/core/feature'
 import { World } from 'src/core/World'
 
 const TAG = tag('SelectFeature')

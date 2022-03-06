@@ -6,6 +6,7 @@ import {
   MoveCanvasFeature,
   ZoomCanvasFeature,
   MoveEntityFeature,
+  ControlFeature,
 } from 'src/core/feature'
 
 export interface State {
@@ -15,6 +16,7 @@ export interface State {
 export const selectState: State = {
   features: [
     ...getDefaultFeatures(),
+    new ControlFeature(),
     new MoveEntityFeature(),
     new HoverFeature(),
     new SelectFeature(),

@@ -1,6 +1,7 @@
 import { isUndefined } from 'lodash'
 
 import { Matrix } from 'src/base/geometry'
+import { Entity } from 'src/core/entity'
 import { World } from 'src/core/World'
 
 export function hasRenderComponent(obj: any): obj is RenderComponent {
@@ -29,6 +30,9 @@ export class RenderSystem {
       c.render(ctx)
 
       ctx.restore()
+      ctx.fillStyle = 'black'
+      const e = c as any as Entity
+      ctx.fillRect(e.x, e.y, 4, 4)
     })
 
     if (world.selectionEntity.visible) {

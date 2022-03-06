@@ -1,6 +1,7 @@
 import { isEqual } from 'src/base/utils'
 import { Angle, Matrix } from 'src/base/geometry'
 import { cloneProperty, Cloneable } from 'src/base/types'
+import { Scale } from 'src/base/geometry/Scale'
 
 export class Vector extends Cloneable {
   public static create(pt: VectorLike = { x: 0, y: 0 }) {
@@ -36,10 +37,7 @@ export class Vector extends Cloneable {
     const x = this.x * m.a + this.y * m.c + m.tx
     const y = this.x * m.b + this.y * m.d + m.ty
 
-    this.x = x
-    this.y = y
-
-    return this
+    return new Vector(x, y)
   }
 
   public add(v: Vector): Vector {
@@ -54,6 +52,14 @@ export class Vector extends Cloneable {
     return new Vector(this.x * v, this.y * v)
   }
 
+  public get length(): number {
+    return Math.sqrt(this.x * this.x + this.y * this.y)
+  }
+
+  public angleTo(v: Vector): Angle {
+    return Angle.fromRadian(Math.atan2(this.x, this.y) - Math.atan2(v.x, v.y))
+  }
+
   public equalTo(v: Vector): boolean {
     return isEqual(this.x, v.x) && isEqual(this.y, v.y)
   }
@@ -64,6 +70,10 @@ export class Vector extends Cloneable {
 
   public toMatrix() {
     return Matrix.fromTranslate(this.x, this.y)
+  }
+
+  public toScale() {
+    return new Scale(this.x, this.y)
   }
 }
 

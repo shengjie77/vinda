@@ -1,8 +1,7 @@
 import { Vector } from 'src/base/geometry'
 import { MouseEventButton } from 'src/base/utils'
 import { Entity } from 'src/core/entity'
-import { Feature } from 'src/core/feature'
-import { FeatureResult } from 'src/core/feature/Feature'
+import { Feature, FeatureResult } from 'src/core/feature'
 import { World } from 'src/core/World'
 
 export class MoveEntityFeature extends Feature {
@@ -37,8 +36,10 @@ export class MoveEntityFeature extends Feature {
   }
 
   protected onMouseUp(ev: MouseEvent, world: World): FeatureResult {
-    this._selectedEntity = undefined
-    this._from = new Vector()
+    if (this._selectedEntity) {
+      this._selectedEntity = undefined
+      this._from = new Vector()
+    }
 
     return false
   }

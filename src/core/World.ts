@@ -1,11 +1,9 @@
 import { clamp } from 'lodash'
 import { Color } from 'src/base/color'
 import { Matrix, Rect, Vector } from 'src/base/geometry'
-import { FillStyle, StrokeStyle, tag } from 'src/base/utils'
+import { FillStyle, StrokeStyle } from 'src/base/utils'
 import { Entity, RectEntity } from 'src/core/entity'
 import { hasRenderComponent, RenderComponent } from 'src/core/system'
-
-const TAG = tag('World')
 
 export class World {
   public entities: Entity[] = []

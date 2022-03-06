@@ -1,5 +1,6 @@
 import { StrokeStyle, FillStyle } from 'src/base/utils'
 import { Vector, Scale, Angle, Size, Matrix, Rect } from 'src/base/geometry'
+import { Control } from 'src/core/feature/Control'
 
 let EntityCount = 0
 
@@ -38,8 +39,8 @@ export abstract class Entity {
 
   public get size(): Size {
     return Size.create({
-      width: this.scale.x,
-      height: this.scale.y,
+      width: Math.abs(this.scale.x),
+      height: Math.abs(this.scale.y),
     })
   }
 
@@ -63,6 +64,17 @@ export abstract class Entity {
     return this.position
       .toMatrix()
       .append(this.scale.toMatrix())
+      .append(this.rotation.toMatrix())
+  }
+
+  public get matrixWithoutScale(): Matrix {
+    const scale = this.scale.clone()
+    scale.x = scale.x >= 0 ? 1 : -1
+    scale.y = scale.y >= 0 ? 1 : -1
+
+    return this.position
+      .toMatrix()
+      .append(scale.toMatrix())
       .append(this.rotation.toMatrix())
   }
 
@@ -97,7 +109,13 @@ export abstract class Entity {
     return bounds.intersects(rect)
   }
 
+  public mapWorldToEntity(pos: Vector): Vector {
+    return pos.transform(this.matrixWithoutScale.toInverse())
+  }
+
   public translate(trans: Vector) {
     this.position = this.position.add(trans)
   }
+
+  public abstract get controls(): Control[]
 }
